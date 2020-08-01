@@ -3,11 +3,10 @@ package com.mishaismenska.hackatonrsschoolapp.ui
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mishaismenska.hackatonrsschoolapp.R
+import androidx.fragment.app.Fragment
 import com.mishaismenska.hackatonrsschoolapp.data.models.Behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
 import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkType
