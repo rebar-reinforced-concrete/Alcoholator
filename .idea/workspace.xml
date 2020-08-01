@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="877706a2-caed-423d-a761-a177bdee410e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/data/AppDataRepositoryImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/data/AppDatabase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/data/Converters.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/data/UserWithDrinksDao.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/data/entities/DrinkEntity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/data/entities/UserEntity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/data/entities/UserWithDrinks.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/di/DbModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/App.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/data/models/Drink.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/data/models/Drink.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/di/AppComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/di/AppComponent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/interfaces/AppDataRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/interfaces/AppDataRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/ui/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/ui/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/ui/MainFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/ui/MainFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="ce07182769ba252f01" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+        <option value="Kotlin Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1fUXoYyXTuCSNL1ZrUtaB0JXXo5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="ce07182769ba252f01" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-08-01T16:15:18.690Z" />
+    <property name="KotlinFunctionFindUsagesOptions.isImplementingMethods" value="true" />
+    <property name="KotlinFunctionFindUsagesOptions.isIncludeOverloadUsages" value="true" />
+    <property name="KotlinFunctionFindUsagesOptions.isSearchForTextOccurrences" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.mishaismenska.hackatonrsschoolapp.data" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Unnamed" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false" nameIsGenerated="true">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="877706a2-caed-423d-a761-a177bdee410e" name="Default Changelist" comment="" />
+      <created>1596273820817</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596273820817</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="661" y="186" width="592" height="709" key="#Unnamed" timestamp="1596274027933">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="661" y="186" width="592" height="709" key="#Unnamed/0.0.1920.1080@0.0.1920.1080" timestamp="1596274027933" />
+    <state x="418" y="199" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596273982433">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="418" y="199" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1596273982433" />
+    <state x="746" y="260" width="427" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1596298598982">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="746" y="260" width="427" height="562" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1596298598982" />
+    <state x="693" y="290" width="528" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1596296156621">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="693" y="290" width="528" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1596296156621" />
+    <state x="692" y="182" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1596286915375">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="692" y="182" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1596286915375" />
+    <state width="1874" height="317" key="GridCell.Tab.0.bottom" timestamp="1596300994519">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="317" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1596300994519" />
+    <state width="1874" height="317" key="GridCell.Tab.0.center" timestamp="1596300994516">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="317" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1596300994516" />
+    <state width="1874" height="317" key="GridCell.Tab.0.left" timestamp="1596300994515">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="317" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1596300994515" />
+    <state width="1874" height="317" key="GridCell.Tab.0.right" timestamp="1596300994518">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="317" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1596300994518" />
+    <state width="1874" height="354" key="GridCell.Tab.1.bottom" timestamp="1596293311498">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1596293311498" />
+    <state width="1874" height="354" key="GridCell.Tab.1.center" timestamp="1596293311498">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1596293311498" />
+    <state width="1874" height="354" key="GridCell.Tab.1.left" timestamp="1596293311498">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1596293311498" />
+    <state width="1874" height="354" key="GridCell.Tab.1.right" timestamp="1596293311498">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1596293311498" />
+    <state x="704" y="184" width="505" height="713" key="refactoring.ChangeSignatureDialog" timestamp="1596290550795">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="704" y="184" width="505" height="713" key="refactoring.ChangeSignatureDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1596290550795" />
+    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1596297152992">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1596297152992" />
+  </component>
+</project>

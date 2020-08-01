@@ -1,14 +1,11 @@
 package com.mishaismenska.hackatonrsschoolapp.di
 
 import android.content.Context
-import com.mishaismenska.hackatonrsschoolapp.ui.AddDrinkFragment
-import com.mishaismenska.hackatonrsschoolapp.ui.AddUserFragment
-import com.mishaismenska.hackatonrsschoolapp.ui.MainFragment
-import com.mishaismenska.hackatonrsschoolapp.ui.SplashScreenFragment
+import com.mishaismenska.hackatonrsschoolapp.ui.*
 import dagger.BindsInstance
 import dagger.Component
 
-@Component
+@Component(modules = [DbModule::class])
 interface AppComponent {
     fun inject(mainFragment: MainFragment)
     fun inject(addUserFragment: AddUserFragment)
