@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="genders_names">
+        <item>@string/male</item>
+        <item>@string/female</item>
+        <item>@string/male_identifies_as_female</item>
+        <item>@string/female_identifies_as_male</item>
+        <item>@string/uncertain</item>
+    </string-array>
+
+    <string-array name="drink_types">
+        <item>@string/vodka</item>
+        <item>@string/jin_tonic</item>
+        <item>@string/wine_red</item>
+        <item>@string/wine_white</item>
+        <item>@string/wine_red_cheap</item>
+        <item>@string/wine_white_cheap</item>
+        <item>@string/fruit_wine_cheap</item>
+        <item>@string/beer_dark</item>
+        <item>@string/beer_light</item>
+        <item>@string/beer_dark_cheap</item>
+        <item>@string/beer_light_cheap</item>
+        <item>@string/moonshine</item>
+        <item>@string/spirit</item>
+        <item>@string/whiskey</item>
+        <item>@string/whiskey_cheap</item>
+        <item>@string/liquor</item>
+        <item>@string/champagne</item>
+        <item>@string/cognac</item>
+    </string-array>
+</resources>

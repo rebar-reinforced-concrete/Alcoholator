@@ -8,7 +8,7 @@ import com.mishaismenska.hackatonrsschoolapp.ui.SplashScreenFragment
 import dagger.BindsInstance
 import dagger.Component
 
-@Component
+@Component(modules = [AppModule::class, BusinessLogicModule::class])
 interface AppComponent {
     fun inject(mainFragment: MainFragment)
     fun inject(addUserFragment: AddUserFragment)
