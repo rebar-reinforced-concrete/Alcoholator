@@ -13,6 +13,7 @@ import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkType
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserState
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentMainBinding
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.Period
 
 class MainFragment : Fragment() {
@@ -25,8 +26,8 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.mainRecycler.adapter = DrinksRecyclerAdapter(UserState(0.0, Period.ZERO, Behaviours.STUPOR)).apply {
             drinks = listOf(
-                Drink(DrinkType.CHAMPAGNE, LocalDate.now(), Measure(122, MeasureUnit.MILLILITER)),
-                Drink(DrinkType.COGNAC, LocalDate.now(), Measure(500, MeasureUnit.MILLILITER))
+                Drink(DrinkType.CHAMPAGNE, LocalDateTime.now(), Measure(122, MeasureUnit.MILLILITER)),
+                Drink(DrinkType.COGNAC, LocalDateTime.now(), Measure(500, MeasureUnit.MILLILITER))
             )
         }
         return binding.root
