@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView tools:context=".ui.MainActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    app:cardBackgroundColor="@color/colorPrimaryVariant"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnPrimarySurface"
+            android:id="@+id/sobering_timer"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/state_description"
+            android:text="5:02" />
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/sobering_timer"
+            android:id="@+id/state_description"
+            android:layout_width="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="?attr/colorOnPrimarySurface"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="Veeeery drunk"/>
+
+        <TextView
+            android:id="@+id/alcohol_concentration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="There's 0,05% of alcohol in your blood"
+            android:textColor="?attr/colorOnPrimarySurface"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            app:layout_constraintTop_toBottomOf="@id/state_description"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
