@@ -1,15 +1,17 @@
 package com.mishaismenska.hackatonrsschoolapp.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.mishaismenska.hackatonrsschoolapp.data.entities.DrinkEntity
 import com.mishaismenska.hackatonrsschoolapp.data.entities.UserEntity
-import com.mishaismenska.hackatonrsschoolapp.data.entities.UserWithDrinks
 
 @Dao
 interface UserWithDrinksDao {
-    @Transaction
     @Query("SELECT * FROM USER")
-    fun getUserWithDrinksEntity(): UserWithDrinks
+    fun getUser(): List<UserEntity>
+
+    @Query("SELECT * FROM DRINKS")
+    fun getDrinks(): LiveData<List<DrinkEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertDrink(drink: DrinkEntity)
