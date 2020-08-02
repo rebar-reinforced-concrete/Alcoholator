@@ -29,6 +29,17 @@
         <item>@string/cognac</item>
     </string-array>
 
+    <string-array name="drunk_states">
+        <item>@string/drunk_state_1</item>
+        <item>@string/drunk_state_2</item>
+        <item>@string/drunk_state_3</item>
+        <item>@string/drunk_state_4</item>
+        <item>@string/drunk_state_5</item>
+        <item>@string/drunk_state_6</item>
+        <item>@string/drunk_state_7</item>
+        <item>@string/drunk_state_8</item>
+        <item>@string/drunk_state_9</item>
+
     <string-array name="volume_names" >
         <item>@string/shot</item>
         <item>@string/vodka_glass</item>

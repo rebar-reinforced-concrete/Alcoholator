@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.fragment.app.FragmentContainerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.mishaismenska.hackatonrsschoolapp.ui.AddDrinkFragment"
+    android:name="com.mishaismenska.hackatonrsschoolapp.ui.SplashScreenFragment"
     android:id="@+id/main_fragment_container"
-    tools:context=".ui.MainActivity"/>
+    tools:context=".ui.MainActivity" />

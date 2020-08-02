@@ -19,8 +19,19 @@ class UserInputValidatingManagerImpl @Inject constructor(private val context: Co
         }
     }
 
+    private fun isAgeCorrect(wrapper: TextInputLayout): Boolean{
+        val age = wrapper.editText!!.text.toString().toInt()
+        return if(age >= 18){
+            wrapper.error = null
+            true
+        } else{
+            wrapper.error = context.getString(R.string.too_young_error)
+             false
+        }
+    }
+
     override fun validate(binding: FragmentAddUserBinding): Boolean {
-        val isAgeCorrect = !isEmpty(binding.ageInputWrapper)
+        val isAgeCorrect = !isEmpty(binding.ageInputWrapper) && isAgeCorrect(binding.ageInputWrapper)
         val isWeightCorrect = !isEmpty(binding.weightInputWrapper)
         val isGenderCorrect = !isEmpty(binding.genderInputWrapper)
         return isAgeCorrect && isWeightCorrect && isGenderCorrect

@@ -3,7 +3,6 @@ package com.mishaismenska.hackatonrsschoolapp.data
 import android.content.Context
 import android.icu.util.Measure
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.mishaismenska.hackatonrsschoolapp.data.entities.DrinkEntity
 import com.mishaismenska.hackatonrsschoolapp.data.entities.UserEntity
@@ -22,21 +21,29 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
     AppDataRepository {
 
     private val dao = AppDatabase.getDatabase(context).dao()
-    private val currentUserEntity: UserEntity = dao.getUser().last()
-    private val drinks: LiveData<List<DrinkEntity>> = dao.getDrinks()
+    private var currentUserEntity: UserEntity? = null
+    private var drinks: LiveData<List<DrinkEntity>>? = null
 
 
     override suspend fun getUserWithDrinks(): User {
+        if (currentUserEntity == null)
+            currentUserEntity = dao.getUser().last()
+        if (drinks == null)
+            drinks = dao.getDrinks()
         val userAge =
-            currentUserEntity.ageOnCreation + Period.between(currentUserEntity.createdOn, LocalDate.now()).years
+            currentUserEntity!!.ageOnCreation + Period.between(
+                currentUserEntity!!.createdOn,
+                LocalDate.now()
+            ).years
         return User(
             userAge,
-            Measure(currentUserEntity.weight, currentUserEntity.unit),
-            Gender.values()[currentUserEntity.gender],
-            Transformations.map(drinks) { list -> drinkEntityToModel(list)})
+            Measure(currentUserEntity!!.weight, currentUserEntity!!.unit),
+            Gender.values()[currentUserEntity!!.gender],
+            Transformations.map(drinks!!) { list -> drinkEntityToModel(list) }
+        )
     }
 
-    private fun drinkEntityToModel(entities: List<DrinkEntity>): List<Drink>{
+    private fun drinkEntityToModel(entities: List<DrinkEntity>): List<Drink> {
         return entities.map { entity ->
             Drink(
                 DrinkType.values()[entity.type],
@@ -47,7 +54,7 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
     }
 
     override suspend fun addDrink(drink: Drink) {
-        currentUserEntity.let {
+        currentUserEntity?.let {
             dao.insertDrink(
                 DrinkEntity(
                     drink.date.toEpochSecond(ZoneOffset.UTC),
@@ -63,7 +70,7 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
     }
 
     override suspend fun deleteDrink(drink: Drink) {
-        currentUserEntity.let {
+        currentUserEntity?.let {
             dao.deleteDrink(
                 DrinkEntity(
                     drink.date.toEpochSecond(ZoneOffset.UTC),
@@ -88,5 +95,6 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
                 weight.unit
             )
         )
+        currentUserEntity = dao.getUser().last()
     }
 }

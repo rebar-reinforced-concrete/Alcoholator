@@ -12,7 +12,7 @@ import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddUserBinding
 import com.mishaismenska.hackatonrsschoolapp.viewmodels.AddUserViewModel
 import javax.inject.Inject
 
-class AddUserFragment : Fragment() {
+class AddUserFragment : Fragment(), DbResultsListener {
 
     private lateinit var binding: FragmentAddUserBinding
     @Inject
@@ -29,11 +29,13 @@ class AddUserFragment : Fragment() {
         (requireActivity().application as App).appComponent.inject(this)
         binding.goButton.setOnClickListener {
             if(viewModel.validate(binding)){
-                viewModel.addUser(binding)
-                parentFragmentManager.beginTransaction().replace(R.id.main_fragment_container, MainFragment()).commit()
+                viewModel.addUser(binding, this)
             }
         }
         return binding.root
     }
 
+    override fun onUserAdded() {
+        parentFragmentManager.beginTransaction().replace(R.id.main_fragment_container, MainFragment()).commit()
+    }
 }

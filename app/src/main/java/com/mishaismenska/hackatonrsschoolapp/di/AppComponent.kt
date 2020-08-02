@@ -5,7 +5,7 @@ import com.mishaismenska.hackatonrsschoolapp.ui.*
 import dagger.BindsInstance
 import dagger.Component
 
-@Component(modules = [AppModule::class, BusinessLogicModule::class, DbModule::class])
+@Component(modules = [BusinessLogicModule::class, DbModule::class])
 interface AppComponent {
     fun inject(mainFragment: MainFragment)
     fun inject(addUserFragment: AddUserFragment)
