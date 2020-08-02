@@ -6,4 +6,5 @@ import com.mishaismenska.hackatonrsschoolapp.data.models.User
 interface DbResultsListener {
     fun onUserLoaded(user: User) {}
     fun onUserAdded() {}
+    fun onDrinkAdded() {}
 }

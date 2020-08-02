@@ -13,7 +13,7 @@ import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddDrinkBinding
 import com.mishaismenska.hackatonrsschoolapp.viewmodels.AddDrinkViewModel
 import javax.inject.Inject
 
-class AddDrinkFragment : Fragment() {
+class AddDrinkFragment : Fragment(), DbResultsListener {
 
     private lateinit var binding: FragmentAddDrinkBinding
 
@@ -54,8 +54,8 @@ class AddDrinkFragment : Fragment() {
 
         (requireActivity().application as App).appComponent.inject(this)
         binding.goButton.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_fragment_container, MainFragment()).commit()
+            viewModel.addDrink(binding, this)
+
         }
         return binding.root
     }
@@ -67,5 +67,9 @@ class AddDrinkFragment : Fragment() {
                 (parent.adapter.getItem(position) as String?)!!
             )]
         return preferableVolumes!!.map { it.ordinal }
+    }
+
+    override fun onDrinkAdded() {
+        parentFragmentManager.popBackStack()
     }
 }

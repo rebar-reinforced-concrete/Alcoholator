@@ -1,14 +1,26 @@
 package com.mishaismenska.hackatonrsschoolapp.viewmodels
 
+import android.content.Context
+import android.icu.util.Measure
+import android.os.Handler
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
 import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkType
 import com.mishaismenska.hackatonrsschoolapp.data.models.Gender
 import com.mishaismenska.hackatonrsschoolapp.data.models.VolumePreset
+import com.mishaismenska.hackatonrsschoolapp.data.volumePreset
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddDrinkBinding
+import com.mishaismenska.hackatonrsschoolapp.interfaces.AppDataRepository
+import com.mishaismenska.hackatonrsschoolapp.ui.DbResultsListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import javax.inject.Inject
 
-class AddDrinkViewModel @Inject constructor() : ViewModel() {
-    fun addDrink(binding: FragmentAddDrinkBinding) {
+class AddDrinkViewModel @Inject constructor(private val appDataRepository: AppDataRepository, private val context: Context) :
+    ViewModel() {
+    fun addDrink(binding: FragmentAddDrinkBinding, listener: DbResultsListener) {
         val drinkType = parseDrinkType(binding, binding.typeInput.text.toString())
 
         val volume = when (binding.volumeInput.text.toString()) {
@@ -22,8 +34,19 @@ class AddDrinkViewModel @Inject constructor() : ViewModel() {
             binding.volumeInput.adapter.getItem(7) -> VolumePreset.COGNAC_GLASS
             else -> VolumePreset.WHISKEY_GLASS
         }
+        viewModelScope.launch(Dispatchers.IO) {
+            appDataRepository.addDrink(
+                Drink(
+                    drinkType,
+                    LocalDateTime.now(),
+                    volumePreset[volume]!!
+                )
+            )
+            Handler(context.mainLooper).post{
+                listener.onDrinkAdded()
+            }
+        }
     }
-
     fun parseDrinkType(binding: FragmentAddDrinkBinding, item: String): DrinkType {
         return when (item) {
             binding.typeInput.adapter.getItem(0) -> DrinkType.VODKA
@@ -46,6 +69,7 @@ class AddDrinkViewModel @Inject constructor() : ViewModel() {
             else -> DrinkType.COGNAC
         }
     }
-}
 
+
+}
 

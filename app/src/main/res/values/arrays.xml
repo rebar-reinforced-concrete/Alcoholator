@@ -39,6 +39,7 @@
         <item>@string/drunk_state_7</item>
         <item>@string/drunk_state_8</item>
         <item>@string/drunk_state_9</item>
+    </string-array>
 
     <string-array name="volume_names" >
         <item>@string/shot</item>

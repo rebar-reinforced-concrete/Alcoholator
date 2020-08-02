@@ -54,6 +54,8 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
     }
 
     override suspend fun addDrink(drink: Drink) {
+        if (currentUserEntity == null)
+            currentUserEntity = dao.getUser().last()
         currentUserEntity?.let {
             dao.insertDrink(
                 DrinkEntity(
