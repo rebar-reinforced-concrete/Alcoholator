@@ -1,6 +1,7 @@
 package com.mishaismenska.hackatonrsschoolapp.logic
 
 import android.icu.util.Measure
+import android.util.Log
 import com.mishaismenska.hackatonrsschoolapp.data.behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.models.Behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
@@ -19,6 +20,7 @@ class CalculationManagerImpl @Inject constructor() : CalculationManager {
         gender: Gender,
         drinks: List<Drink>
     ): UserState {
+        var startTime = LocalDateTime.now()
         var concentration = 0.0
         for (drink in drinks) {
             val m = drink.volume.number.toDouble() * percentages[drink.type]!!.toDouble() / 100.0
@@ -40,6 +42,8 @@ class CalculationManagerImpl @Inject constructor() : CalculationManager {
                 concentration < behaviours[Behaviours.DEAD]!! -> Behaviours.BLACKOUT
                 else -> Behaviours.DEAD
             }
+        var end = LocalDateTime.now()
+        Log.d("Time in millis: ", Duration.between(startTime, end).toMillis().toString())
         return UserState(
             concentration,
             Duration.ofMinutes((concentration / 0.15 * 60).toLong()),

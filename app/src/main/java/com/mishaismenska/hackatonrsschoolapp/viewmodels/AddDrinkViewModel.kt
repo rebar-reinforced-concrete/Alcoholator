@@ -47,6 +47,7 @@ class AddDrinkViewModel @Inject constructor(private val appDataRepository: AppDa
             }
         }
     }
+
     fun parseDrinkType(binding: FragmentAddDrinkBinding, item: String): DrinkType {
         return when (item) {
             binding.typeInput.adapter.getItem(0) -> DrinkType.VODKA

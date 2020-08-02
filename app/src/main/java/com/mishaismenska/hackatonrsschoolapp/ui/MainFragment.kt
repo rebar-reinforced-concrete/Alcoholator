@@ -24,15 +24,21 @@ class MainFragment : Fragment(), DbResultsListener {
     lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentMainBinding
     private lateinit var drinksAdapter: DrinksRecyclerAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (requireActivity().application as App).appComponent.inject(this)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (requireActivity().application as App).appComponent.inject(this)
+        viewModel.getUser(this)
         binding = FragmentMainBinding.inflate(inflater, container, false)
         drinksAdapter = DrinksRecyclerAdapter(UserState(0.0, Duration.ZERO, Behaviours.STUPOR))
         binding.mainRecycler.adapter = drinksAdapter
-        viewModel.getUser(this)
         binding.addDrinkFab.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_fragment_container, AddDrinkFragment()).addToBackStack(null)
@@ -41,21 +47,23 @@ class MainFragment : Fragment(), DbResultsListener {
         return binding.root
     }
 
-    private fun checkIfEmpty(data: List<Drink>) {
-        if (data.isEmpty()) {
+    private fun checkIfEmpty(data: List<Drink>?) : Boolean {
+        return if (data.isNullOrEmpty()) {
             binding.mainRecycler.visibility = View.GONE
             binding.mainRecyclerEmptyTextView.visibility = View.VISIBLE
+            true
         } else {
             binding.mainRecycler.visibility = View.VISIBLE
             binding.mainRecyclerEmptyTextView.visibility = View.GONE
+            false
         }
     }
 
     override fun onUserLoaded(user: User) {
         user.drinks.observe(viewLifecycleOwner, Observer { it ->
-            if (it != null) {
-                checkIfEmpty(it)
+            if(!checkIfEmpty(it)){
                 drinksAdapter.drinks = it
+                viewModel.updateState()
             }
             viewModel.userState.observe(viewLifecycleOwner, Observer { state ->
                 drinksAdapter.userState = state
