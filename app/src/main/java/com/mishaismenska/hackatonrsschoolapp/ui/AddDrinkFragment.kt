@@ -32,7 +32,7 @@ class AddDrinkFragment : Fragment() {
                 drinkTypes
             )
         )
-        binding.volumeInput.setText(drinkTypes.last())
+        binding.volumeInput.setText(drinkTypes.first())
         val volumes = resources.getStringArray(R.array.volume_names)
         binding.volumeInput.setAdapter(
             NoFilterAdapter(
@@ -41,7 +41,7 @@ class AddDrinkFragment : Fragment() {
                 volumes
             )
         )
-        binding.volumeInput.setText(volumes.last())
+        binding.volumeInput.setText(volumes.first())
         (requireActivity().application as App).appComponent.inject(this)
         binding.goButton.setOnClickListener {
             parentFragmentManager.beginTransaction()
