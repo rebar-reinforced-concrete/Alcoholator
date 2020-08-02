@@ -39,5 +39,16 @@
         <item>@string/drunk_state_7</item>
         <item>@string/drunk_state_8</item>
         <item>@string/drunk_state_9</item>
+
+    <string-array name="volume_names" >
+        <item>@string/shot</item>
+        <item>@string/vodka_glass</item>
+        <item>@string/beer_glass</item>
+        <item>@string/pint</item>
+        <item>@string/beer_glass_large</item>
+        <item>@string/red_wine_glass</item>
+        <item>@string/white_wine_glass</item>
+        <item>@string/cognac_glass</item>
+        <item>@string/whiskey_glass</item>
     </string-array>
 </resources>
