@@ -41,7 +41,7 @@
         <item>@string/drunk_state_9</item>
     </string-array>
 
-    <string-array name="volume_names" >
+    <string-array name="volume_names">
         <item>@string/shot</item>
         <item>@string/vodka_glass</item>
         <item>@string/beer_glass</item>
@@ -51,5 +51,15 @@
         <item>@string/white_wine_glass</item>
         <item>@string/cognac_glass</item>
         <item>@string/whiskey_glass</item>
+    </string-array>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
     </string-array>
 </resources>

@@ -1,11 +1,11 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.preference.PreferenceManager
 import com.mishaismenska.hackatonrsschoolapp.App
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.models.Behaviours
@@ -14,7 +14,6 @@ import com.mishaismenska.hackatonrsschoolapp.data.models.User
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserState
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentMainBinding
 import com.mishaismenska.hackatonrsschoolapp.viewmodels.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.view.*
 import java.time.Duration
 import javax.inject.Inject
 
@@ -30,7 +29,10 @@ class MainFragment : Fragment(), DbResultsListener {
     ): View? {
         (requireActivity().application as App).appComponent.inject(this)
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        drinksAdapter = DrinksRecyclerAdapter(UserState(0.0, Duration.ZERO, Behaviours.STUPOR))
+        drinksAdapter = DrinksRecyclerAdapter(
+            UserState(0.0, Duration.ZERO, Behaviours.SOBER),
+            PreferenceManager.getDefaultSharedPreferences(binding.root.context)
+        )
         binding.mainRecycler.adapter = drinksAdapter
         viewModel.getUser(this)
         binding.addDrinkFab.setOnClickListener {
@@ -38,7 +40,25 @@ class MainFragment : Fragment(), DbResultsListener {
                 .replace(R.id.main_fragment_container, AddDrinkFragment()).addToBackStack(null)
                 .commit()
         }
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_prefs, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container, AppSettingsFragment())
+                    .addToBackStack("settings").commit()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun checkIfEmpty(data: List<Drink>) {

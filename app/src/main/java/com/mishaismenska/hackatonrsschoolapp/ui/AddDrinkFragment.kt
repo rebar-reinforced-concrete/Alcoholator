@@ -38,7 +38,7 @@ class AddDrinkFragment : Fragment(), DbResultsListener {
 
         binding.typeInput.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
-                val indexes = calculateindexes(parent, position)
+                val indexes = calculateIndexes(parent, position)
                 val names = indexes.map { volumes[it] }
                 indexes.map { volumes.removeAt(it) }
                 binding.volumeInput.setAdapter(
@@ -60,7 +60,7 @@ class AddDrinkFragment : Fragment(), DbResultsListener {
         return binding.root
     }
 
-    private fun calculateindexes(parent: AdapterView<*>, position: Int): List<Int> {
+    private fun calculateIndexes(parent: AdapterView<*>, position: Int): List<Int> {
         val preferableVolumes =
             TareRelations[viewModel.parseDrinkType(
                 binding,

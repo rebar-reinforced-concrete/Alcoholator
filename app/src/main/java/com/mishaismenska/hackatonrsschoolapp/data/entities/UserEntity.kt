@@ -13,5 +13,6 @@ data class UserEntity (
     val ageOnCreation: Int,
     val gender: Int,
     val weight: Int,
-    val unit: MeasureUnit
+    val unit: MeasureUnit,
+    var name: String = ""
 )

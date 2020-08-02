@@ -10,4 +10,6 @@ interface AppDataRepository {
     suspend fun addDrink(drink: Drink)
     suspend fun deleteDrink(drink: Drink)
     suspend fun addUser(age: Int, weight: Measure, gender: Gender)
+    suspend fun reset()
+    suspend fun updateWeight(newValue: Int)
 }

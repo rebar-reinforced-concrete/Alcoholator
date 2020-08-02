@@ -37,15 +37,15 @@
     <string name="cognac">Cognac</string>
     <string name="time_format">%d:%d</string>
 
-    <string name = "drunk_state_1">You are completely fine</string>
-    <string name = "drunk_state_2">You feel normal, slightly relaxed</string>
-    <string name = "drunk_state_3">You are euphoric, completely relaxed</string>
-    <string name = "drunk_state_4">You have trouble moving around</string>
-    <string name = "drunk_state_5">You have an urge to talk, Beware!</string>
-    <string name = "drunk_state_6">You have trouble thinking</string>
-    <string name = "drunk_state_7">You are unconscious</string>
-    <string name = "drunk_state_8">You won\'t remember shit, almost dead</string>
-    <string name = "drunk_state_9">You died, Congrats!</string>
+    <string name="drunk_state_1">You are completely fine</string>
+    <string name="drunk_state_2">You feel normal, slightly relaxed</string>
+    <string name="drunk_state_3">You are euphoric, completely relaxed</string>
+    <string name="drunk_state_4">You have trouble moving around</string>
+    <string name="drunk_state_5">You have an urge to talk, Beware!</string>
+    <string name="drunk_state_6">You have trouble thinking</string>
+    <string name="drunk_state_7">You are unconscious</string>
+    <string name="drunk_state_8">You won\'t remember shit, almost dead</string>
+    <string name="drunk_state_9">You died, Congrats!</string>
 
     <string name="concentration_format">%s‰ of alcohol in your blood</string>
     <string name="too_young_error">You\'re too young for this, homie</string>
@@ -64,4 +64,31 @@
     <string name="white_wine_glass">White wine glass (~120ml)</string>
     <string name="cognac_glass">Cognac glass (~260ml)</string>
     <string name="whiskey_glass">Whisk(e)y glass (~250ml)</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="add_name_prompt">Your name</string>
+    <string name="personal">Personal information</string>
+    <string name="change_weight_prompt">Your current weight</string>
+    <string name="measurements">Measurements</string>
+    <string name="units">Use imperial units</string>
+    <string name="manage">Manage data</string>
+    <string name="reset">Reset</string>
+    <string name="reset_detailed">Permanently remove your all user data</string>
+    <string name="name_key">name</string>
+    <string name="weight_key">weight</string>
+    <string name="units_key">units</string>
+    <string name="reset_key">reset</string>
+    <string name="settings">settings</string>
 </resources>

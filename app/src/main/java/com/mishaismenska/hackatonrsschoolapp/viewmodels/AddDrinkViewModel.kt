@@ -5,6 +5,7 @@ import android.icu.util.Measure
 import android.os.Handler
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
 import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkType
 import com.mishaismenska.hackatonrsschoolapp.data.models.Gender
@@ -24,14 +25,14 @@ class AddDrinkViewModel @Inject constructor(private val appDataRepository: AppDa
         val drinkType = parseDrinkType(binding, binding.typeInput.text.toString())
 
         val volume = when (binding.volumeInput.text.toString()) {
-            binding.volumeInput.adapter.getItem(0) -> VolumePreset.SHOT
-            binding.volumeInput.adapter.getItem(1) -> VolumePreset.VODKA_GLASS
-            binding.volumeInput.adapter.getItem(2) -> VolumePreset.BEER_GLASS
-            binding.volumeInput.adapter.getItem(3) -> VolumePreset.PINT
-            binding.volumeInput.adapter.getItem(4) -> VolumePreset.BEER_GLASS_LARGE
-            binding.volumeInput.adapter.getItem(5) -> VolumePreset.RED_WINE_GLASS
-            binding.volumeInput.adapter.getItem(6) -> VolumePreset.WHITE_WINE_GLASS
-            binding.volumeInput.adapter.getItem(7) -> VolumePreset.COGNAC_GLASS
+            binding.root.context.resources.getString(R.string.shot) -> VolumePreset.SHOT
+            binding.root.context.resources.getString(R.string.vodka_glass) -> VolumePreset.VODKA_GLASS
+            binding.root.context.resources.getString(R.string.beer_glass) -> VolumePreset.BEER_GLASS
+            binding.root.context.resources.getString(R.string.pint) -> VolumePreset.PINT
+            binding.root.context.resources.getString(R.string.beer_glass_large) -> VolumePreset.BEER_GLASS_LARGE
+            binding.root.context.resources.getString(R.string.red_wine_glass) -> VolumePreset.RED_WINE_GLASS
+            binding.root.context.resources.getString(R.string.white_wine_glass) -> VolumePreset.WHITE_WINE_GLASS
+            binding.root.context.resources.getString(R.string.cognac_glass) -> VolumePreset.COGNAC_GLASS
             else -> VolumePreset.WHISKEY_GLASS
         }
         viewModelScope.launch(Dispatchers.IO) {
