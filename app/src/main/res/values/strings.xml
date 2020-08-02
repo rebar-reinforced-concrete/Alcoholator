@@ -35,4 +35,19 @@
     <string name="liquor">Liquor</string>
     <string name="champagne">Champagne</string>
     <string name="cognac">Cognac</string>
+    <string name="main_add_dring_header">What are you drinking?</string>
+    <string name="input_details">fill in the details of the drink you\'re consuming</string>
+    <string name="type">Drink type</string>
+    <string name="volume">Volume</string>
+    <string name="add">add</string>
+
+    <string name="shot">Shot glass (~40ml)</string>
+    <string name="vodka_glass">Vodka glass (~250ml)</string>
+    <string name="beer_glass">Beer glass (~500ml)</string>
+    <string name="pint">A pint (~568ml)</string>
+    <string name="beer_glass_large">Large beer glass (1l)</string>
+    <string name="red_wine_glass">Red wine glass (~160ml)</string>
+    <string name="white_wine_glass">White wine glass (~120ml)</string>
+    <string name="cognac_glass">Cognac glass (~260ml)</string>
+    <string name="whiskey_glass">Whisk(e)y glass (~250ml)</string>
 </resources>
