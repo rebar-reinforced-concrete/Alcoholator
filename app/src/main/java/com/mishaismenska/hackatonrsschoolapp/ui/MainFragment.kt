@@ -52,7 +52,7 @@ class MainFragment : Fragment(), DbResultsListener {
             R.id.action_settings -> {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container, AppSettingsFragment())
-                    .addToBackStack("settings").commit()
+                    .addToBackStack(null).commit()
                 true
             }
             else -> super.onOptionsItemSelected(item)
