@@ -21,4 +21,13 @@ interface UserWithDrinksDao {
 
     @Delete
     suspend fun deleteDrink(drink: DrinkEntity)
+
+    @Query("DELETE FROM USER")
+    suspend fun resetUser()
+
+    @Query("DELETE FROM DRINKS")
+    suspend fun resetDrinks()
+
+    @Query("UPDATE USER SET weight = :newValue")
+    suspend fun updateWeight(newValue: Int)
 }

@@ -99,4 +99,13 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
         )
         currentUserEntity = dao.getUser().last()
     }
+
+    override suspend fun reset(){
+        dao.resetUser()
+        dao.resetDrinks()
+    }
+
+    override suspend fun updateWeight(newValue: Int) {
+        dao.updateWeight(newValue)
+    }
 }

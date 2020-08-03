@@ -1,5 +1,8 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
+import android.content.Context
+import android.os.Bundle
+import android.view.*
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context.ALARM_SERVICE
@@ -11,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.preference.PreferenceManager
 import com.mishaismenska.hackatonrsschoolapp.App
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.models.Behaviours
@@ -50,18 +54,36 @@ class MainFragment : Fragment(), DbResultsListener {
     ): View? {
         viewModel.getUser(this)
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        drinksAdapter = DrinksRecyclerAdapter(UserState(0.0, Duration.ZERO, Behaviours.STUPOR))
+        drinksAdapter = DrinksRecyclerAdapter(
+            UserState(0.0, Duration.ZERO, Behaviours.SOBER))
         binding.mainRecycler.adapter = drinksAdapter
         binding.addDrinkFab.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_fragment_container, AddDrinkFragment()).addToBackStack(null)
                 .commit()
         }
-
+        setHasOptionsMenu(true)
         return binding.root
     }
 
-    private fun checkIfEmpty(data: List<Drink>?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_prefs, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container, AppSettingsFragment())
+                    .addToBackStack(null).commit()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+  private fun checkIfEmpty(data: List<Drink>?): Boolean {
         return if (data.isNullOrEmpty()) {
             binding.mainRecycler.visibility = View.GONE
             binding.mainRecyclerEmptyTextView.visibility = View.VISIBLE
@@ -98,3 +120,4 @@ class MainFragment : Fragment(), DbResultsListener {
         })
     }
 }
+

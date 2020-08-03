@@ -1,6 +1,7 @@
 package com.mishaismenska.hackatonrsschoolapp.di
 
 import android.content.Context
+import com.mishaismenska.hackatonrsschoolapp.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.ui.*
 import dagger.BindsInstance
 import dagger.Component
@@ -11,6 +12,7 @@ interface AppComponent {
     fun inject(addUserFragment: AddUserFragment)
     fun inject(addDrinkFragment: AddDrinkFragment)
     fun inject(splashScreenFragment: SplashScreenFragment)
+    fun inject(preferences: AppSettingsFragment)
 
     @Component.Factory
     interface Factory {

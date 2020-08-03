@@ -1,6 +1,9 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
+import android.content.SharedPreferences
 import android.icu.text.MeasureFormat
+import android.icu.util.Measure
+import android.icu.util.MeasureUnit
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +11,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mishaismenska.hackatonrsschoolapp.R
+import com.mishaismenska.hackatonrsschoolapp.data.mlToOz
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserState
 import com.mishaismenska.hackatonrsschoolapp.databinding.DrinkRecyclerItemBinding
 import com.mishaismenska.hackatonrsschoolapp.databinding.MainInfoCardBinding
 import java.util.*
 
-class DrinksRecyclerAdapter(initialUserState: UserState) :
+class DrinksRecyclerAdapter(
+    initialUserState: UserState) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var userState: UserState = initialUserState
@@ -34,14 +39,14 @@ class DrinksRecyclerAdapter(initialUserState: UserState) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == 0) {
+        return if (viewType == 0) {
             val binding =
                 MainInfoCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return StateViewHolder(binding)
+            StateViewHolder(binding)
         } else {
             val binding =
                 DrinkRecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return DrinkViewHolder(
+            DrinkViewHolder(
                 binding,
                 parent.context.resources.getStringArray(R.array.drink_types)
             )
@@ -54,7 +59,10 @@ class DrinksRecyclerAdapter(initialUserState: UserState) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position >= 1) {
-            (holder as DrinkViewHolder).bind(drinks[position - 1])
+            (holder as DrinkViewHolder).bind(
+                drinks[position - 1],
+                Locale.getDefault().country  == "US"
+            )
         } else (holder as StateViewHolder).bind(userState)
     }
 
@@ -62,11 +70,20 @@ class DrinksRecyclerAdapter(initialUserState: UserState) :
         private val binding: DrinkRecyclerItemBinding,
         private val drinkTypes: Array<String>
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(drink: Drink) {
+        fun bind(drink: Drink, unit: Boolean) {
             binding.drinkName.text = drinkTypes[drink.type.ordinal]
             binding.drinkDescription.text =
-                MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
-                    .format(drink.volume)
+                if (unit)
+                    MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
+                        .format(
+                            Measure(
+                                mlToOz(drink.volume.number as Int),
+                                MeasureUnit.FLUID_OUNCE
+                            )
+                        )
+                else
+                    MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
+                        .format(drink.volume)
         }
     }
 
