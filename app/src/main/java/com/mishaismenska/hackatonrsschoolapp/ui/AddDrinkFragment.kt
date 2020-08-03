@@ -1,5 +1,8 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
+import android.icu.text.MeasureFormat
+import android.icu.util.Measure
+import android.icu.util.MeasureUnit
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,8 +12,13 @@ import android.widget.AdapterView
 import com.mishaismenska.hackatonrsschoolapp.App
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.TareRelations
+import com.mishaismenska.hackatonrsschoolapp.data.mlToOz
+import com.mishaismenska.hackatonrsschoolapp.data.models.VolumePreset
+import com.mishaismenska.hackatonrsschoolapp.data.volumePreset
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddDrinkBinding
 import com.mishaismenska.hackatonrsschoolapp.viewmodels.AddDrinkViewModel
+import java.text.Format
+import java.util.*
 import javax.inject.Inject
 
 class AddDrinkFragment : Fragment(), DbResultsListener {
@@ -26,7 +34,21 @@ class AddDrinkFragment : Fragment(), DbResultsListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddDrinkBinding.inflate(inflater, container, false)
-        volumes = resources.getStringArray(R.array.volume_names).toMutableList()
+        (requireActivity().application as App).appComponent.inject(this)
+
+        volumes =
+            resources.getStringArray(R.array.volume_names).toMutableList().mapIndexed { index, s ->
+                s.format(
+                    viewModel.formatter.format(
+                        if (Locale.getDefault().country == "US") Measure(
+                            mlToOz(volumePreset[VolumePreset.values()[index]]!!.number as Int),
+                            MeasureUnit.OUNCE
+                        )
+                        else volumePreset[VolumePreset.values()[index]]
+                    )
+                )
+            }.toMutableList()
+
         val drinkTypes = resources.getStringArray(R.array.drink_types)
         binding.typeInput.setAdapter(
             NoFilterAdapter(

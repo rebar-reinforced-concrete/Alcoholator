@@ -11,16 +11,17 @@
         <EditTextPreference
             app:key="@string/weight_key"
             app:title="@string/change_weight_prompt"
-            app:useSimpleSummaryProvider="true" />
+            android:inputType="number"
+            app:useSimpleSummaryProvider="true"/>
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/measurements">
+    <!--<PreferenceCategory app:title="@string/measurements">
 
         <SwitchPreferenceCompat
             app:key="@string/units_key"
             app:title="@string/units" />
-    </PreferenceCategory>
+    </PreferenceCategory>-->
 
     <PreferenceCategory app:title="@string/manage">
 

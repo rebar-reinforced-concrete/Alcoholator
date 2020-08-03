@@ -1,15 +1,27 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
+import android.content.SharedPreferences
+import android.icu.text.MeasureFormat
+import android.icu.util.LocaleData
+import android.icu.util.Measure
+import android.icu.util.MeasureUnit
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.View
 import androidx.preference.*
 import com.mishaismenska.hackatonrsschoolapp.App
 import com.mishaismenska.hackatonrsschoolapp.R
+import com.mishaismenska.hackatonrsschoolapp.data.kgToLb
+import com.mishaismenska.hackatonrsschoolapp.data.lbToKg
 import com.mishaismenska.hackatonrsschoolapp.viewmodels.SettingsViewModel
+import java.lang.Character.isDigit
+import java.util.*
 import javax.inject.Inject
 
 
-class AppSettingsFragment : PreferenceFragmentCompat() {
+class AppSettingsFragment : PreferenceFragmentCompat(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Inject
     lateinit var viewModel: SettingsViewModel
@@ -29,17 +41,33 @@ class AppSettingsFragment : PreferenceFragmentCompat() {
                     .commit()
                 true
             }
-        viewModel.setWeight(findPreference(getString(R.string.weight_key)))
 
-        findPreference<SwitchPreferenceCompat>(getString(R.string.units_key))?.onPreferenceChangeListener =
-            Preference.OnPreferenceChangeListener { _, _ ->
-                viewModel.setWeight(findPreference(getString(R.string.weight_key)))
-                true
+
+        val format = MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
+        viewModel.setWeightPreference(Locale.getDefault().country == "US")
+
+        findPreference<EditTextPreference>(getString(R.string.weight_key))!!.summaryProvider =
+            Preference.SummaryProvider<EditTextPreference> {
+                if (Locale.getDefault().country == "US") {
+                    format.format(
+                        Measure(preferenceManager.sharedPreferences.getString("weight", "0 pounds")!!.filter{c -> c.isDigit()}.toInt(), MeasureUnit.POUND)
+                    )
+                } else {
+                    format.format(
+                        Measure(preferenceManager.sharedPreferences.getString("weight", "0 pounds")!!.filter{ c -> c.isDigit()}.toInt(), MeasureUnit.KILOGRAM)
+                    )
+                }
             }
 
-        findPreference<EditTextPreference>(getString(R.string.weight_key))?.onPreferenceChangeListener =
-            Preference.OnPreferenceChangeListener { _, newValue ->
-                viewModel.updateWeight(newValue as String)
-            }
+        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+
+    }
+
+    override fun onSharedPreferenceChanged(pref: SharedPreferences?, key: String?) {
+        if (key == getString(R.string.weight_key)) {
+            viewModel.updateWeight(
+                pref!!.getString(key, "yo mommas weri gay"),Locale.getDefault().country == "US"
+            )
+        }
     }
 }

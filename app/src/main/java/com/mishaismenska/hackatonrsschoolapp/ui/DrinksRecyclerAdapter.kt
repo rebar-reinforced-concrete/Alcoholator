@@ -16,9 +16,7 @@ import com.mishaismenska.hackatonrsschoolapp.databinding.MainInfoCardBinding
 import java.util.*
 
 class DrinksRecyclerAdapter(
-    initialUserState: UserState,
-    private val preferences: SharedPreferences
-) :
+    initialUserState: UserState) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var userState: UserState = initialUserState
@@ -60,7 +58,7 @@ class DrinksRecyclerAdapter(
         if (position >= 1) {
             (holder as DrinkViewHolder).bind(
                 drinks[position - 1],
-                preferences.getBoolean("units", false)
+                Locale.getDefault().country  == "US"
             )
         } else (holder as StateViewHolder).bind(userState)
     }

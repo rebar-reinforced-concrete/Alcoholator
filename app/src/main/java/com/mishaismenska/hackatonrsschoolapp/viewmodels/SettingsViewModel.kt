@@ -1,9 +1,10 @@
 package com.mishaismenska.hackatonrsschoolapp.viewmodels
 
+import android.content.Context
 import android.icu.text.MeasureFormat
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
-import android.icu.util.ULocale
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.preference.EditTextPreference
@@ -16,36 +17,52 @@ import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
-class SettingsViewModel @Inject constructor(private val repository: AppDataRepository): ViewModel() {
+class SettingsViewModel @Inject constructor(
+    private val repository: AppDataRepository,
+    val context: Context
+) : ViewModel() {
+
+    val format = MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
 
     fun resetDB() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.reset()
+            PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply()
         }
     }
 
-    var units = false
-
-    fun setWeight(pref: EditTextPreference?) {
-        val formatter = MeasureFormat.getInstance(ULocale.ENGLISH, MeasureFormat.FormatWidth.NUMERIC)
+    fun setWeightPreference(units: Boolean, value: Measure? = null) {
         viewModelScope.launch(Dispatchers.IO) {
-            val user = repository.getUserWithDrinks()
-            units = PreferenceManager.getDefaultSharedPreferences(pref?.context).getBoolean("units", false)
-            if(units)
-                pref?.text = formatter.format(Measure(kgToLb(user.weight.number as Int), MeasureUnit.POUND))
+            val userWeight = value ?: repository.getUserWithDrinks().weight
+            val unitWeight = if (units) {
+                format.format(
+                    Measure(kgToLb(userWeight.number as Int), MeasureUnit.POUND)
+                )
+            } else {
+                format.format(userWeight)
+            }
 
-            else
-                pref?.text = formatter.format(user.weight)
-
+            PreferenceManager.getDefaultSharedPreferences(context).edit()
+                .putString("weight", unitWeight)
+                .apply()
         }
     }
 
-    fun updateWeight(newValue: String): Boolean {
-        var input = newValue.toInt()
-        if(units)
-            input = lbToKg(input).toInt()
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.updateWeight(input)
+
+    fun updateWeight(newValue: String?, units: Boolean): Boolean {
+        val cleanInput = newValue!!.split(".")[0].filter { it.isDigit() }.toInt()
+
+        Log.d("update weight", cleanInput.toString())
+        if (units) {
+            val kgValue = lbToKg(cleanInput)
+            Log.d("update weight kg", kgValue.toString())
+            viewModelScope.launch(Dispatchers.IO) {
+                repository.updateWeight(kgValue)
+            }
+        } else {
+            viewModelScope.launch(Dispatchers.IO) {
+                repository.updateWeight(cleanInput)
+            }
         }
         return true
     }

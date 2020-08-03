@@ -30,9 +30,7 @@ class MainFragment : Fragment(), DbResultsListener {
         (requireActivity().application as App).appComponent.inject(this)
         binding = FragmentMainBinding.inflate(inflater, container, false)
         drinksAdapter = DrinksRecyclerAdapter(
-            UserState(0.0, Duration.ZERO, Behaviours.SOBER),
-            PreferenceManager.getDefaultSharedPreferences(binding.root.context)
-        )
+            UserState(0.0, Duration.ZERO, Behaviours.SOBER))
         binding.mainRecycler.adapter = drinksAdapter
         viewModel.getUser(this)
         binding.addDrinkFab.setOnClickListener {
