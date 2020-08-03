@@ -75,6 +75,19 @@ class AddDrinkFragment : Fragment(), DbResultsListener {
             }
 
         (requireActivity().application as App).appComponent.inject(this)
+
+        binding.typeInput.setText(drinkTypes.first())
+
+        binding.volumeInput.setAdapter(
+            NoFilterAdapter(
+                requireContext(),
+                R.layout.drink_type_dropdown_item,
+                volumes.toTypedArray()
+            )
+        )
+
+        binding.volumeInput.setText(volumes.first())
+
         binding.goButton.setOnClickListener {
             viewModel.addDrink(binding, this)
 
