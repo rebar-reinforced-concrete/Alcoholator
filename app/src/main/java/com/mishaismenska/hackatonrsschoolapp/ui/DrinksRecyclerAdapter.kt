@@ -4,8 +4,11 @@ import android.content.SharedPreferences
 import android.icu.text.MeasureFormat
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.mlToOz
@@ -87,13 +90,16 @@ class DrinksRecyclerAdapter(
     class StateViewHolder(private val binding: MainInfoCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(state: UserState) {
+            binding.mainInfoCard.visibility = View.VISIBLE
             val resources = binding.root.context.resources
             val states = resources.getStringArray(R.array.drunk_states)
-            binding.soberingTimer.text = resources.getString(
-                R.string.time_format,
-                state.soberTime.toHours(),
-                state.soberTime.toMinutes() % 60
-            )
+            if(state.soberTime.toMillis() > 0)
+                binding.soberingTimer.text = resources.getString(
+                    R.string.time_format,
+                    state.soberTime.toHours(),
+                    state.soberTime.toMinutes() % 60
+                )
+            else binding.soberingTimer.text = resources.getString(R.string.you_are_sober)
             binding.alcoholConcentration.text = resources.getString(
                 R.string.concentration_format, "%.2f".format(state.alcoholConcentration)
             )

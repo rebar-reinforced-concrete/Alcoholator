@@ -91,4 +91,11 @@
     <string name="units_key">units</string>
     <string name="reset_key">reset</string>
     <string name="settings">settings</string>
+      <string name="you_are_sober">Sober</string>
+
+    <string name="sober_channel_name">Sober chanel</string>
+    <string name="sober_chanel_description">Get notifications that now you are sober</string>
+
+    <string name="sober_notification_title">You\'re sober</string>
+    <string name="sober_notification_content">Congrats! Now you are sober. Is it time to get wasted again?</string>
 </resources>

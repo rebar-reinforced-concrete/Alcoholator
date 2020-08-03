@@ -30,9 +30,20 @@ class UserInputValidatingManagerImpl @Inject constructor(private val context: Co
         }
     }
 
+    private fun isWeightCorrect(wrapper: TextInputLayout) : Boolean{
+        val weight = wrapper.editText!!.text.toString().toInt()
+        return if(weight in 30..350){
+            wrapper.error = null
+            true
+        } else{
+            wrapper.error = context.getString(R.string.too_weird_error)
+            false
+        }
+    }
+
     override fun validate(binding: FragmentAddUserBinding): Boolean {
         val isAgeCorrect = !isEmpty(binding.ageInputWrapper) && isAgeCorrect(binding.ageInputWrapper)
-        val isWeightCorrect = !isEmpty(binding.weightInputWrapper)
+        val isWeightCorrect = !isEmpty(binding.weightInputWrapper)&&isWeightCorrect(binding.weightInputWrapper)
         val isGenderCorrect = !isEmpty(binding.genderInputWrapper)
         return isAgeCorrect && isWeightCorrect && isGenderCorrect
     }

@@ -1,6 +1,7 @@
 package com.mishaismenska.hackatonrsschoolapp.logic
 
 import android.icu.util.Measure
+import android.util.Log
 import com.mishaismenska.hackatonrsschoolapp.data.behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.models.Behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
@@ -19,12 +20,13 @@ class CalculationManagerImpl @Inject constructor() : CalculationManager {
         gender: Gender,
         drinks: List<Drink>
     ): UserState {
+        var startTime = LocalDateTime.now()
         var concentration = 0.0
         for (drink in drinks) {
             val m = drink.volume.number.toDouble() * percentages[drink.type]!!.toDouble() / 100.0
             val r = if (gender == Gender.MALE || gender == Gender.MALE_IDENTIFIES_AS_FEMALE) 0.7 else 0.6
             var currentDrinkConcentration = m / weight.number.toDouble() / r
-            val hourDifference = Duration.between(LocalDateTime.now(), drink.date).toHours()
+            val hourDifference = Duration.between(drink.date, LocalDateTime.now()).toMinutes().toDouble() / 60.0
             currentDrinkConcentration -= hourDifference * 0.15
             if (currentDrinkConcentration > 0) concentration += currentDrinkConcentration
         }
@@ -40,6 +42,11 @@ class CalculationManagerImpl @Inject constructor() : CalculationManager {
                 concentration < behaviours[Behaviours.DEAD]!! -> Behaviours.BLACKOUT
                 else -> Behaviours.DEAD
             }
+        val end = LocalDateTime.now()
+        Log.d("Time in millis: ", Duration.between(startTime, end).toMillis().toString())
+        Log.d("Sobering time", Duration.ofMinutes((concentration / 0.15 * 60).toLong()).toMillis().toString())
+        Log.d("Sobering time 2", ((concentration / 0.15 * 60).toLong()).toString())
+        Log.d("concentration", concentration.toString())
         return UserState(
             concentration,
             Duration.ofMinutes((concentration / 0.15 * 60).toLong()),
