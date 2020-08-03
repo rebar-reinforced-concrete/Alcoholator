@@ -49,6 +49,7 @@
 
     <string name="concentration_format">%s‰ of alcohol in your blood</string>
     <string name="too_young_error">You\'re too young for this, homie</string>
+    <string name="too_weird_error">Your dimensions doesn\'t match out specifications, homie</string>
     <string name="main_add_dring_header">What are you drinking?</string>
     <string name="input_details">fill in the details of the drink you\'re consuming</string>
     <string name="type">Drink type</string>
@@ -64,4 +65,12 @@
     <string name="white_wine_glass">White wine glass (~120ml)</string>
     <string name="cognac_glass">Cognac glass (~260ml)</string>
     <string name="whiskey_glass">Whisk(e)y glass (~250ml)</string>
+
+    <string name="you_are_sober">Sober</string>
+
+    <string name="sober_channel_name">Sober chanel</string>
+    <string name="sober_chanel_description">Get notifications that now you are sober</string>
+
+    <string name="sober_notification_title">You\'re sober</string>
+    <string name="sober_notification_content">Congrats! Now you are sober. Is it time to get drunk?</string>
 </resources>

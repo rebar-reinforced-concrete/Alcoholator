@@ -19,18 +19,14 @@ class DrinksRecyclerAdapter(initialUserState: UserState) :
 
     var userState: UserState = initialUserState
         set(value) {
-            Log.d("LAGAPETTT", "PЭNIS ")
             field = value
             notifyItemChanged(0)
         }
 
     var drinks = emptyList<Drink>()
         set(value) {
-            //val diffUtilCallback = DrinksDiffUtilCallback(field, value)
-            //val diffResults = DiffUtil.calculateDiff(diffUtilCallback)
             field = value
             notifyDataSetChanged()
-            //diffResults.dispatchUpdatesTo(this)
         }
 
     override fun getItemViewType(position: Int): Int {
@@ -77,21 +73,20 @@ class DrinksRecyclerAdapter(initialUserState: UserState) :
     class StateViewHolder(private val binding: MainInfoCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(state: UserState) {
-            if(state.alcoholConcentration > 0){
-                binding.mainInfoCard.visibility = View.VISIBLE
-                val resources = binding.root.context.resources
-                val states = resources.getStringArray(R.array.drunk_states)
+            binding.mainInfoCard.visibility = View.VISIBLE
+            val resources = binding.root.context.resources
+            val states = resources.getStringArray(R.array.drunk_states)
+            if(state.soberTime.toMillis() > 0)
                 binding.soberingTimer.text = resources.getString(
                     R.string.time_format,
                     state.soberTime.toHours(),
                     state.soberTime.toMinutes() % 60
                 )
-                binding.alcoholConcentration.text = resources.getString(
-                    R.string.concentration_format, "%.2f".format(state.alcoholConcentration)
-                )
-                binding.stateDescription.text = states[state.behaviour.ordinal]
-            } else binding.mainInfoCard.visibility = View.GONE
-
+            else binding.soberingTimer.text = resources.getString(R.string.you_are_sober)
+            binding.alcoholConcentration.text = resources.getString(
+                R.string.concentration_format, "%.2f".format(state.alcoholConcentration)
+            )
+            binding.stateDescription.text = states[state.behaviour.ordinal]
         }
     }
 }

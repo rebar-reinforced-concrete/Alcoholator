@@ -34,7 +34,6 @@ class MainViewModel @Inject constructor(
     }
 
     fun updateState(){
-        Log.d("LAHAPET", "HACHU SCHYTAC");
         if (user.drinks.value != null) {
             userState.postValue(
                 calculationManager.determineState(
@@ -44,8 +43,9 @@ class MainViewModel @Inject constructor(
                     user.drinks.value!!
                 )
             )
-        } else Log.d("LAHAPED", "NIHASCHUUUUU")
+        }
     }
+
     inner class UpdateStateTimerTask : TimerTask() {
         override fun run() {
             updateState()
