@@ -105,7 +105,6 @@ class MainFragment : Fragment(), DbResultsListener {
             } else binding.addDrinkFab.visibility = View.VISIBLE
             viewModel.userState.observe(viewLifecycleOwner, Observer { state ->
                 drinksAdapter.userState = state
-                Log.d("LAHAPED", "PЭNIS")
                 if(state.alcoholConcentration > 11.349) {
                     if(binding.addDrinkFab.visibility != View.GONE) {
                         binding.addDrinkFab.visibility = View.GONE
