@@ -11,6 +11,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
+import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.App
 import com.mishaismenska.hackatonrsschoolapp.R
@@ -108,7 +109,8 @@ class MainFragment : Fragment(), DbResultsListener {
                 if(state.alcoholConcentration > 11.349) {
                     if(binding.addDrinkFab.visibility != View.GONE) {
                         binding.addDrinkFab.visibility = View.GONE
-                        Snackbar.make(binding.root, getString(R.string.too_drunk), Snackbar.LENGTH_LONG).show()
+                        val name = PreferenceManager.getDefaultSharedPreferences(context).getString(requireContext().getString(R.string.name_key), "fella")
+                        Snackbar.make(binding.root, getString(R.string.too_drunk, name), Snackbar.LENGTH_LONG).show()
                     }
                 } else{
                     binding.addDrinkFab.visibility = View.VISIBLE

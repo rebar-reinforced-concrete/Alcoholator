@@ -10,7 +10,7 @@ interface UserWithDrinksDao {
     @Query("SELECT * FROM USER")
     fun getUser(): List<UserEntity>
 
-    @Query("SELECT * FROM DRINKS")
+    @Query("SELECT * FROM DRINKS ORDER BY dateTaken DESC")
     fun getDrinks(): LiveData<List<DrinkEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

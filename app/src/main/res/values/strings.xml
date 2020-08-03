@@ -5,7 +5,7 @@
     <string name="hello_string">Hello</string>
     <string name="tell_us_something_about_you">Tell us something about you</string>
     <string name="age">Age</string>
-    <string name="weight">Weight</string>
+    <string name="weight">Weight (kg)</string>
     <string name="gender">Gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
@@ -97,11 +97,11 @@
     <string name="sober_chanel_description">Get notifications that now you are sober</string>
 
     <string name="sober_notification_title">You\'re sober</string>
-    <string name="sober_notification_content">Congrats! Now you are sober. Is it time to get wasted again?</string>
+    <string name="sober_notification_content">Hey, %s. Is it time to get wasted again?</string>
 
     <string name="too_weird_error">Your dimensions doesn\'t match out specifications, homie</string>
     <string name="i_va_had_a_snack">I\'va had a snack</string>
-    <string name="too_drunk">You\'re too drunk, my fella</string>
+    <string name="too_drunk">You\'re too drunk, %s</string>
 
     <string name="minuts_ago">Recently</string>
     <string name="hours_ago">%dh.</string>

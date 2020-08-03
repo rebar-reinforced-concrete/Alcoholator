@@ -9,6 +9,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.preference.PreferenceManager
 import com.mishaismenska.hackatonrsschoolapp.R
 
 const val CHANNEL_ID = "sober_chanel"
@@ -36,10 +37,11 @@ class ScheduledBroadcastReceiver : BroadcastReceiver() {
     }
 
     private fun getNotificationBuilder(context: Context, pendingIntent: PendingIntent): NotificationCompat.Builder{
+        val name = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.name_key), "fella")
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_local_bar_24)
             .setContentTitle(context.getString(R.string.sober_notification_title))
-            .setContentText(context.getString(R.string.sober_notification_content))
+            .setContentText(context.getString(R.string.sober_notification_content, name))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
     }
