@@ -49,11 +49,11 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
             Preference.SummaryProvider<EditTextPreference> {
                 if (Locale.getDefault().country == "US") {
                     format.format(
-                        Measure(preferenceManager.sharedPreferences.getString("weight", "0 pounds")!!.filter{c -> c.isDigit()}.toInt(), MeasureUnit.POUND)
+                        Measure(preferenceManager.sharedPreferences.getString("weight", "0 pounds")!!.split('.')[0].filter{c -> c.isDigit()}.toInt(), MeasureUnit.POUND)
                     )
                 } else {
                     format.format(
-                        Measure(preferenceManager.sharedPreferences.getString("weight", "0 pounds")!!.filter{ c -> c.isDigit()}.toInt(), MeasureUnit.KILOGRAM)
+                        Measure(preferenceManager.sharedPreferences.getString("weight", "0 pounds")!!.split('.')[0].filter{ c -> c.isDigit()}.toInt(), MeasureUnit.KILOGRAM)
                     )
                 }
             }
