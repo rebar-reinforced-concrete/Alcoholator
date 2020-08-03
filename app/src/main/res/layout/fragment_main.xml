@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
         android:layout_margin="16dp"
+        android:visibility="invisible"
         android:id="@+id/add_drink_fab"
         app:tint="#FFF"
         android:src="@drawable/ic_baseline_add_24"

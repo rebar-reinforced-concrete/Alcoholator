@@ -1,20 +1,17 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
-import android.content.Context
-import android.os.Bundle
-import android.view.*
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
+import android.view.*
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
-import androidx.preference.PreferenceManager
+import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.App
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.models.Behaviours
@@ -55,11 +52,13 @@ class MainFragment : Fragment(), DbResultsListener {
         viewModel.getUser(this)
         binding = FragmentMainBinding.inflate(inflater, container, false)
         drinksAdapter = DrinksRecyclerAdapter(
-            UserState(0.0, Duration.ZERO, Behaviours.SOBER))
+            UserState(0.0, Duration.ZERO, Behaviours.SOBER)
+        )
         binding.mainRecycler.adapter = drinksAdapter
         binding.addDrinkFab.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.main_fragment_container, AddDrinkFragment()).addToBackStack(null)
+                .replace(R.id.main_fragment_container, AddDrinkFragment()).setTransition(
+                FragmentTransaction.TRANSIT_FRAGMENT_OPEN).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null)
                 .commit()
         }
         setHasOptionsMenu(true)
@@ -75,7 +74,7 @@ class MainFragment : Fragment(), DbResultsListener {
         return when (item.itemId) {
             R.id.action_settings -> {
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment_container, AppSettingsFragment())
+                    .replace(R.id.main_fragment_container, AppSettingsFragment()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null).commit()
                 true
             }
@@ -83,7 +82,7 @@ class MainFragment : Fragment(), DbResultsListener {
         }
     }
 
-  private fun checkIfEmpty(data: List<Drink>?): Boolean {
+    private fun checkIfEmpty(data: List<Drink>?): Boolean {
         return if (data.isNullOrEmpty()) {
             binding.mainRecycler.visibility = View.GONE
             binding.mainRecyclerEmptyTextView.visibility = View.VISIBLE
@@ -94,6 +93,7 @@ class MainFragment : Fragment(), DbResultsListener {
             false
         }
     }
+
     private var drinksChanged = false
     override fun onUserLoaded(user: User) {
         user.drinks.observe(viewLifecycleOwner, Observer { it ->
@@ -101,10 +101,19 @@ class MainFragment : Fragment(), DbResultsListener {
                 drinksAdapter.drinks = it
                 viewModel.updateState()
                 drinksChanged = true
-            }
+            } else binding.addDrinkFab.visibility = View.VISIBLE
             viewModel.userState.observe(viewLifecycleOwner, Observer { state ->
                 drinksAdapter.userState = state
-                if(state != null && state.alcoholConcentration > 0.001 && drinksChanged){
+                Log.d("LAHAPED", "PЭNIS")
+                if(state.alcoholConcentration > 11.349) {
+                    if(binding.addDrinkFab.visibility != View.GONE) {
+                        binding.addDrinkFab.visibility = View.GONE
+                        Snackbar.make(binding.root, getString(R.string.too_drunk), Snackbar.LENGTH_LONG).show()
+                    }
+                } else{
+                    binding.addDrinkFab.visibility = View.VISIBLE
+                }
+                if (state != null && state.alcoholConcentration > 0.001 && drinksChanged) {
                     val timeToTrigger =
                         System.currentTimeMillis() + viewModel.userState.value!!.soberTime.toMillis()
                     alarmManager.cancel(pendingIntent)

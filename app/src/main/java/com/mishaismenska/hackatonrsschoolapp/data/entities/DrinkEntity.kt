@@ -13,5 +13,6 @@ data class DrinkEntity (
     val type: Int,
     val dateTaken: LocalDateTime,
     val volume: Int,
-    val unit: MeasureUnit
+    val unit: MeasureUnit,
+    val eaten: Boolean
 )

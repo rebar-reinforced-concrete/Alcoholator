@@ -48,7 +48,8 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
             Drink(
                 DrinkType.values()[entity.type],
                 entity.dateTaken,
-                Measure(entity.volume, entity.unit)
+                Measure(entity.volume, entity.unit),
+                entity.eaten
             )
         }
     }
@@ -64,7 +65,8 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
                     drink.type.ordinal,
                     drink.date,
                     drink.volume.number as Int,
-                    drink.volume.unit
+                    drink.volume.unit,
+                    drink.eaten
                 )
             )
         }
@@ -80,7 +82,8 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
                     drink.type.ordinal,
                     drink.date,
                     drink.volume.number as Int,
-                    drink.volume.unit
+                    drink.volume.unit,
+                    drink.eaten
                 )
             )
         }

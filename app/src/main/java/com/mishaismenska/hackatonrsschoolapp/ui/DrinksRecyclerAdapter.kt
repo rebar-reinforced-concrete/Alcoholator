@@ -1,5 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.icu.text.MeasureFormat
 import android.icu.util.Measure
@@ -16,10 +17,13 @@ import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserState
 import com.mishaismenska.hackatonrsschoolapp.databinding.DrinkRecyclerItemBinding
 import com.mishaismenska.hackatonrsschoolapp.databinding.MainInfoCardBinding
+import java.time.Duration
+import java.time.LocalDateTime
 import java.util.*
 
 class DrinksRecyclerAdapter(
-    initialUserState: UserState) :
+    initialUserState: UserState
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var userState: UserState = initialUserState
@@ -61,7 +65,7 @@ class DrinksRecyclerAdapter(
         if (position >= 1) {
             (holder as DrinkViewHolder).bind(
                 drinks[position - 1],
-                Locale.getDefault().country  == "US"
+                Locale.getDefault().country == "US"
             )
         } else (holder as StateViewHolder).bind(userState)
     }
@@ -70,8 +74,21 @@ class DrinksRecyclerAdapter(
         private val binding: DrinkRecyclerItemBinding,
         private val drinkTypes: Array<String>
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        private fun convertDate(date: LocalDateTime) : String {
+            val duration = Duration.between(date, LocalDateTime.now())
+            val context = binding.root.context
+            return when(duration.toMinutes().toInt()){
+                in 0..59 -> context.getString(R.string.minuts_ago, duration.toMinutes())
+                in 60..1439 -> context.getString(R.string.hours_ago, duration.toHours())
+                in 1440..4319 -> context.getString(R.string.days_ago, duration.toDays())
+                else -> context.getString(R.string.long_time_ago)
+            }
+        }
+
         fun bind(drink: Drink, unit: Boolean) {
             binding.drinkName.text = drinkTypes[drink.type.ordinal]
+            binding.dateTextView.text = convertDate(drink.date)
             binding.drinkDescription.text =
                 if (unit)
                     MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
@@ -93,7 +110,7 @@ class DrinksRecyclerAdapter(
             binding.mainInfoCard.visibility = View.VISIBLE
             val resources = binding.root.context.resources
             val states = resources.getStringArray(R.array.drunk_states)
-            if(state.soberTime.toMillis() > 0)
+            if (state.soberTime.toMillis() > 0)
                 binding.soberingTimer.text = resources.getString(
                     R.string.time_format,
                     state.soberTime.toHours(),

@@ -30,7 +30,7 @@ class AddDrinkViewModel @Inject constructor(private val appDataRepository: AppDa
 
     fun addDrink(binding: FragmentAddDrinkBinding, listener: DbResultsListener) {
         val drinkType = parseDrinkType(binding, binding.typeInput.text.toString())
-
+        val eaten = binding.eatenCheckbox.isChecked
         val volume = when (binding.volumeInput.text.toString()) {
             inlayMeasurement(binding, R.string.shot, volumePreset[VolumePreset.SHOT]) -> VolumePreset.SHOT
             inlayMeasurement(binding, R.string.vodka_glass, volumePreset[VolumePreset.VODKA_GLASS]) -> VolumePreset.VODKA_GLASS
@@ -47,7 +47,8 @@ class AddDrinkViewModel @Inject constructor(private val appDataRepository: AppDa
                 Drink(
                     drinkType,
                     LocalDateTime.now(),
-                    volumePreset[volume]!!
+                    volumePreset[volume]!!,
+                    eaten
                 )
             )
             Handler(context.mainLooper).post{
@@ -69,7 +70,7 @@ class AddDrinkViewModel @Inject constructor(private val appDataRepository: AppDa
             binding.typeInput.adapter.getItem(1) -> DrinkType.JINN_TONIC
             binding.typeInput.adapter.getItem(2) -> DrinkType.WINE_RED
             binding.typeInput.adapter.getItem(3) -> DrinkType.WINE_WHITE
-            binding.typeInput.adapter.getItem(4) -> DrinkType.WINE_READ_CHEAP
+            binding.typeInput.adapter.getItem(4) -> DrinkType.WINE_RED_CHEAP
             binding.typeInput.adapter.getItem(5) -> DrinkType.WINE_WHITE_CHEAP
             binding.typeInput.adapter.getItem(6) -> DrinkType.FRUIT_WINE_CHEAP
             binding.typeInput.adapter.getItem(7) -> DrinkType.BEER_DARK
@@ -77,7 +78,7 @@ class AddDrinkViewModel @Inject constructor(private val appDataRepository: AppDa
             binding.typeInput.adapter.getItem(9) -> DrinkType.BEER_DARK_CHEAP
             binding.typeInput.adapter.getItem(10) -> DrinkType.BEER_LIGHT_CHEAP
             binding.typeInput.adapter.getItem(11) -> DrinkType.MOONSHINE
-            binding.typeInput.adapter.getItem(11) -> DrinkType.SPIRIT
+            binding.typeInput.adapter.getItem(12) -> DrinkType.SPIRIT
             binding.typeInput.adapter.getItem(13) -> DrinkType.WHISKEY
             binding.typeInput.adapter.getItem(14) -> DrinkType.WHISKEY_CHEAP
             binding.typeInput.adapter.getItem(15) -> DrinkType.LIQUOR

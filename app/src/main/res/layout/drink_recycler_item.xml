@@ -25,4 +25,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+    <TextView
+        android:id="@+id/date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        tools:text="1d."/>
 </androidx.constraintlayout.widget.ConstraintLayout>

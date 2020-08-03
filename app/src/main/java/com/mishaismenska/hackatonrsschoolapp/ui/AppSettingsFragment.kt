@@ -7,6 +7,7 @@ import android.icu.util.Measure
 import android.icu.util.MeasureUnit
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.FragmentTransaction
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -34,7 +35,8 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
             Preference.OnPreferenceClickListener {
                 viewModel.resetDB()
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment_container, AddUserFragment())
+                    .replace(R.id.main_fragment_container, AddUserFragment()).setTransition(
+                        FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
                 true
             }
@@ -68,7 +70,7 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
     }
 
     override fun onSharedPreferenceChanged(pref: SharedPreferences?, key: String?) {
-        if (key == getString(R.string.weight_key)) {
+        if (key == requireContext().getString(R.string.weight_key)) {
             viewModel.updateWeight(
                 pref!!.getString(key, "yo mommas weri gay"),Locale.getDefault().country == "US"
             )

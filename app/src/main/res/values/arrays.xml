@@ -52,6 +52,7 @@
         <item>@string/cognac_glass</item>
         <item>@string/whiskey_glass</item>
     </string-array>
+
     <!-- Reply Preference -->
     <string-array name="reply_entries">
         <item>Reply</item>

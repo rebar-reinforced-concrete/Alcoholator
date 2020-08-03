@@ -21,8 +21,8 @@
     <string name="jin_tonic">Jin tonic</string>
     <string name="wine_red">Red wine</string>
     <string name="wine_white">White wine</string>
-    <string name="wine_white_cheap">White cheap wine</string>
     <string name="wine_red_cheap">Red cheap wine</string>
+    <string name="wine_white_cheap">White cheap wine</string>
     <string name="fruit_wine_cheap">Cheap fruit wine</string>
     <string name="beer_dark">Dark beer</string>
     <string name="beer_light">Light beer</string>
@@ -98,4 +98,13 @@
 
     <string name="sober_notification_title">You\'re sober</string>
     <string name="sober_notification_content">Congrats! Now you are sober. Is it time to get wasted again?</string>
+
+    <string name="too_weird_error">Your dimensions doesn\'t match out specifications, homie</string>
+    <string name="i_va_had_a_snack">I\'va had a snack</string>
+    <string name="too_drunk">You\'re too drunk, my fella</string>
+
+    <string name="minuts_ago">%dm.</string>
+    <string name="hours_ago">%dh.</string>
+    <string name="days_ago">%dd.</string>
+    <string name="long_time_ago">A while ago</string>
 </resources>

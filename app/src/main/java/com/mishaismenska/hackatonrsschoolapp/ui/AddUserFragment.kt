@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
 import com.mishaismenska.hackatonrsschoolapp.App
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddDrinkBinding
@@ -36,6 +37,6 @@ class AddUserFragment : Fragment(), DbResultsListener {
     }
 
     override fun onUserAdded() {
-        parentFragmentManager.beginTransaction().replace(R.id.main_fragment_container, MainFragment()).commit()
+        parentFragmentManager.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).replace(R.id.main_fragment_container, MainFragment()).commit()
     }
 }

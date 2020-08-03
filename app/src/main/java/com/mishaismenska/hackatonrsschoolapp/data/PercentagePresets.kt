@@ -7,7 +7,7 @@ val percentages =
         DrinkType.VODKA to 40,
         DrinkType.JINN_TONIC to 8,
         DrinkType.WINE_RED to 11,
-        DrinkType.WINE_READ_CHEAP to 21,
+        DrinkType.WINE_RED_CHEAP to 21,
         DrinkType.WINE_WHITE to 12,
         DrinkType.WINE_WHITE_CHEAP to 8,
         DrinkType.FRUIT_WINE_CHEAP to 20,

@@ -7,7 +7,7 @@ val TareRelations = hashMapOf(
     DrinkType.VODKA to listOf(VolumePreset.SHOT, VolumePreset.VODKA_GLASS),
     DrinkType.JINN_TONIC to listOf(VolumePreset.VODKA_GLASS),
     DrinkType.WINE_RED to listOf(VolumePreset.RED_WINE_GLASS),
-    DrinkType.WINE_READ_CHEAP to listOf(
+    DrinkType.WINE_RED_CHEAP to listOf(
         VolumePreset.RED_WINE_GLASS,
         VolumePreset.WHITE_WINE_GLASS,
         VolumePreset.VODKA_GLASS
