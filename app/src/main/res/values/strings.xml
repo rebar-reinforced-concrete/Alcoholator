@@ -103,7 +103,7 @@
     <string name="i_va_had_a_snack">I\'va had a snack</string>
     <string name="too_drunk">You\'re too drunk, my fella</string>
 
-    <string name="minuts_ago">%dm.</string>
+    <string name="minuts_ago">Recently</string>
     <string name="hours_ago">%dh.</string>
     <string name="days_ago">%dd.</string>
     <string name="long_time_ago">A while ago</string>

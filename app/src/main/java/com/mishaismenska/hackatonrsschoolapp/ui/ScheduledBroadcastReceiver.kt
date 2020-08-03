@@ -47,12 +47,8 @@ class ScheduledBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val startActivityPendingIntent = getStartActivityPendingIntent(context)
         val builder = getNotificationBuilder(context, startActivityPendingIntent)
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            createNotificationChanel(context)
-            builder.setChannelId(CHANNEL_ID)
-        }
-
+        createNotificationChanel(context)
+        builder.setChannelId(CHANNEL_ID)
         with(NotificationManagerCompat.from(context)) {
             notify(NOTIFICATION_ID, builder.build())
         }

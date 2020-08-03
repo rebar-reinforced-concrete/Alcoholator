@@ -64,9 +64,13 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
                     findPreference<EditTextPreference>(getString(R.string.weight_key))!!.summary.toString()
                 true
             }
-
         preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+    }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 
     override fun onSharedPreferenceChanged(pref: SharedPreferences?, key: String?) {

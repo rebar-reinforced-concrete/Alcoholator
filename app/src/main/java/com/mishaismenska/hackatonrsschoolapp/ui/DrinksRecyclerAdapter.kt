@@ -79,7 +79,7 @@ class DrinksRecyclerAdapter(
             val duration = Duration.between(date, LocalDateTime.now())
             val context = binding.root.context
             return when(duration.toMinutes().toInt()){
-                in 0..59 -> context.getString(R.string.minuts_ago, duration.toMinutes())
+                in 0..59 -> context.getString(R.string.minuts_ago)
                 in 60..1439 -> context.getString(R.string.hours_ago, duration.toHours())
                 in 1440..4319 -> context.getString(R.string.days_ago, duration.toDays())
                 else -> context.getString(R.string.long_time_ago)
