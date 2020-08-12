@@ -61,7 +61,7 @@
     - favourite type  
     - preferable volume  
 - [ ] sharing  
-    - invite referal links (future: _remove ads for a week_)  
+    - invite referral links (future: _remove ads for a week_)  
     - share current state  
 - [ ] **optional**: blocking of selected apps.  
 - [ ] send periodical reminders (approx. freq. once a week of being sober)  
