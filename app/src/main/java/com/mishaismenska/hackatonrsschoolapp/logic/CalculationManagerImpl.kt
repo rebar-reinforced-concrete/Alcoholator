@@ -3,9 +3,9 @@ package com.mishaismenska.hackatonrsschoolapp.logic
 import android.icu.util.Measure
 import com.mishaismenska.hackatonrsschoolapp.AppConstants
 import com.mishaismenska.hackatonrsschoolapp.data.behaviours
-import com.mishaismenska.hackatonrsschoolapp.data.models.Behaviours
+import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
-import com.mishaismenska.hackatonrsschoolapp.data.models.Gender
+import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Gender
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserState
 import com.mishaismenska.hackatonrsschoolapp.data.percentages
 import com.mishaismenska.hackatonrsschoolapp.interfaces.CalculationManager
@@ -75,17 +75,17 @@ class CalculationManagerImpl @Inject constructor() : CalculationManager {
 
 
     private fun getBehaviourFromConcentration(concentration: Double) =
-        when {
-            concentration < behaviours[Behaviours.ALMOST_NORMAL]!! -> Behaviours.SOBER
-            concentration < behaviours[Behaviours.EUPHORIC]!! -> Behaviours.ALMOST_NORMAL
-            concentration < behaviours[Behaviours.DISINHIBITIONS]!! -> Behaviours.EUPHORIC
-            concentration < behaviours[Behaviours.EXPRESSIVENESS]!! -> Behaviours.DISINHIBITIONS
-            concentration < behaviours[Behaviours.STUPOR]!! -> Behaviours.EXPRESSIVENESS
-            concentration < behaviours[Behaviours.UNCONSCIOUS]!! -> Behaviours.STUPOR
-            concentration < behaviours[Behaviours.BLACKOUT]!! -> Behaviours.UNCONSCIOUS
-            concentration < behaviours[Behaviours.DEAD]!! -> Behaviours.BLACKOUT
-            else -> Behaviours.DEAD
-        }
+           when {
+                concentration < Behaviours.ALMOST_NORMAL.lowestConcentration -> Behaviours.SOBER
+                concentration < Behaviours.EUPHORIC.lowestConcentration -> Behaviours.ALMOST_NORMAL
+                concentration < Behaviours.DISINHIBITIONS.lowestConcentration -> Behaviours.EUPHORIC
+                concentration < Behaviours.EXPRESSIVENESS.lowestConcentration -> Behaviours.DISINHIBITIONS
+                concentration < Behaviours.STUPOR.lowestConcentration -> Behaviours.EXPRESSIVENESS
+                concentration < Behaviours.UNCONSCIOUS.lowestConcentration -> Behaviours.STUPOR
+                concentration < Behaviours.BLACKOUT.lowestConcentration -> Behaviours.UNCONSCIOUS
+                concentration < Behaviours.DEAD.lowestConcentration -> Behaviours.BLACKOUT
+                else -> Behaviours.DEAD
+            }
 
     private fun getMaxConcentrationForDrink(
         age: Int,
@@ -96,7 +96,7 @@ class CalculationManagerImpl @Inject constructor() : CalculationManager {
         val m =
             drink.volume.number.toDouble() * percentages[drink.type]!!.toDouble() / 100.0 * (if (drink.eaten) 0.7 else 0.9)
         val r =
-            if (gender == Gender.MALE || gender == Gender.MALE_IDENTIFIES_AS_FEMALE) 0.7 else 0.6
+            if (gender.isMale) 0.7 else 0.6
         return m / weight.number.toDouble() / r
     }
 }

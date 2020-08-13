@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import com.mishaismenska.hackatonrsschoolapp.App
 import com.mishaismenska.hackatonrsschoolapp.R
-import com.mishaismenska.hackatonrsschoolapp.data.models.Behaviours
+import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
 import com.mishaismenska.hackatonrsschoolapp.data.models.User
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserState
