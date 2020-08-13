@@ -2,7 +2,6 @@ package com.mishaismenska.hackatonrsschoolapp.logic
 
 import android.icu.util.Measure
 import com.mishaismenska.hackatonrsschoolapp.AppConstants
-import com.mishaismenska.hackatonrsschoolapp.data.behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
 import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Gender
@@ -94,7 +93,7 @@ class CalculationManagerImpl @Inject constructor() : CalculationManager {
         drink: Drink
     ): Double {
         val m =
-            drink.volume.number.toDouble() * percentages[drink.type]!!.toDouble() / 100.0 * (if (drink.eaten) 0.7 else 0.9)
+            drink.volume.number.toDouble() * drink.type.percentage / 100.0 * (if (drink.eaten) 0.7 else 0.9)
         val r =
             if (gender.isMale) 0.7 else 0.6
         return m / weight.number.toDouble() / r
