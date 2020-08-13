@@ -1,6 +1,5 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.icu.text.MeasureFormat
 import android.icu.util.Measure
@@ -36,7 +35,8 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
                 viewModel.resetDB()
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container, AddUserFragment()).setTransition(
-                        FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+                    )
                     .commit()
                 true
             }
@@ -49,11 +49,22 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
             Preference.SummaryProvider<EditTextPreference> {
                 if (Locale.getDefault().country == "US") {
                     format.format(
-                        Measure(preferenceManager.sharedPreferences.getString("weight", "0 pounds")!!.split('.')[0].filter{c -> c.isDigit()}.toInt(), MeasureUnit.POUND)
+                        Measure(
+                            preferenceManager.sharedPreferences.getString(
+                                "weight",
+                                "0 pounds"
+                            )!!.split('.')[0].filter { c -> c.isDigit() }.toInt(), MeasureUnit.POUND
+                        )
                     )
                 } else {
                     format.format(
-                        Measure(preferenceManager.sharedPreferences.getString("weight", "0 pounds")!!.split('.')[0].filter{ c -> c.isDigit()}.toInt(), MeasureUnit.KILOGRAM)
+                        Measure(
+                            preferenceManager.sharedPreferences.getString(
+                                "weight",
+                                "0 pounds"
+                            )!!.split('.')[0].filter { c -> c.isDigit() }.toInt(),
+                            MeasureUnit.KILOGRAM
+                        )
                     )
                 }
             }
@@ -76,7 +87,7 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
     override fun onSharedPreferenceChanged(pref: SharedPreferences?, key: String?) {
         if (key == requireContext().getString(R.string.weight_key)) {
             viewModel.updateWeight(
-                pref!!.getString(key, "yo mommas weri gay"),Locale.getDefault().country == "US"
+                pref!!.getString(key, ""), Locale.getDefault().country == "US"
             )
         }
     }

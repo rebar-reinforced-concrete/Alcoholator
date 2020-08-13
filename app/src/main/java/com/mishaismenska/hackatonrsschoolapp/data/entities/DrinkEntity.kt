@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 
 @Entity(tableName = "drinks")
-data class DrinkEntity (
+data class DrinkEntity(
     @PrimaryKey(autoGenerate = true) var drinkId: Long,
     val consumedBy: Long,
     val type: Int,

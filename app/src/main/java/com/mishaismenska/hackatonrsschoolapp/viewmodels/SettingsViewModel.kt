@@ -7,7 +7,6 @@ import android.icu.util.MeasureUnit
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.preference.EditTextPreference
 import androidx.preference.PreferenceManager
 import com.mishaismenska.hackatonrsschoolapp.data.kgToLb
 import com.mishaismenska.hackatonrsschoolapp.data.lbToKg
@@ -52,10 +51,8 @@ class SettingsViewModel @Inject constructor(
     fun updateWeight(newValue: String?, units: Boolean): Boolean {
         val cleanInput = newValue!!.split(".")[0].filter { it.isDigit() }.toInt()
 
-        Log.d("update weight", cleanInput.toString())
         if (units) {
             val kgValue = lbToKg(cleanInput)
-            Log.d("update weight kg", kgValue.toString())
             viewModelScope.launch(Dispatchers.IO) {
                 repository.updateWeight(kgValue)
             }

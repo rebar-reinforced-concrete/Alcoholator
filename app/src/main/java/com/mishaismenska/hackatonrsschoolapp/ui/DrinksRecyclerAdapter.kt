@@ -1,15 +1,11 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.icu.text.MeasureFormat
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.mlToOz
@@ -75,10 +71,10 @@ class DrinksRecyclerAdapter(
         private val drinkTypes: Array<String>
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private fun convertDate(date: LocalDateTime) : String {
+        private fun convertDate(date: LocalDateTime): String {
             val duration = Duration.between(date, LocalDateTime.now())
             val context = binding.root.context
-            return when(duration.toMinutes().toInt()){
+            return when (duration.toMinutes().toInt()) {
                 in 0..59 -> context.getString(R.string.minuts_ago)
                 in 60..1439 -> context.getString(R.string.hours_ago, duration.toHours())
                 in 1440..4319 -> context.getString(R.string.days_ago, duration.toDays())

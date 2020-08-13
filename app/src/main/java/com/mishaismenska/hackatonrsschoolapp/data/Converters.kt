@@ -1,10 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.data
 
-import android.icu.text.MeasureFormat
-import android.icu.util.Measure
 import android.icu.util.MeasureUnit
-import android.icu.util.ULocale
-import android.util.Log
 import androidx.room.TypeConverter
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -49,7 +45,7 @@ class Converters {
         return if (unitString == null) {
             null
         } else {
-            MeasureUnit.getAvailable().find {it.toString() == unitString} //FIXME
+            MeasureUnit.getAvailable().find { it.toString() == unitString } //FIXME
         }
     }
 }

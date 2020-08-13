@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 
 @Entity(tableName = "user")
-data class UserEntity (
+data class UserEntity(
     @PrimaryKey(autoGenerate = true) val userId: Long,
     val createdOn: LocalDate,
     val ageOnCreation: Int,

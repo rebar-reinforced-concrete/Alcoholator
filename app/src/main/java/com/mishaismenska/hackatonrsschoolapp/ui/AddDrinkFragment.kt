@@ -1,14 +1,17 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
-import android.icu.text.MeasureFormat
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.fragment.app.Fragment
 import com.mishaismenska.hackatonrsschoolapp.App
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.TareRelations
@@ -17,7 +20,6 @@ import com.mishaismenska.hackatonrsschoolapp.data.models.VolumePreset
 import com.mishaismenska.hackatonrsschoolapp.data.volumePreset
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddDrinkBinding
 import com.mishaismenska.hackatonrsschoolapp.viewmodels.AddDrinkViewModel
-import java.text.Format
 import java.util.*
 import javax.inject.Inject
 
@@ -28,6 +30,7 @@ class AddDrinkFragment : Fragment(), DbResultsListener {
     @Inject
     lateinit var viewModel: AddDrinkViewModel
     private lateinit var volumes: MutableList<String>
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

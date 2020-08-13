@@ -14,7 +14,8 @@ const val DBNAME = "AlcoBase"
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun dao(): UserWithDrinksDao
-    companion object{
+
+    companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
         fun getDatabase(context: Context): AppDatabase {

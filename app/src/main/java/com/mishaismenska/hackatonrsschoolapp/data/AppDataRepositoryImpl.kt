@@ -103,7 +103,7 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
         currentUserEntity = dao.getUser().last()
     }
 
-    override suspend fun reset(){
+    override suspend fun reset() {
         dao.resetUser()
         dao.resetDrinks()
     }
