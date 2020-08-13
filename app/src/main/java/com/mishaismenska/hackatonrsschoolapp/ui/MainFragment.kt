@@ -5,7 +5,6 @@ import android.app.PendingIntent
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -15,7 +14,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.App
 import com.mishaismenska.hackatonrsschoolapp.R
-import com.mishaismenska.hackatonrsschoolapp.data.models.Behaviours
+import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
 import com.mishaismenska.hackatonrsschoolapp.data.models.User
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserState

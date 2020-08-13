@@ -2,12 +2,10 @@ package com.mishaismenska.hackatonrsschoolapp.logic
 
 import android.icu.util.Measure
 import android.util.Log
-import com.mishaismenska.hackatonrsschoolapp.data.behaviours
-import com.mishaismenska.hackatonrsschoolapp.data.models.Behaviours
+import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
-import com.mishaismenska.hackatonrsschoolapp.data.models.Gender
+import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Gender
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserState
-import com.mishaismenska.hackatonrsschoolapp.data.percentages
 import com.mishaismenska.hackatonrsschoolapp.interfaces.CalculationManager
 import java.time.Duration
 import java.time.LocalDateTime
@@ -24,7 +22,7 @@ class CalculationManagerImpl @Inject constructor() : CalculationManager {
         var concentration = 0.0
         for (drink in drinks) {
             val m =
-                drink.volume.number.toDouble() * percentages[drink.type]!!.toDouble() / 100.0 * (if (drink.eaten) 0.7 else 0.9)
+                drink.volume.number.toDouble() * drink.type.percentage / 100.0 * (if (drink.eaten) 0.7 else 0.9)
             val r =
                 if (gender == Gender.MALE || gender == Gender.MALE_IDENTIFIES_AS_FEMALE) 0.7 else 0.6
             var currentDrinkConcentration = m / weight.number.toDouble() / r
@@ -35,14 +33,14 @@ class CalculationManagerImpl @Inject constructor() : CalculationManager {
         }
         val userState: Behaviours =
             when {
-                concentration < behaviours[Behaviours.ALMOST_NORMAL]!! -> Behaviours.SOBER
-                concentration < behaviours[Behaviours.EUPHORIC]!! -> Behaviours.ALMOST_NORMAL
-                concentration < behaviours[Behaviours.DISINHIBITIONS]!! -> Behaviours.EUPHORIC
-                concentration < behaviours[Behaviours.EXPRESSIVENESS]!! -> Behaviours.DISINHIBITIONS
-                concentration < behaviours[Behaviours.STUPOR]!! -> Behaviours.EXPRESSIVENESS
-                concentration < behaviours[Behaviours.UNCONSCIOUS]!! -> Behaviours.STUPOR
-                concentration < behaviours[Behaviours.BLACKOUT]!! -> Behaviours.UNCONSCIOUS
-                concentration < behaviours[Behaviours.DEAD]!! -> Behaviours.BLACKOUT
+                concentration < Behaviours.ALMOST_NORMAL.lowestConcentration -> Behaviours.SOBER
+                concentration < Behaviours.EUPHORIC.lowestConcentration -> Behaviours.ALMOST_NORMAL
+                concentration < Behaviours.DISINHIBITIONS.lowestConcentration -> Behaviours.EUPHORIC
+                concentration < Behaviours.EXPRESSIVENESS.lowestConcentration -> Behaviours.DISINHIBITIONS
+                concentration < Behaviours.STUPOR.lowestConcentration -> Behaviours.EXPRESSIVENESS
+                concentration < Behaviours.UNCONSCIOUS.lowestConcentration -> Behaviours.STUPOR
+                concentration < Behaviours.BLACKOUT.lowestConcentration -> Behaviours.UNCONSCIOUS
+                concentration < Behaviours.DEAD.lowestConcentration -> Behaviours.BLACKOUT
                 else -> Behaviours.DEAD
             }
         val end = LocalDateTime.now()

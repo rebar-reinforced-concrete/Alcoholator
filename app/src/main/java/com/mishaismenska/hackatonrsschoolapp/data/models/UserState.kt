@@ -1,5 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.data.models
 
+import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Behaviours
 import java.time.Duration
 
 data class UserState(

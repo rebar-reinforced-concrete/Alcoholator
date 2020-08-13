@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
 
-
 @Entity(tableName = "user")
 data class UserEntity (
     @PrimaryKey(autoGenerate = true) val userId: Long,
@@ -13,6 +12,5 @@ data class UserEntity (
     val ageOnCreation: Int,
     val gender: Int,
     val weight: Int,
-    val unit: MeasureUnit,
-    var name: String = ""
+    val unit: MeasureUnit
 )

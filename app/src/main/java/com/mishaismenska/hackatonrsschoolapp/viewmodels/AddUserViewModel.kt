@@ -7,7 +7,7 @@ import android.os.Handler
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
-import com.mishaismenska.hackatonrsschoolapp.data.models.Gender
+import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Gender
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddUserBinding
 import com.mishaismenska.hackatonrsschoolapp.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.interfaces.UserInputValidatingManager
