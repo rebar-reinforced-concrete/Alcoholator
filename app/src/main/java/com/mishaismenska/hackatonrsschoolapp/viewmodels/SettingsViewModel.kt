@@ -22,7 +22,8 @@ class SettingsViewModel @Inject constructor(
     val context: Context
 ) : ViewModel() {
 
-    val format = MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
+    private val format =
+        MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
 
     fun resetDB() {
         viewModelScope.launch(Dispatchers.IO) {

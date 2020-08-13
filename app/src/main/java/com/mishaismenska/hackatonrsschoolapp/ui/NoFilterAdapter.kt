@@ -1,7 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.Filter
 import androidx.annotation.LayoutRes
@@ -10,7 +9,7 @@ class NoFilterAdapter(
     context: Context,
     @LayoutRes resource: Int,
     val items: Array<String>
-) : ArrayAdapter<String>(context, resource, items){
+) : ArrayAdapter<String>(context, resource, items) {
 
     override fun getFilter(): Filter {
         return DisabledFilter()
@@ -23,6 +22,7 @@ class NoFilterAdapter(
             result.count = items.size
             return result
         }
+
         override fun publishResults(arg0: CharSequence, arg1: FilterResults) {
             notifyDataSetChanged()
         }

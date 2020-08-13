@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.preference.PreferenceManager
@@ -17,7 +16,7 @@ const val NOTIFICATION_ID = 13
 
 class ScheduledBroadcastReceiver : BroadcastReceiver() {
 
-    private fun createNotificationChanel(context: Context){
+    private fun createNotificationChanel(context: Context) {
         val name = context.getString(R.string.sober_channel_name)
         val descriptionText = context.getString(R.string.sober_chanel_description)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
@@ -29,15 +28,19 @@ class ScheduledBroadcastReceiver : BroadcastReceiver() {
         notificationManager.createNotificationChannel(channel)
     }
 
-    private fun getStartActivityPendingIntent(context: Context) : PendingIntent{
+    private fun getStartActivityPendingIntent(context: Context): PendingIntent {
         val startMainActivityIntent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         return PendingIntent.getActivity(context, 0, startMainActivityIntent, 0)
     }
 
-    private fun getNotificationBuilder(context: Context, pendingIntent: PendingIntent): NotificationCompat.Builder{
-        val name = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.name_key), "fella")
+    private fun getNotificationBuilder(
+        context: Context,
+        pendingIntent: PendingIntent
+    ): NotificationCompat.Builder {
+        val name = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(context.getString(R.string.name_key), "fella")
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_local_bar_24)
             .setContentTitle(context.getString(R.string.sober_notification_title))

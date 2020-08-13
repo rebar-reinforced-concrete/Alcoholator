@@ -1,25 +1,19 @@
 package com.mishaismenska.hackatonrsschoolapp.ui
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context.ALARM_SERVICE
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
-import androidx.preference.PreferenceManager
-import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.App
 import com.mishaismenska.hackatonrsschoolapp.R
-import com.mishaismenska.hackatonrsschoolapp.data.models.Behaviours
+import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Behaviours
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
 import com.mishaismenska.hackatonrsschoolapp.data.models.User
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserState
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentMainBinding
+import com.mishaismenska.hackatonrsschoolapp.interfaces.AppNotificationManager
 import com.mishaismenska.hackatonrsschoolapp.viewmodels.MainViewModel
 import java.time.Duration
 import javax.inject.Inject
@@ -28,22 +22,15 @@ class MainFragment : Fragment(), DbResultsListener {
 
     @Inject
     lateinit var viewModel: MainViewModel
+
+    @Inject
+    lateinit var notificationManager: AppNotificationManager
     private lateinit var binding: FragmentMainBinding
     private lateinit var drinksAdapter: DrinksRecyclerAdapter
-    private val alarmManager by lazy { (requireContext().getSystemService(ALARM_SERVICE) as AlarmManager) }
-    private val pendingIntent: PendingIntent by lazy {
-        PendingIntent.getBroadcast(
-            context,
-            1,
-            Intent(context, ScheduledBroadcastReceiver::class.java),
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().application as App).appComponent.inject(this)
-
     }
 
     override fun onCreateView(
@@ -52,19 +39,46 @@ class MainFragment : Fragment(), DbResultsListener {
     ): View? {
         viewModel.getUser(this)
         binding = FragmentMainBinding.inflate(inflater, container, false)
+        viewModel.isAddDrinkFabVisible.observe(viewLifecycleOwner, Observer {
+            //TODO: show message about drunkenness state
+            if (it != null && it) {
+                binding.addDrinkFab.visibility = View.VISIBLE
+            } else {
+                binding.addDrinkFab.visibility = View.INVISIBLE
+            }
+        })
+        setHasOptionsMenu(true)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         drinksAdapter = DrinksRecyclerAdapter(
             UserState(0.0, Duration.ZERO, Behaviours.SOBER)
         )
         binding.mainRecycler.adapter = drinksAdapter
         binding.addDrinkFab.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_fragment_container, AddDrinkFragment()).setTransition(
-                FragmentTransaction.TRANSIT_FRAGMENT_OPEN).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null)
-                .commit()
+            openAddDrinkFragment()
         }
-        setHasOptionsMenu(true)
-        return binding.root
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //unnecessary stuff, replace with navigation
+    private fun openAddDrinkFragment() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment_container, AddDrinkFragment()).setTransition(
+                FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+            ).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null)
+            .commit()
+    }
+
+    private fun openSettings() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment_container, AppSettingsFragment())
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .addToBackStack(null).commit()
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_prefs, menu)
@@ -74,59 +88,33 @@ class MainFragment : Fragment(), DbResultsListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment_container, AppSettingsFragment()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .addToBackStack(null).commit()
+                openSettings()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun checkIfEmpty(data: List<Drink>?): Boolean {
+    //TODO: move to view model
+    private fun checkIfEmpty(data: List<Drink>?) {
         return if (data.isNullOrEmpty()) {
             binding.mainRecycler.visibility = View.GONE
             binding.mainRecyclerEmptyTextView.visibility = View.VISIBLE
-            true
         } else {
             binding.mainRecycler.visibility = View.VISIBLE
             binding.mainRecyclerEmptyTextView.visibility = View.GONE
-            false
         }
     }
 
-    private var drinksChanged = false
+    //TODO: replace with LiveData<User>
     override fun onUserLoaded(user: User) {
         user.drinks.observe(viewLifecycleOwner, Observer { it ->
-            if (!checkIfEmpty(it)) {
-                drinksAdapter.drinks = it
-                viewModel.updateState()
-                drinksChanged = true
-            } else binding.addDrinkFab.visibility = View.VISIBLE
-            viewModel.userState.observe(viewLifecycleOwner, Observer { state ->
-                drinksAdapter.userState = state
-                if(state.alcoholConcentration > 11.349) {
-                    if(binding.addDrinkFab.visibility != View.GONE) {
-                        binding.addDrinkFab.visibility = View.GONE
-                        val name = PreferenceManager.getDefaultSharedPreferences(context).getString(requireContext().getString(R.string.name_key), "fella")
-                        Snackbar.make(binding.root, getString(R.string.too_drunk, name), Snackbar.LENGTH_LONG).show()
-                    }
-                } else{
-                    binding.addDrinkFab.visibility = View.VISIBLE
-                }
-                if (state != null && state.alcoholConcentration > 0.001 && drinksChanged) {
-                    val timeToTrigger =
-                        System.currentTimeMillis() + viewModel.userState.value!!.soberTime.toMillis()
-                    alarmManager.cancel(pendingIntent)
-                    alarmManager.setAlarmClock(
-                        AlarmManager.AlarmClockInfo(
-                            timeToTrigger,
-                            pendingIntent
-                        ), pendingIntent
-                    )
-                    drinksChanged = false
-                }
-            })
+            viewModel.createState() //unnecessary here. remove
+            checkIfEmpty(it)
+            drinksAdapter.drinks = it
+        })
+        viewModel.userState.observe(viewLifecycleOwner, Observer { state ->
+            drinksAdapter.userState = state
         })
     }
 }

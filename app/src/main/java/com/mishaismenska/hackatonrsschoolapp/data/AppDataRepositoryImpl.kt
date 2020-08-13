@@ -7,9 +7,9 @@ import androidx.lifecycle.Transformations
 import com.mishaismenska.hackatonrsschoolapp.data.entities.DrinkEntity
 import com.mishaismenska.hackatonrsschoolapp.data.entities.UserEntity
 import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
-import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkType
-import com.mishaismenska.hackatonrsschoolapp.data.models.Gender
 import com.mishaismenska.hackatonrsschoolapp.data.models.User
+import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.DrinkPresets
+import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Gender
 import com.mishaismenska.hackatonrsschoolapp.interfaces.AppDataRepository
 import java.time.LocalDate
 import java.time.Period
@@ -26,10 +26,8 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
 
 
     override suspend fun getUserWithDrinks(): User {
-        if (currentUserEntity == null)
-            currentUserEntity = dao.getUser().last()
-        if (drinks == null)
-            drinks = dao.getDrinks()
+        if (currentUserEntity == null) currentUserEntity = dao.getUser().last()
+        if (drinks == null) drinks = dao.getDrinks()
         val userAge =
             currentUserEntity!!.ageOnCreation + Period.between(
                 currentUserEntity!!.createdOn,
@@ -46,7 +44,7 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
     private fun drinkEntityToModel(entities: List<DrinkEntity>): List<Drink> {
         return entities.map { entity ->
             Drink(
-                DrinkType.values()[entity.type],
+                DrinkPresets.values()[entity.type],
                 entity.dateTaken,
                 Measure(entity.volume, entity.unit),
                 entity.eaten
