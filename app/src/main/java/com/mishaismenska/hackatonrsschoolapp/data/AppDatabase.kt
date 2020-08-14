@@ -5,12 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.mishaismenska.hackatonrsschoolapp.data.entities.DrinkEntity
-import com.mishaismenska.hackatonrsschoolapp.data.entities.UserEntity
+import com.mishaismenska.hackatonrsschoolapp.data.interfaces.UserWithDrinksDao
+import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkDataModel
+import com.mishaismenska.hackatonrsschoolapp.data.models.UserDataModel
 
 const val DBNAME = "AlcoBase"
 
-@Database(entities = [UserEntity::class, DrinkEntity::class], version = 1, exportSchema = false)
+@Database(entities = [UserDataModel::class, DrinkDataModel::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun dao(): UserWithDrinksDao

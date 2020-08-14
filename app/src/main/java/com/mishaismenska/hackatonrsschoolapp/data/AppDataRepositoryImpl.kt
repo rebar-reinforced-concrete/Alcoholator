@@ -2,17 +2,16 @@ package com.mishaismenska.hackatonrsschoolapp.data
 
 import android.content.Context
 import android.icu.util.Measure
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import com.mishaismenska.hackatonrsschoolapp.data.entities.DrinkEntity
-import com.mishaismenska.hackatonrsschoolapp.data.entities.UserEntity
-import com.mishaismenska.hackatonrsschoolapp.data.models.Drink
-import com.mishaismenska.hackatonrsschoolapp.data.models.User
-import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.DrinkPresets
-import com.mishaismenska.hackatonrsschoolapp.data.staticPresets.Gender
-import com.mishaismenska.hackatonrsschoolapp.interfaces.AppDataRepository
+import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkDataModel
+import com.mishaismenska.hackatonrsschoolapp.data.models.UserDataModel
+import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.Gender
+import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
+import com.mishaismenska.hackatonrsschoolapp.data.models.UserStateDataModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+
 import java.time.LocalDate
-import java.time.Period
 import java.time.ZoneOffset
 import javax.inject.Inject
 
@@ -21,75 +20,39 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
     AppDataRepository {
 
     private val dao = AppDatabase.getDatabase(context).dao()
-    private var currentUserEntity: UserEntity? = null
-    private var drinks: LiveData<List<DrinkEntity>>? = null
 
-
-    override suspend fun getUserWithDrinks(): User {
-        if (currentUserEntity == null) currentUserEntity = dao.getUser().last()
-        if (drinks == null) drinks = dao.getDrinks()
-        val userAge =
-            currentUserEntity!!.ageOnCreation + Period.between(
-                currentUserEntity!!.createdOn,
-                LocalDate.now()
-            ).years
-        return User(
-            userAge,
-            Measure(currentUserEntity!!.weight, currentUserEntity!!.unit),
-            Gender.values()[currentUserEntity!!.gender],
-            Transformations.map(drinks!!) { list -> drinkEntityToModel(list) }
-        )
+    override suspend fun getUser(): Flow<List<UserDataModel>> {
+        return dao.getUser()
     }
 
-    private fun drinkEntityToModel(entities: List<DrinkEntity>): List<Drink> {
-        return entities.map { entity ->
-            Drink(
-                DrinkPresets.values()[entity.type],
-                entity.dateTaken,
-                Measure(entity.volume, entity.unit),
-                entity.eaten
-            )
-        }
+    override suspend fun getDrinks(): Flow<List<DrinkDataModel>> {
+        return dao.getDrinks()
     }
 
-    override suspend fun addDrink(drink: Drink) {
-        if (currentUserEntity == null)
-            currentUserEntity = dao.getUser().last()
-        currentUserEntity?.let {
+    override suspend fun addDrink(drinkDomainModel: DrinkDomainModel) {
+        dao.getUser().collect{
             dao.insertDrink(
-                DrinkEntity(
-                    drink.date.toEpochSecond(ZoneOffset.UTC),
-                    it.userId,
-                    drink.type.ordinal,
-                    drink.date,
-                    drink.volume.number as Int,
-                    drink.volume.unit,
-                    drink.eaten
+                DrinkDataModel(
+                    drinkDomainModel.date.toEpochSecond(ZoneOffset.UTC),
+                    it[0].userId,
+                    drinkDomainModel.type.ordinal,
+                    drinkDomainModel.date,
+                    drinkDomainModel.volume.number as Int,
+                    drinkDomainModel.volume.unit,
+                    drinkDomainModel.eaten
                 )
             )
         }
-
     }
 
-    override suspend fun deleteDrink(drink: Drink) {
-        currentUserEntity?.let {
-            dao.deleteDrink(
-                DrinkEntity(
-                    drink.date.toEpochSecond(ZoneOffset.UTC),
-                    it.userId,
-                    drink.type.ordinal,
-                    drink.date,
-                    drink.volume.number as Int,
-                    drink.volume.unit,
-                    drink.eaten
-                )
-            )
+    override suspend fun deleteDrink(recyclerPosition: Int) { dao.getDrinks().collect {
+            dao.deleteDrink(it[recyclerPosition])
         }
     }
 
     override suspend fun addUser(age: Int, weight: Measure, gender: Gender) {
         dao.insertUser(
-            UserEntity(
+            UserDataModel(
                 LocalDate.now().toEpochDay(),
                 LocalDate.now(),
                 age,
@@ -98,7 +61,6 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
                 weight.unit
             )
         )
-        currentUserEntity = dao.getUser().last()
     }
 
     override suspend fun reset(){

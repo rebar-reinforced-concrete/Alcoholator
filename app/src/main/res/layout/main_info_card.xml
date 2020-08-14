@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView tools:context=".ui.MainActivity"
+<com.google.android.material.card.MaterialCardView tools:context=".presentation.MainActivity"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     app:cardBackgroundColor="@color/colorPrimaryVariant"

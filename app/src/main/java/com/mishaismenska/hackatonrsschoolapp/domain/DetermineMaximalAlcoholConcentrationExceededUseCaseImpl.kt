@@ -1,0 +1,7 @@
+package com.mishaismenska.hackatonrsschoolapp.domain
+
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CalculationManager
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DetermineMaximalAlcoholConcentrationExceededUseCase
+import javax.inject.Inject
+
+class DetermineMaximalAlcoholConcentrationExceededUseCaseImpl @Inject constructor(private val calculationManager: CalculationManager) : DetermineMaximalAlcoholConcentrationExceededUseCase { override fun determineIfUserStillCanDrink(alcoholConcentration: Double): Boolean = calculationManager.determineIfUserStillCanDrink(alcoholConcentration) }
