@@ -1,5 +1,5 @@
 package com.mishaismenska.hackatonrsschoolapp.domain.interfaces
 
-interface DetermineMaximalAlcoholConcentrationExceededUseCase {
+interface CheckIfConcentrationExceededUseCase {
     fun determineIfUserCanDrink(alcoholConcentration: Double): Boolean
 }

@@ -45,7 +45,7 @@ class GetStateUseCaseImpl @Inject constructor(
                 )
             )
             userStateCache.storeUserState(
-                //TODO: move to data layer
+                // TODO: move to data layer
                 UserStateDataModel(
                     userStateDomainModel.alcoholConcentration,
                     userStateDomainModel.alcoholDepletionDuration,
@@ -61,7 +61,7 @@ class GetStateUseCaseImpl @Inject constructor(
                 )
             )
             userStateCache.storeUserState(
-                //TODO: move to data layer
+                // TODO: move to data layer
                 UserStateDataModel(
                     newState.alcoholConcentration,
                     newState.alcoholDepletionDuration,

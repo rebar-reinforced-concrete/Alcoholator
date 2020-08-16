@@ -1,7 +1,31 @@
 package com.mishaismenska.hackatonrsschoolapp.di
 
-import com.mishaismenska.hackatonrsschoolapp.domain.*
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.*
+import com.mishaismenska.hackatonrsschoolapp.domain.AddDrinkUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.AddUserUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.CheckIfMaxConcentrationExceededUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.GetDrinksUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.GetStateUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.GetUserExistenceUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.GetUserForSettingsUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.GetUserWithDrinksUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.RemoveDrinkUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.ResetDataBaseUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.SetUserNameUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.SetUserWeightUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.UpdateUserGenderUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddDrinkUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddUserUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CalculationManager
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CheckIfConcentrationExceededUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetDrinksUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetStateUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserExistenceUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserWIthDrinksUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.RemoveDrinkUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ResetDataBaseUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserGenderUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserNameUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserWeightUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.logic.CalculationManagerImpl
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import dagger.Binds
@@ -49,8 +73,8 @@ interface DomainModule {
 
     @Binds
     fun provideDetermineMaximalAlcoholConcentrationExceededUseCase(
-        determineMaximalAlcoholConcentrationExceededUseCaseImpl: DetermineMaximalAlcoholConcentrationExceededUseCaseImpl
-    ): DetermineMaximalAlcoholConcentrationExceededUseCase
+        checkIfMaxConcentrationExceededUseCaseImpl: CheckIfMaxConcentrationExceededUseCaseImpl
+    ): CheckIfConcentrationExceededUseCase
 
     @Binds
     fun provideExistenceUseCase(existenceUseCase: GetUserExistenceUseCaseImpl): GetUserExistenceUseCase

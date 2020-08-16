@@ -15,7 +15,7 @@ import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkUIModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserStateUIModel
 import java.time.Duration
 import java.time.LocalDateTime
-import java.util.*
+import java.util.Locale
 
 class DrinksRecyclerAdapter(
     initialUserStateUIMode: UserStateUIModel
@@ -82,21 +82,21 @@ class DrinksRecyclerAdapter(
             }
         }
 
-        fun bind(DrinkUIModel: DrinkUIModel, unit: Boolean) {
-            binding.drinkName.text = drinkTypes[DrinkUIModel.type.ordinal]
-            binding.dateTextView.text = convertDate(DrinkUIModel.dateTaken)
+        fun bind(drinkUIModel: DrinkUIModel, isImperial: Boolean) {
+            binding.drinkName.text = drinkTypes[drinkUIModel.type.ordinal]
+            binding.dateTextView.text = convertDate(drinkUIModel.dateTaken)
             binding.drinkDescription.text =
-                if (unit)
+                if (isImperial)
                     MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
                         .format(
                             Measure(
-                                mlToOz(DrinkUIModel.volume.number as Int),
+                                mlToOz(drinkUIModel.volume.number as Int),
                                 MeasureUnit.FLUID_OUNCE
                             )
                         )
                 else
                     MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
-                        .format(DrinkUIModel.volume)
+                        .format(drinkUIModel.volume)
         }
     }
 

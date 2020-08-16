@@ -22,7 +22,7 @@ class CalculationManagerImpl @Inject constructor() :
                 getMaxConcentrationForDrink(
                     userWithDrinksDomainModel,
                     drink
-                ) //TODO: a bit stupid, just a tad though)
+                ) // TODO: a bit stupid, just a tad though)
             val hourDifference =
                 Duration.between(drink.dateTaken, LocalDateTime.now()).toMinutes().toDouble() / 60.0
             currentDrinkConcentration -= hourDifference * 0.15
@@ -46,7 +46,6 @@ class CalculationManagerImpl @Inject constructor() :
         val newConcentration = oldStateDomainModel.alcoholConcentration - hourDifference * 0.15
         return UserStateDomainModel(newConcentration, newSoberingTime, currentTime)
     }
-
 
     override fun getBehaviourFromConcentration(concentration: Double) =
         when {

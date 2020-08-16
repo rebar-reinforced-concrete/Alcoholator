@@ -4,9 +4,9 @@ import android.icu.util.Measure
 import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSettingsUIModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
-import javax.inject.Inject
 
 class GetUserForSettingsUseCaseImpl @Inject constructor(private val appDataRepository: AppDataRepository) :
     GetUserForSettingsUseCase {

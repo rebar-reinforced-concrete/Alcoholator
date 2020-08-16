@@ -10,9 +10,9 @@ import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddUserBinding
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddUserUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.UserInputValidatingManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSubmissionUIModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class AddUserViewModel @Inject constructor(
     private val userInputValidatingManager: UserInputValidatingManager,

@@ -1,8 +1,10 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels
 
 import android.util.Log
-import androidx.lifecycle.*
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DetermineMaximalAlcoholConcentrationExceededUseCase
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CheckIfConcentrationExceededUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetDrinksUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetStateUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserExistenceUseCase
@@ -10,16 +12,17 @@ import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AppNotifica
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkUIModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserStateUIModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.Behavior
+import java.util.Timer
+import java.util.TimerTask
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.util.*
-import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val getDrinksUseCase: GetDrinksUseCase,
     private val getStateUseCase: GetStateUseCase,
-    private val determineMaximalAlcoholConcentrationExceededUseCase: DetermineMaximalAlcoholConcentrationExceededUseCase,
+    private val checkIfConcentrationExceededUseCase: CheckIfConcentrationExceededUseCase,
     private val appNotificationManager: AppNotificationManager,
     private val existenceUseCase: GetUserExistenceUseCase
 ) : ViewModel() {
@@ -36,10 +39,11 @@ class MainViewModel @Inject constructor(
             val drinksFlow = getDrinksUseCase.getDrinks()
             var index = 0
             drinksFlow.collect {
-                if(existenceUseCase.checkIfUserExists()){
+                if (existenceUseCase.checkIfUserExists()) {
                     Log.d("Collect", this@MainViewModel.toString() + "collect number: " + index.toString())
-                    if(index == 0){
+                    if (index == 0) {
                         timer = Timer()
+                        // TODO: move to constants
                         timer?.schedule(UpdateStateTimerTask(), 60000, 60000)
                     }
                     checkIfEmpty(it)
@@ -47,7 +51,6 @@ class MainViewModel @Inject constructor(
                     drinks.postValue(it)
                     index++
                 }
-
             }
         }
     }
@@ -64,17 +67,17 @@ class MainViewModel @Inject constructor(
 
     private fun determineButtonVisibility(concentration: Double) {
         val newButtonState =
-            determineMaximalAlcoholConcentrationExceededUseCase.determineIfUserCanDrink(concentration)
+            checkIfConcentrationExceededUseCase.determineIfUserCanDrink(concentration)
         if (isAddDrinkFabVisible.value != newButtonState)
             isAddDrinkFabVisible.postValue(newButtonState)
     }
 
     private fun updateState(forceRecalculation: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            val newState = getStateUseCase.getState(forceRecalculation) //crashes here
+            val newState = getStateUseCase.getState(forceRecalculation) // crashes here
             userState.postValue(newState)
             determineButtonVisibility(newState.alcoholConcentration)
-            if(forceRecalculation && newState.behavior != Behavior.SOBER){
+            if (forceRecalculation && newState.behavior != Behavior.SOBER) {
                 appNotificationManager.scheduleBecameSoberNotification(newState.alcoholDepletionDuration)
             }
         }

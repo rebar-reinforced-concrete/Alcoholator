@@ -2,7 +2,6 @@ package com.mishaismenska.hackatonrsschoolapp.presentation
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -15,9 +14,8 @@ import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.SettingsViewModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.defaultGenderId
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
-
 
 class AppSettingsFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -79,5 +77,4 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
             }
         }
     }
-
 }

@@ -9,7 +9,7 @@ class UserStateCacheImpl @Inject constructor() : UserStateCache {
     private var userStateDataModel: UserStateDataModel? = null
 
     override fun storeUserState(userStateDataModel: UserStateDataModel) {
-       this.userStateDataModel = userStateDataModel
+        this.userStateDataModel = userStateDataModel
     }
 
     override fun retrieveUserState(): UserStateDataModel? {

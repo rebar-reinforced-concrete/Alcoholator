@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 
-
 @Entity(tableName = "drinks")
 data class DrinkDataModel(
     @PrimaryKey(autoGenerate = true) var drinkId: Long,

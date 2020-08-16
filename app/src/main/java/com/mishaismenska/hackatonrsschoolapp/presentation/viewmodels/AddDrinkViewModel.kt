@@ -9,16 +9,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.UnitConverter.mlToOz
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPreset
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.VolumePreset
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddDrinkBinding
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddDrinkUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkSubmissionUIModel
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPreset
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.VolumePreset
+import java.time.LocalDateTime
+import java.util.Locale
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import java.util.*
-import javax.inject.Inject
 
 class AddDrinkViewModel @Inject constructor(
     private val addDrinkUseCase: AddDrinkUseCase,
@@ -28,7 +28,7 @@ class AddDrinkViewModel @Inject constructor(
     val formatter: MeasureFormat =
         MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.NARROW)
     val isFragmentOpened = MutableLiveData(true)
-    //TODO: move to usecase
+    // TODO: move to usecase
     private val isImperial = Locale.getDefault().country == "US"
 
     fun addDrink(binding: FragmentAddDrinkBinding) {

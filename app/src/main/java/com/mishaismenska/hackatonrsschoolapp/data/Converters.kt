@@ -45,7 +45,7 @@ class Converters {
         return if (unitString == null) {
             null
         } else {
-            MeasureUnit.getAvailable().find { it.toString() == unitString } //FIXME
+            MeasureUnit.getAvailable().find { it.toString() == unitString } // FIXME
         }
     }
 }

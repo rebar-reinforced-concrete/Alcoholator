@@ -8,4 +8,3 @@ data class UserDomainModel(
     val weight: Measure,
     val gender: Gender
 )
-

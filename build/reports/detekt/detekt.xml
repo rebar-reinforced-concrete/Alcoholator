@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/presentation/viewmodels/AddDrinkViewModel.kt">
+	<error line="73" column="9" severity="warning" message="The function parseDrinkType appears to be too complex (19). Defined complexity threshold for methods is set to &apos;15&apos;" source="detekt.ComplexMethod" />
+	<error line="42" column="13" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+	<error line="43" column="13" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+	<error line="44" column="13" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+	<error line="45" column="13" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+	<error line="31" column="5" severity="warning" message="This comment contains text that has been defined as forbidden in detekt." source="detekt.ForbiddenComment" />
+	<error line="78" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="79" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="80" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="81" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="82" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="83" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="84" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="85" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="86" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="87" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="88" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="89" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="90" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="91" column="47" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/di/DomainModule.kt">
+	<error line="36" column="11" severity="warning" message="Interface &apos;DomainModule&apos; with &apos;14&apos; functions detected. Defined threshold inside interfaces is set to &apos;11&apos;" source="detekt.TooManyFunctions" />
+	<error line="56" column="5" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+	<error line="71" column="5" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/data/interfaces/UserWithDrinksDao.kt">
+	<error line="15" column="11" severity="warning" message="Interface &apos;UserWithDrinksDao&apos; with &apos;11&apos; functions detected. Defined threshold inside interfaces is set to &apos;11&apos;" source="detekt.TooManyFunctions" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/presentation/DrinksRecyclerAdapter.kt">
+	<error line="85" column="18" severity="warning" message="Function parameter names should match the pattern: [a-z][A-Za-z0-9]*" source="detekt.FunctionParameterNaming" />
+	<error line="78" column="23" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="79" column="20" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="79" column="24" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="80" column="20" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="80" column="26" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="113" column="70" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/presentation/MainFragment.kt">
+	<error line="59" column="17" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+	<error line="25" column="33" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+	<error line="58" column="17" severity="warning" message="This comment contains text that has been defined as forbidden in detekt." source="detekt.ForbiddenComment" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/presentation/AddUserFragment.kt">
+	<error line="39" column="17" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/presentation/AddDrinkFragment.kt">
+	<error line="61" column="21" severity="warning" message="This comment contains text that has been defined as forbidden in detekt." source="detekt.ForbiddenComment" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/presentation/viewmodels/MainViewModel.kt">
+	<error line="25" column="5" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+	<error line="46" column="25" severity="warning" message="This comment contains text that has been defined as forbidden in detekt." source="detekt.ForbiddenComment" />
+	<error line="47" column="65" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="47" column="72" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/presentation/UserInputValidatingManagerImpl.kt">
+	<error line="25" column="27" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="36" column="30" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="36" column="34" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/domain/logic/CalculationManagerImpl.kt">
+	<error line="68" column="13" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+	<error line="25" column="19" severity="warning" message="This comment contains text that has been defined as forbidden in detekt." source="detekt.ForbiddenComment" />
+	<error line="27" column="97" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="28" column="59" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="33" column="49" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="33" column="56" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="45" column="64" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="46" column="92" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="68" column="92" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="68" column="129" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="68" column="138" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="70" column="58" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="70" column="67" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/domain/GetStateUseCaseImpl.kt">
+	<error line="48" column="17" severity="warning" message="This comment contains text that has been defined as forbidden in detekt." source="detekt.ForbiddenComment" />
+	<error line="64" column="17" severity="warning" message="This comment contains text that has been defined as forbidden in detekt." source="detekt.ForbiddenComment" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/domain/DetermineMaximalAlcoholConcentrationExceededUseCaseImpl.kt">
+	<error line="7" column="1" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/domain/RemoveDrinkUseCaseImpl.kt">
+	<error line="7" column="1" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/domain/AddUserUseCaseImpl.kt">
+	<error line="10" column="1" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+	<error line="12" column="9" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+	<error line="21" column="27" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/domain/ResetDataBaseUseCaseImpl.kt">
+	<error line="7" column="1" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/domain/SetUserWeightUseCaseImpl.kt">
+	<error line="7" column="1" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/domain/GetDrinksUseCaseImpl.kt">
+	<error line="15" column="13" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/di/PresentationModule.kt">
+	<error line="13" column="5" severity="warning" message="Line detected that is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/staticPresets/DrinkPreset.kt">
+	<error line="4" column="11" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="8" column="16" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="9" column="14" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="10" column="16" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="15" column="20" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="16" column="22" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="21" column="22" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="26" column="15" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="31" column="16" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="36" column="21" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="41" column="22" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="46" column="15" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="50" column="12" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="54" column="19" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="58" column="13" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="59" column="12" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="63" column="15" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="64" column="12" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/staticPresets/VolumePreset.kt">
+	<error line="7" column="18" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="8" column="25" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="9" column="24" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="10" column="18" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="11" column="30" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="12" column="28" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="13" column="30" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="14" column="26" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="15" column="27" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/staticPresets/AppConstants.kt">
+	<error line="4" column="56" severity="warning" message="This comment contains text that has been defined as forbidden in detekt." source="detekt.ForbiddenComment" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/staticPresets/Behavior.kt">
+	<error line="5" column="19" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="6" column="14" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="7" column="20" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="10" column="17" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="11" column="14" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="12" column="10" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+</file>
+<file name="/home/mishaismenska/AndroidStudioProjects/skoobidy-woop9/Alcoholator/app/src/main/java/com/mishaismenska/hackatonrsschoolapp/data/UnitConverter.kt">
+	<error line="4" column="35" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="5" column="35" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="6" column="34" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+</file>
+</checkstyle>

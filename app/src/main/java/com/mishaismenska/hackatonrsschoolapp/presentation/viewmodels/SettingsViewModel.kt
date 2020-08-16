@@ -21,11 +21,11 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserWeightUseC
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSettingsUIModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.minimalWeightDifferenceMargin
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.abs
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SettingsViewModel @Inject constructor(
     private val getUserUseCase: GetUserForSettingsUseCase,
@@ -41,7 +41,6 @@ class SettingsViewModel @Inject constructor(
     val userLiveData: LiveData<UserSettingsUIModel> = liveData {
         emit(getUserUseCase.getUser())
     }
-
 
     fun loadName(namePreference: EditTextPreference) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(
@@ -113,5 +112,4 @@ class SettingsViewModel @Inject constructor(
             updateUserGenderUseCase.setUserGender(genderId!!.toInt())
         }
     }
-
 }

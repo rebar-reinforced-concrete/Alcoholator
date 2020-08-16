@@ -1,5 +1,5 @@
 package com.mishaismenska.hackatonrsschoolapp.domain.interfaces
 
 interface GendersProvider {
-    fun provideGenders() : Array<String>
+    fun provideGenders(): Array<String>
 }

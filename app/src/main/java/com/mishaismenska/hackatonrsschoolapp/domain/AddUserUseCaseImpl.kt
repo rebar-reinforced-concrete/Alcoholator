@@ -7,7 +7,10 @@ import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSubmissionU
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.Gender
 import javax.inject.Inject
 
-class AddUserUseCaseImpl @Inject constructor(private val appDataRepository: AppDataRepository, private val gendersProvider: GendersProvider) : AddUserUseCase {
+class AddUserUseCaseImpl @Inject constructor(
+    private val appDataRepository: AppDataRepository,
+    private val gendersProvider: GendersProvider
+) : AddUserUseCase {
     override suspend fun addUser(userSubmissionUIModel: UserSubmissionUIModel) {
         appDataRepository.addUser(userSubmissionUIModel.age, userSubmissionUIModel.weight, parseGender(userSubmissionUIModel.gender))
     }

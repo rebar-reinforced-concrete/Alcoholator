@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.time.LocalDate
 
 @Entity(tableName = "user")
-data class UserDataModel (
+data class UserDataModel(
     @PrimaryKey(autoGenerate = true) val userId: Long,
     val createdOn: LocalDate,
     val ageOnCreation: Int,
