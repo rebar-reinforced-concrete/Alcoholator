@@ -38,10 +38,10 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
         dao.getUser().take(1).collect{
             dao.insertDrink(
                 DrinkDataModel(
-                    drinkDomainModel.date.toEpochSecond(ZoneOffset.UTC),
+                    drinkDomainModel.dateTaken.toEpochSecond(ZoneOffset.UTC),
                     it[0].userId,
                     drinkDomainModel.type.ordinal,
-                    drinkDomainModel.date,
+                    drinkDomainModel.dateTaken,
                     drinkDomainModel.volume.number as Int,
                     drinkDomainModel.volume.unit,
                     drinkDomainModel.eaten
@@ -71,7 +71,7 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
     }
 
     override suspend fun setUserName(newName: String) {
-        dao.updateName(newName)
+        dao.setName(newName)
     }
 
     override suspend fun reset() {
@@ -79,11 +79,11 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
         dao.resetDrinks()
     }
 
-    override suspend fun updateWeight(newValue: Int) {
-        dao.updateWeight(newValue)
+    override suspend fun setWeight(newValue: Int) {
+        dao.setWeight(newValue)
     }
 
-    override suspend fun updateGender(newValue: Int) {
-        dao.updateGender(newValue)
+    override suspend fun setGender(newValue: Int) {
+        dao.setGender(newValue)
     }
 }

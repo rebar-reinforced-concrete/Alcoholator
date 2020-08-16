@@ -5,5 +5,5 @@ import android.icu.util.Measure
 data class UserSettingsUIModel (
     val weight: Measure,
     val userName: String = "",
-    val gender: Int
+    val genderId: Int
 )

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mishaismenska.hackatonrsschoolapp.R
-import com.mishaismenska.hackatonrsschoolapp.data.mlToOz
+import com.mishaismenska.hackatonrsschoolapp.data.UnitConverter.mlToOz
 import com.mishaismenska.hackatonrsschoolapp.databinding.DrinkRecyclerItemBinding
 import com.mishaismenska.hackatonrsschoolapp.databinding.MainInfoCardBinding
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkUIModel
@@ -84,7 +84,7 @@ class DrinksRecyclerAdapter(
 
         fun bind(DrinkUIModel: DrinkUIModel, unit: Boolean) {
             binding.drinkName.text = drinkTypes[DrinkUIModel.type.ordinal]
-            binding.dateTextView.text = convertDate(DrinkUIModel.date)
+            binding.dateTextView.text = convertDate(DrinkUIModel.dateTaken)
             binding.drinkDescription.text =
                 if (unit)
                     MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
@@ -106,17 +106,17 @@ class DrinksRecyclerAdapter(
             binding.mainInfoCard.visibility = View.VISIBLE
             val resources = binding.root.context.resources
             val states = resources.getStringArray(R.array.drunk_states)
-            if (userState.soberTime.toMillis() > 0)
+            if (userState.alcoholDepletionDuration.toMillis() > 0)
                 binding.soberingTimer.text = resources.getString(
                     R.string.time_format,
-                    userState.soberTime.toHours(),
-                    userState.soberTime.toMinutes() % 60
+                    userState.alcoholDepletionDuration.toHours(),
+                    userState.alcoholDepletionDuration.toMinutes() % 60
                 )
             else binding.soberingTimer.text = resources.getString(R.string.you_are_sober)
             binding.alcoholConcentration.text = resources.getString(
                 R.string.concentration_format, "%.2f".format(userState.alcoholConcentration)
             )
-            binding.stateDescription.text = states[userState.behaviour.ordinal]
+            binding.stateDescription.text = states[userState.behavior.ordinal]
         }
     }
 }

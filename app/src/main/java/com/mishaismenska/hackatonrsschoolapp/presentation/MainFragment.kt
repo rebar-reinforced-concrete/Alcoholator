@@ -10,13 +10,9 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.R
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.Behaviours
-import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
-import com.mishaismenska.hackatonrsschoolapp.domain.models.UserDomainModel
-import com.mishaismenska.hackatonrsschoolapp.domain.models.UserStateDomainModel
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.Behavior
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentMainBinding
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AppNotificationManager
-import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkUIModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserStateUIModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.MainViewModel
 import java.time.Duration
@@ -36,7 +32,7 @@ class MainFragment : Fragment() {
         super.onCreate(savedInstanceState)
         (requireActivity().application as App).appComponent.inject(this)
         viewModel.getDrinks()
-        drinksAdapter = DrinksRecyclerAdapter(UserStateUIModel(0.0, Duration.ZERO, Behaviours.SOBER))
+        drinksAdapter = DrinksRecyclerAdapter(UserStateUIModel(0.0, Duration.ZERO, Behavior.SOBER))
         retainInstance = true
     }
 

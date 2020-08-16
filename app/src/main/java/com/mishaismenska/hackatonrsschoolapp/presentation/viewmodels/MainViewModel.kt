@@ -1,9 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels
 
-import android.content.Context
-import android.os.Handler
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.*
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DetermineMaximalAlcoholConcentrationExceededUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetDrinksUseCase
@@ -12,7 +9,7 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserExistenceU
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AppNotificationManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkUIModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserStateUIModel
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.Behaviours
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.Behavior
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -39,7 +36,7 @@ class MainViewModel @Inject constructor(
             val drinksFlow = getDrinksUseCase.getDrinks()
             var index = 0
             drinksFlow.collect {
-                if(existenceUseCase.checkExistence()){
+                if(existenceUseCase.checkIfUserExists()){
                     Log.d("Collect", this@MainViewModel.toString() + "collect number: " + index.toString())
                     if(index == 0){
                         timer = Timer()
@@ -67,7 +64,7 @@ class MainViewModel @Inject constructor(
 
     private fun determineButtonVisibility(concentration: Double) {
         val newButtonState =
-            determineMaximalAlcoholConcentrationExceededUseCase.determineIfUserStillCanDrink(concentration)
+            determineMaximalAlcoholConcentrationExceededUseCase.determineIfUserCanDrink(concentration)
         if (isAddDrinkFabVisible.value != newButtonState)
             isAddDrinkFabVisible.postValue(newButtonState)
     }
@@ -77,8 +74,8 @@ class MainViewModel @Inject constructor(
             val newState = getStateUseCase.getState(forceRecalculation) //crashes here
             userState.postValue(newState)
             determineButtonVisibility(newState.alcoholConcentration)
-            if(forceRecalculation && newState.behaviour != Behaviours.SOBER){
-                appNotificationManager.scheduleSoberNotification(newState.soberTime)
+            if(forceRecalculation && newState.behavior != Behavior.SOBER){
+                appNotificationManager.scheduleBecameSoberNotification(newState.alcoholDepletionDuration)
             }
         }
     }

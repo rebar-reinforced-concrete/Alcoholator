@@ -1,5 +1,5 @@
 package com.mishaismenska.hackatonrsschoolapp.domain.interfaces
 
-interface UpdateUserNameUseCase {
+interface SetUserNameUseCase {
     suspend fun updateUserName(newName: String)
 }

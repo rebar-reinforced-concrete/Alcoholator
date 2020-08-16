@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.R
-import com.mishaismenska.hackatonrsschoolapp.data.mlToOz
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.VolumePresets
+import com.mishaismenska.hackatonrsschoolapp.data.UnitConverter.mlToOz
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.VolumePreset
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddDrinkBinding
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.AddDrinkViewModel
 import java.util.*
@@ -49,8 +49,7 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
             viewModel.addDrink(binding)
         }
         viewModel.isFragmentOpened.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            if(!it)
-                parentFragmentManager.popBackStack()
+            if(!it) parentFragmentManager.popBackStack()
         })
     }
 
@@ -58,11 +57,12 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
         resources.getStringArray(R.array.volume_names).toMutableList().mapIndexed { index, s ->
             s.format(
                 viewModel.formatter.format(
+                    //TODO: move to usecase
                     if (Locale.getDefault().country == "US") Measure(
-                        mlToOz(VolumePresets.values()[index].volume.number as Int),
+                        mlToOz(VolumePreset.values()[index].volume.number as Int),
                         MeasureUnit.OUNCE
                     )
-                    else VolumePresets.values()[index]
+                    else VolumePreset.values()[index]
                 )
             )
         }.toTypedArray()

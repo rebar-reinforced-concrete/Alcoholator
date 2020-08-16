@@ -1,11 +1,11 @@
 package com.mishaismenska.hackatonrsschoolapp.domain
 
 import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.UpdateUserNameUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserNameUseCase
 import javax.inject.Inject
 
-class UpdateUserNameUseCaseImpl @Inject constructor(private val appDataRepository: AppDataRepository) :
-    UpdateUserNameUseCase {
+class SetUserNameUseCaseImpl @Inject constructor(private val appDataRepository: AppDataRepository) :
+    SetUserNameUseCase {
     override suspend fun updateUserName(newName: String) {
         appDataRepository.setUserName(newName)
     }

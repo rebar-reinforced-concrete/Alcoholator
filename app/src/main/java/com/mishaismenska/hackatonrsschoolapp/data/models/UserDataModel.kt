@@ -10,8 +10,8 @@ data class UserDataModel (
     @PrimaryKey(autoGenerate = true) val userId: Long,
     val createdOn: LocalDate,
     val ageOnCreation: Int,
-    val gender: Int,
-    val weight: Int,
+    val genderId: Int,
+    val weightValueInKg: Int,
     val unit: MeasureUnit,
     val userName: String
 )

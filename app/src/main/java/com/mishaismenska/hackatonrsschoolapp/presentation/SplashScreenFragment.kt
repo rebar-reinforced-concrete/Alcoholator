@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.PreferenceManager
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserExistenceUseCase
@@ -26,7 +25,7 @@ class SplashScreenFragment : Fragment() {
         super.onCreate(savedInstanceState)
         (requireActivity().application as App).appComponent.inject(this)
         lifecycleScope.launch(Dispatchers.IO){
-            if (existenceUseCase.checkExistence()){
+            if (existenceUseCase.checkIfUserExists()){
                 Log.d("Splash", "user exists")
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container, MainFragment()).commit()

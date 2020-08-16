@@ -13,8 +13,11 @@ class GetUserForSettingsUseCaseImpl @Inject constructor(private val appDataRepos
     override suspend fun getUser(): UserSettingsUIModel {
         var user: UserSettingsUIModel? = null
         appDataRepository.getUser().take(1).collect {
-            user =
-                UserSettingsUIModel(Measure(it[0].weight, it[0].unit), it[0].userName, it[0].gender)
+            user = UserSettingsUIModel(
+                Measure(it[0].weightValueInKg, it[0].unit),
+                it[0].userName,
+                it[0].genderId
+            )
         }
         return user!!
     }

@@ -36,13 +36,13 @@ interface DomainModule {
     fun provideResetDataBaseUseCase(resetDataBaseUseCaseImpl: ResetDataBaseUseCaseImpl): ResetDataBaseUseCase
 
     @Binds
-    fun provideUpdateWeightUseCase(updateWeightUseCaseImpl: UpdateWeightUseCaseImpl): UpdateWeightUseCase
+    fun provideSetUserWeightUseCase(setUserWeightUseCaseImpl: SetUserWeightUseCaseImpl): SetUserWeightUseCase
 
     @Binds
-    fun provideUpdateNameUseCase(updateNameUseCaseImpl: UpdateUserNameUseCaseImpl): UpdateUserNameUseCase
+    fun provideSetUserNameUseCase(setUserNameUseCaseImpl: SetUserNameUseCaseImpl): SetUserNameUseCase
 
     @Binds
-    fun provideUpdateUserGenderUseCase(updateUserGenderUseCaseImpl: UpdateUserGenderUseCaseImpl): UpdateUserGenderUseCase
+    fun provideSetUserGenderUseCase(setUserGenderUseCaseImpl: UpdateUserGenderUseCaseImpl): SetUserGenderUseCase
 
     @Binds
     fun provideGetUserWithDrinksUseCase(getUserWIthDrinksUseCaseImpl: GetUserWithDrinksUseCaseImpl): GetUserWIthDrinksUseCase

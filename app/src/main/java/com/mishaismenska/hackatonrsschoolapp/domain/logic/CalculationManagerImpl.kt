@@ -5,7 +5,7 @@ import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserStateDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserWithDrinksDomainModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.Behaviours
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.Behavior
 import java.time.Duration
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -22,9 +22,9 @@ class CalculationManagerImpl @Inject constructor() :
                 getMaxConcentrationForDrink(
                     userWithDrinksDomainModel,
                     drink
-                ) //fixme: a bit stupid, just a tad though)
+                ) //TODO: a bit stupid, just a tad though)
             val hourDifference =
-                Duration.between(drink.date, LocalDateTime.now()).toMinutes().toDouble() / 60.0
+                Duration.between(drink.dateTaken, LocalDateTime.now()).toMinutes().toDouble() / 60.0
             currentDrinkConcentration -= hourDifference * 0.15
             if (currentDrinkConcentration > 0) concentration += currentDrinkConcentration
         }
@@ -34,14 +34,14 @@ class CalculationManagerImpl @Inject constructor() :
         )
     }
 
-    override fun determineIfUserStillCanDrink(alcoholConcentration: Double): Boolean =
+    override fun determineIfUserCanDrink(alcoholConcentration: Double): Boolean =
         alcoholConcentration < AppConstants.maxPossibleAlcoholConcentration
 
     override fun updateState(oldStateDomainModel: UserStateDomainModel): UserStateDomainModel {
         val oldTime = oldStateDomainModel.lastUpdateTime
         val currentTime = LocalDateTime.now()
         val duration = Duration.between(oldTime, currentTime)
-        val newSoberingTime = oldStateDomainModel.soberTime.minus(duration)
+        val newSoberingTime = oldStateDomainModel.alcoholDepletionDuration.minus(duration)
         val hourDifference = duration.toMinutes().toDouble() / 60.0
         val newConcentration = oldStateDomainModel.alcoholConcentration - hourDifference * 0.15
         return UserStateDomainModel(newConcentration, newSoberingTime, currentTime)
@@ -50,15 +50,15 @@ class CalculationManagerImpl @Inject constructor() :
 
     override fun getBehaviourFromConcentration(concentration: Double) =
         when {
-            concentration < Behaviours.ALMOST_NORMAL.lowestConcentration -> Behaviours.SOBER
-            concentration < Behaviours.EUPHORIC.lowestConcentration -> Behaviours.ALMOST_NORMAL
-            concentration < Behaviours.DISINHIBITIONS.lowestConcentration -> Behaviours.EUPHORIC
-            concentration < Behaviours.EXPRESSIVENESS.lowestConcentration -> Behaviours.DISINHIBITIONS
-            concentration < Behaviours.STUPOR.lowestConcentration -> Behaviours.EXPRESSIVENESS
-            concentration < Behaviours.UNCONSCIOUS.lowestConcentration -> Behaviours.STUPOR
-            concentration < Behaviours.BLACKOUT.lowestConcentration -> Behaviours.UNCONSCIOUS
-            concentration < Behaviours.DEAD.lowestConcentration -> Behaviours.BLACKOUT
-            else -> Behaviours.DEAD
+            concentration < Behavior.ALMOST_NORMAL.lowestConcentration -> Behavior.SOBER
+            concentration < Behavior.EUPHORIC.lowestConcentration -> Behavior.ALMOST_NORMAL
+            concentration < Behavior.DISINHIBITIONS.lowestConcentration -> Behavior.EUPHORIC
+            concentration < Behavior.EXPRESSIVENESS.lowestConcentration -> Behavior.DISINHIBITIONS
+            concentration < Behavior.STUPOR.lowestConcentration -> Behavior.EXPRESSIVENESS
+            concentration < Behavior.UNCONSCIOUS.lowestConcentration -> Behavior.STUPOR
+            concentration < Behavior.BLACKOUT.lowestConcentration -> Behavior.UNCONSCIOUS
+            concentration < Behavior.DEAD.lowestConcentration -> Behavior.BLACKOUT
+            else -> Behavior.DEAD
         }
 
     private fun getMaxConcentrationForDrink(

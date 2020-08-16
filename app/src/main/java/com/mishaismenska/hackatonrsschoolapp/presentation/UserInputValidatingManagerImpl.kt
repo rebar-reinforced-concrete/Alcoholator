@@ -42,7 +42,7 @@ class UserInputValidatingManagerImpl @Inject constructor(private val context: Co
         }
     }
 
-    override fun validate(binding: FragmentAddUserBinding): Boolean {
+    override fun validateUserInput(binding: FragmentAddUserBinding): Boolean {
         val isAgeCorrect =
             !isEmpty(binding.ageInputWrapper) && isAgeCorrect(binding.ageInputWrapper)
         val isWeightCorrect =

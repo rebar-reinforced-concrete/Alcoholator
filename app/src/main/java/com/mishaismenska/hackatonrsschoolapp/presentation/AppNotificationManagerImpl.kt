@@ -20,7 +20,7 @@ class AppNotificationManagerImpl @Inject constructor(context: Context) : AppNoti
         )
     }
 
-    override fun scheduleSoberNotification(duration: Duration){
+    override fun scheduleBecameSoberNotification(duration: Duration){
         val timeToTrigger = System.currentTimeMillis() + duration.toMillis()
         alarmManager.cancel(pendingIntent)
         alarmManager.setAlarmClock(

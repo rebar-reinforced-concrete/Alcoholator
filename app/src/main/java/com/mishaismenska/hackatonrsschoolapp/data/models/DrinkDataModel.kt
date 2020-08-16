@@ -10,9 +10,9 @@ import java.time.LocalDateTime
 data class DrinkDataModel(
     @PrimaryKey(autoGenerate = true) var drinkId: Long,
     val consumedBy: Long,
-    val type: Int,
+    val typeId: Int,
     val dateTaken: LocalDateTime,
-    val volume: Int,
+    val volumeValueInMl: Int,
     val unit: MeasureUnit,
     val eaten: Boolean
 )

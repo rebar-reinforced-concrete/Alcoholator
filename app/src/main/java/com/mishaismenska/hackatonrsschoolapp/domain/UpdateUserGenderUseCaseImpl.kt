@@ -1,12 +1,12 @@
 package com.mishaismenska.hackatonrsschoolapp.domain
 
 import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.UpdateUserGenderUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserGenderUseCase
 import javax.inject.Inject
 
 class UpdateUserGenderUseCaseImpl @Inject constructor(private val appDataRepository: AppDataRepository) :
-    UpdateUserGenderUseCase {
-    override suspend fun updateGender(newGender: Int) {
-        appDataRepository.updateGender(newGender)
+    SetUserGenderUseCase {
+    override suspend fun setUserGender(newGender: Int) {
+        appDataRepository.setGender(newGender)
     }
 }

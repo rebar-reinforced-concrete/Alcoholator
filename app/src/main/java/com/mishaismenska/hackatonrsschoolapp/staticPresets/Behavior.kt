@@ -1,6 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.staticPresets
 
-enum class Behaviours(val lowestConcentration: Double) {
+enum class Behavior(val lowestConcentration: Double) {
     SOBER(0.0),
     ALMOST_NORMAL(0.2),
     EUPHORIC(0.3),

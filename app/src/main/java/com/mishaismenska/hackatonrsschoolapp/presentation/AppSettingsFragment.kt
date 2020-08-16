@@ -41,9 +41,9 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
             viewModel.loadWeight(Locale.getDefault().country == "US", weightPreference!!)
             viewModel.loadGender(genderPreference!!)
         })
+
         resetPreference!!.setOnPreferenceClickListener {
             viewModel.resetDB()
-            Log.d("LAHAPЭD", "PЭNIS")
             parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_fragment_container, AddUserFragment()).setTransition(

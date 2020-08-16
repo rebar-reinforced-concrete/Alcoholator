@@ -29,14 +29,14 @@ interface UserWithDrinksDao {
     @Query("DELETE FROM DRINKS")
     suspend fun resetDrinks()
 
-    @Query("UPDATE USER SET weight = :newValue")
-    suspend fun updateWeight(newValue: Int)
+    @Query("UPDATE USER SET weightValueInKg = :newValue")
+    suspend fun setWeight(newValue: Int)
 
     @Query("UPDATE USER SET userName = :newName")
-    suspend fun updateName(newName: String)
+    suspend fun setName(newName: String)
 
-    @Query("UPDATE USER SET gender = :newValue")
-    suspend fun updateGender(newValue: Int)
+    @Query("UPDATE USER SET genderId = :newValue")
+    suspend fun setGender(newValue: Int)
 
     @Transaction
     @Query("SELECT * FROM User")

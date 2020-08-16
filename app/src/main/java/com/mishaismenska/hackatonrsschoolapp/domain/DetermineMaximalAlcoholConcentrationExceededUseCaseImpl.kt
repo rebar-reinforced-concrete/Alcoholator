@@ -4,4 +4,6 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CalculationManage
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DetermineMaximalAlcoholConcentrationExceededUseCase
 import javax.inject.Inject
 
-class DetermineMaximalAlcoholConcentrationExceededUseCaseImpl @Inject constructor(private val calculationManager: CalculationManager) : DetermineMaximalAlcoholConcentrationExceededUseCase { override fun determineIfUserStillCanDrink(alcoholConcentration: Double): Boolean = calculationManager.determineIfUserStillCanDrink(alcoholConcentration) }
+//Second best class regarding solid principles and with the best name
+class DetermineMaximalAlcoholConcentrationExceededUseCaseImpl @Inject constructor(private val calculationManager: CalculationManager) : DetermineMaximalAlcoholConcentrationExceededUseCase { override fun determineIfUserCanDrink(alcoholConcentration: Double): Boolean = calculationManager.determineIfUserCanDrink(alcoholConcentration) }
+

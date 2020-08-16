@@ -1,11 +1,10 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation.models
 
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.Behaviours
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.Behavior
 import java.time.Duration
-import java.time.LocalDateTime
 
 data class UserStateUIModel(
     val alcoholConcentration: Double,
-    val soberTime: Duration,
-    val behaviour: Behaviours
+    val alcoholDepletionDuration: Duration,
+    val behavior: Behavior
 )

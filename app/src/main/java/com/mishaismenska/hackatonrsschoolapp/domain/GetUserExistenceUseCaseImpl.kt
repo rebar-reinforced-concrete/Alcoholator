@@ -8,12 +8,12 @@ import javax.inject.Inject
 
 class GetUserExistenceUseCaseImpl @Inject constructor(private val appDataRepository: AppDataRepository) :
     GetUserExistenceUseCase {
-    override suspend fun checkExistence(): Boolean {
+    override suspend fun checkIfUserExists(): Boolean {
         val users = appDataRepository.getUser()
-        var userLength = 0
+        var recordsAmount = 0
         users.take(1).collect {
-            userLength = it.size
+            recordsAmount = it.size
         }
-        return userLength != 0
+        return recordsAmount != 0
     }
 }

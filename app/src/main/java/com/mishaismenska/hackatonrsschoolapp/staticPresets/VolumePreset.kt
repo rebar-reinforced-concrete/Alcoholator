@@ -3,7 +3,7 @@ package com.mishaismenska.hackatonrsschoolapp.staticPresets
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
 
-enum class VolumePresets(val volume: Measure) {
+enum class VolumePreset(val volume: Measure) {
     SHOT(Measure(40, MeasureUnit.MILLILITER)),
     VODKA_GLASS(Measure(250, MeasureUnit.MILLILITER)),
     BEER_GLASS(Measure(500, MeasureUnit.MILLILITER)),

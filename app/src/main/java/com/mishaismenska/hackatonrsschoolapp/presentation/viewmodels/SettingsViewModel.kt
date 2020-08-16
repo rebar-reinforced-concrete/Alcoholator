@@ -12,12 +12,12 @@ import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceManager
 import com.mishaismenska.hackatonrsschoolapp.R
-import com.mishaismenska.hackatonrsschoolapp.data.kgToLb
-import com.mishaismenska.hackatonrsschoolapp.data.lbToKg
+import com.mishaismenska.hackatonrsschoolapp.data.UnitConverter.kgToLb
+import com.mishaismenska.hackatonrsschoolapp.data.UnitConverter.lbToKg
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ResetDataBaseUseCase
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.UpdateUserGenderUseCase
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.UpdateUserNameUseCase
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.UpdateWeightUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserGenderUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserNameUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserWeightUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSettingsUIModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.minimalWeightDifferenceMargin
@@ -30,9 +30,9 @@ import kotlin.math.abs
 class SettingsViewModel @Inject constructor(
     private val getUserUseCase: GetUserForSettingsUseCase,
     private val resetDataBaseUseCase: ResetDataBaseUseCase,
-    private val updateWeightUseCase: UpdateWeightUseCase,
-    private val updateNameUseCase: UpdateUserNameUseCase,
-    private val updateUserGenderUseCase: UpdateUserGenderUseCase,
+    private val setUserWeightUseCase: SetUserWeightUseCase,
+    private val setNameUseCase: SetUserNameUseCase,
+    private val updateUserGenderUseCase: SetUserGenderUseCase,
     private val context: Context
 ) : ViewModel() {
 
@@ -73,12 +73,12 @@ class SettingsViewModel @Inject constructor(
 
     fun loadGender(genderPreference: ListPreference) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(
-            context.getString(R.string.gender_key), userLiveData.value!!.gender.toString()
+            context.getString(R.string.gender_key), userLiveData.value!!.genderId.toString()
         ).apply()
-        genderPreference.value = userLiveData.value!!.gender.toString()
+        genderPreference.value = userLiveData.value!!.genderId.toString()
     }
 
-    fun resetDB() { //TODO: discuss the mechanic, that throws the user out to the registration screen, idk where to put it)))
+    fun resetDB() {
         viewModelScope.launch(Dispatchers.IO) {
             resetDataBaseUseCase.resetDataBase()
             PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply()
@@ -94,7 +94,7 @@ class SettingsViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 val unitWeight = if (isImperial) lbToKg(cleanInput)
                 else cleanInput
-                updateWeightUseCase.updateWeight(unitWeight)
+                setUserWeightUseCase.setUserWeight(unitWeight)
             }
     }
 
@@ -104,13 +104,13 @@ class SettingsViewModel @Inject constructor(
 
     fun updateName(newValue: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            updateNameUseCase.updateUserName(newValue!!)
+            setNameUseCase.updateUserName(newValue!!)
         }
     }
 
     fun updateGender(genderId: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            updateUserGenderUseCase.updateGender(genderId!!.toInt())
+            updateUserGenderUseCase.setUserGender(genderId!!.toInt())
         }
     }
 

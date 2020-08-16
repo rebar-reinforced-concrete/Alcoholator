@@ -11,10 +11,8 @@ import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserStateDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserWithDrinksDomainModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserStateUIModel
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPresets
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPreset
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.Gender
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -35,21 +33,22 @@ class GetStateUseCaseImpl @Inject constructor(
                 UserWithDrinksDomainModel(
                     user.drinks.map {
                         DrinkDomainModel(
-                            DrinkPresets.values()[it.type],
+                            DrinkPreset.values()[it.typeId],
                             it.dateTaken,
-                            Measure(it.volume, it.unit),
+                            Measure(it.volumeValueInMl, it.unit),
                             it.eaten
                         )
                     },
                     currentUserAge,
-                    Measure(user.user.weight, MeasureUnit.KILOGRAM),
-                    Gender.values()[user.user.gender]
+                    Measure(user.user.weightValueInKg, MeasureUnit.KILOGRAM),
+                    Gender.values()[user.user.genderId]
                 )
             )
             userStateCache.storeUserState(
+                //TODO: move to data layer
                 UserStateDataModel(
                     userStateDomainModel.alcoholConcentration,
-                    userStateDomainModel.soberTime,
+                    userStateDomainModel.alcoholDepletionDuration,
                     userStateDomainModel.lastUpdateTime
                 )
             )
@@ -57,14 +56,15 @@ class GetStateUseCaseImpl @Inject constructor(
             val newState = calculationManager.updateState(
                 UserStateDomainModel(
                     oldState.alcoholConcentration,
-                    oldState.soberTime,
+                    oldState.alcoholDepletionDuration,
                     oldState.lastUpdateTime
                 )
             )
             userStateCache.storeUserState(
+                //TODO: move to data layer
                 UserStateDataModel(
                     newState.alcoholConcentration,
-                    newState.soberTime,
+                    newState.alcoholDepletionDuration,
                     newState.lastUpdateTime
                 )
             )
@@ -72,7 +72,7 @@ class GetStateUseCaseImpl @Inject constructor(
         val userStateDataModel = userStateCache.retrieveUserState()!!
         return UserStateUIModel(
             userStateDataModel.alcoholConcentration,
-            userStateDataModel.soberTime,
+            userStateDataModel.alcoholDepletionDuration,
             calculationManager.getBehaviourFromConcentration(userStateDataModel.alcoholConcentration)
         )
     }

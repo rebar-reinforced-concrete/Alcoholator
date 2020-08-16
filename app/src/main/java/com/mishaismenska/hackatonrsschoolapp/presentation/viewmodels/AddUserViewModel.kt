@@ -6,13 +6,10 @@ import android.icu.util.MeasureUnit
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.preference.PreferenceManager
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddUserBinding
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddUserUseCase
-import com.mishaismenska.hackatonrsschoolapp.presentation.USER_CREATED
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.UserInputValidatingManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSubmissionUIModel
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.Gender
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,7 +22,7 @@ class AddUserViewModel @Inject constructor(
     val isFragmentOpened = MutableLiveData(true)
 
     fun validate(binding: FragmentAddUserBinding): Boolean {
-        return userInputValidatingManager.validate(binding)
+        return userInputValidatingManager.validateUserInput(binding)
     }
 
     fun addUser(binding: FragmentAddUserBinding) {
@@ -42,11 +39,6 @@ class AddUserViewModel @Inject constructor(
                 )
             )
             isFragmentOpened.postValue(false)
-            PreferenceManager
-                .getDefaultSharedPreferences(context)
-                .edit()
-                .putBoolean(USER_CREATED, true)
-                .apply()
         }
     }
 

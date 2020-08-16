@@ -1,6 +1,5 @@
 package com.mishaismenska.hackatonrsschoolapp.domain
 
-import android.util.Log
 import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddDrinkUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
@@ -12,7 +11,7 @@ class AddDrinkUseCaseImpl @Inject constructor(private val appDataRepository: App
         appDataRepository.addDrink(
             DrinkDomainModel(
                 drink.type,
-                drink.date,
+                drink.dateTaken,
                 drink.volume,
                 drink.eaten
             )
