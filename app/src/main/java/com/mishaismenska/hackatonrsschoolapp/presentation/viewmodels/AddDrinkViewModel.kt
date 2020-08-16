@@ -11,11 +11,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.mlToOz
-import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPresets
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.VolumePresets
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddDrinkBinding
-import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddDrinkUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkSubmissionUIModel
 import kotlinx.coroutines.Dispatchers
@@ -29,10 +27,10 @@ class AddDrinkViewModel @Inject constructor(
     private val context: Context
 ) :
     ViewModel() {
-    val formatter =
+    val formatter: MeasureFormat =
         MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.NARROW)
-    private val system = Locale.getDefault().country == "US"
     val isFragmentOpened = MutableLiveData(true)
+    private val isImperial = Locale.getDefault().country == "US"
 
     fun addDrink(binding: FragmentAddDrinkBinding) {
         val drinkType = parseDrinkType(binding, binding.typeInput.text.toString())
@@ -64,7 +62,7 @@ class AddDrinkViewModel @Inject constructor(
         id: Int,
         metricValue: Measure?
     ): String {
-        return if (system)
+        return if (isImperial)
             binding.root.context.resources.getString(
                 id,
                 formatter.format(Measure(mlToOz(metricValue!!.number as Int), MeasureUnit.OUNCE))

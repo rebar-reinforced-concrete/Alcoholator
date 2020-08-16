@@ -1,79 +1,55 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation
 
 import android.content.SharedPreferences
-import android.icu.text.MeasureFormat
-import android.icu.util.Measure
-import android.icu.util.MeasureUnit
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentTransaction
 import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.mishaismenska.hackatonrsschoolapp.di.App
+import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.R
+import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.SettingsViewModel
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.defaultGenderId
 import java.util.*
 import javax.inject.Inject
 
 
 class AppSettingsFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
-
     @Inject
     lateinit var viewModel: SettingsViewModel
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.root_preferences, rootKey)
         (requireActivity().application as App).appComponent.inject(this)
+        setPreferencesFromResource(R.xml.root_preferences, rootKey)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        findPreference<Preference>(getString(R.string.reset_key))?.onPreferenceClickListener =
-            resetClickListener
-        viewModel.setWeightPreference(Locale.getDefault().country == "US")
-        findPreference<EditTextPreference>(getString(R.string.weight_key))!!.summaryProvider =
-            weightSummaryProvider
-        findPreference<EditTextPreference>(getString(R.string.weight_key))!!.onPreferenceClickListener =
-            weightClickListener
-        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
-    }
+        val resetPreference = findPreference<Preference>(getString(R.string.reset_key))
+        val namePreference = findPreference<EditTextPreference>(getString(R.string.name_key))
+        val weightPreference = findPreference<EditTextPreference>(getString(R.string.weight_key))
+        val genderPreference = findPreference<ListPreference>(getString(R.string.gender_key))
 
-    private val resetClickListener =
-        Preference.OnPreferenceClickListener {
+        viewModel.userLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            viewModel.loadName(namePreference!!)
+            viewModel.loadWeight(Locale.getDefault().country == "US", weightPreference!!)
+            viewModel.loadGender(genderPreference!!)
+        })
+        resetPreference!!.setOnPreferenceClickListener {
             viewModel.resetDB()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_fragment_container, AddUserFragment()).setTransition(
-                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN
-                ).commit()
+                FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+            ).commit()
+            Snackbar.make(view, "All your data has been removed", Snackbar.LENGTH_LONG).show()
             true
         }
-
-    private val weightClickListener =
-        Preference.OnPreferenceClickListener {
-            findPreference<EditTextPreference>(getString(R.string.weight_key))!!.text =
-                findPreference<EditTextPreference>(getString(R.string.weight_key))!!.summary.toString()
-            true
-        }
-
-    private val weightSummaryProvider =
-        Preference.SummaryProvider<EditTextPreference> {
-            val format = MeasureFormat.getInstance(
-                Locale.getDefault(),
-                MeasureFormat.FormatWidth.WIDE
-            )
-            val weight = getCleanedWeight()
-            if (Locale.getDefault().country == "US")
-                format.format(Measure(weight, MeasureUnit.POUND))
-            else
-                format.format(Measure(weight, MeasureUnit.KILOGRAM))
-        }
-
-    private fun getCleanedWeight() =
-        preferenceManager.sharedPreferences.getString(
-            "weight", "0"
-        )!!.split('.')[0].filter { it.isDigit() }.toInt()
+        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -81,10 +57,23 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
     }
 
     override fun onSharedPreferenceChanged(pref: SharedPreferences?, key: String?) {
-        if (key == requireContext().getString(R.string.weight_key)) {
-            viewModel.updateWeight(
-                pref!!.getString(key, "yo mommas weri gay"), Locale.getDefault().country == "US"
-            )
+        when (key) {
+            requireContext().getString(R.string.weight_key) -> {
+                viewModel.updateWeight(
+                    pref!!.getString(key, "0"), Locale.getDefault().country == "US"
+                )
+            }
+            requireContext().getString(R.string.name_key) -> {
+                viewModel.updateName(
+                    pref!!.getString(key, "")
+                )
+            }
+            requireContext().getString(R.string.gender_key) -> {
+                viewModel.updateGender(
+                    pref!!.getString(key, defaultGenderId.toString())
+                )
+            }
         }
     }
+
 }

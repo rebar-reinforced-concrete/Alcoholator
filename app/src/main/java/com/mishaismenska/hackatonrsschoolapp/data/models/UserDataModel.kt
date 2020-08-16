@@ -12,5 +12,6 @@ data class UserDataModel (
     val ageOnCreation: Int,
     val gender: Int,
     val weight: Int,
-    val unit: MeasureUnit
+    val unit: MeasureUnit,
+    val userName: String
 )

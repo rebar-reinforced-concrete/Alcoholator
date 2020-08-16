@@ -40,5 +40,16 @@ interface DomainModule {
     fun provideUpdateWeightUseCase(updateWeightUseCaseImpl: UpdateWeightUseCaseImpl): UpdateWeightUseCase
 
     @Binds
-    fun provideDetermineMaximalAlcoholConcentrationExceededUseCase(determineMaximalAlcoholConcentrationExceededUseCaseImpl: DetermineMaximalAlcoholConcentrationExceededUseCaseImpl): DetermineMaximalAlcoholConcentrationExceededUseCase
+    fun provideUpdateNameUseCase(updateNameUseCaseImpl: UpdateUserNameUseCaseImpl): UpdateUserNameUseCase
+
+    @Binds
+    fun provideUpdateUserGenderUseCase(updateUserGenderUseCaseImpl: UpdateUserGenderUseCaseImpl): UpdateUserGenderUseCase
+
+    @Binds
+    fun provideGetUserWithDrinksUseCase(getUserWIthDrinksUseCaseImpl: GetUserWithDrinksUseCaseImpl): GetUserWIthDrinksUseCase
+
+    @Binds
+    fun provideDetermineMaximalAlcoholConcentrationExceededUseCase(
+        determineMaximalAlcoholConcentrationExceededUseCaseImpl: DetermineMaximalAlcoholConcentrationExceededUseCaseImpl
+    ): DetermineMaximalAlcoholConcentrationExceededUseCase
 }
