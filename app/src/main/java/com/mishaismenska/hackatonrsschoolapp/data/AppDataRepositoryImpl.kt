@@ -11,6 +11,7 @@ import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.Gender
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
 import java.time.LocalDate
 import java.time.ZoneOffset
 import javax.inject.Inject
@@ -34,7 +35,7 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
     }
 
     override suspend fun addDrink(drinkDomainModel: DrinkDomainModel) {
-        dao.getUser().collect {
+        dao.getUser().take(1).collect{
             dao.insertDrink(
                 DrinkDataModel(
                     drinkDomainModel.date.toEpochSecond(ZoneOffset.UTC),

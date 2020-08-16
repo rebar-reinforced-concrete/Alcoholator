@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
-import com.mishaismenska.hackatonrsschoolapp.DbResultsListener
+import androidx.lifecycle.Observer
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddUserBinding
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.AddUserViewModel
 import javax.inject.Inject
 
-class AddUserFragment : Fragment(), DbResultsListener {
+class AddUserFragment : Fragment() {
 
     private lateinit var binding: FragmentAddUserBinding
     @Inject
@@ -30,13 +30,14 @@ class AddUserFragment : Fragment(), DbResultsListener {
         (requireActivity().application as App).appComponent.inject(this)
         binding.goButton.setOnClickListener {
             if(viewModel.validate(binding)) {
-                viewModel.addUser(binding, this)
+                viewModel.addUser(binding)
             }
         }
+        viewModel.isFragmentOpened.observe(viewLifecycleOwner, Observer {
+            if(!it){
+                parentFragmentManager.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).replace(R.id.main_fragment_container, MainFragment()).commit()
+            }
+        })
         return binding.root
-    }
-
-    override fun onUserAdded() {
-        parentFragmentManager.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).replace(R.id.main_fragment_container, MainFragment()).commit()
     }
 }

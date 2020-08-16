@@ -1,24 +1,18 @@
 package com.mishaismenska.hackatonrsschoolapp.di
 
-import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AppNotificationManager
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CalculationManager
-import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.UserInputValidatingManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.AppNotificationManagerImpl
-import com.mishaismenska.hackatonrsschoolapp.domain.logic.CalculationManagerImpl
 import com.mishaismenska.hackatonrsschoolapp.presentation.UserInputValidatingManagerImpl
+import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AppNotificationManager
+import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.UserInputValidatingManager
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
 
 @Module
-interface BusinessLogicModule {
+interface PresentationModule {
     @Binds
     @Singleton
     fun provideUserInputValidatingManager(userInputValidationManagerImpl: UserInputValidatingManagerImpl): UserInputValidatingManager
-
-    @Binds
-    @Singleton
-    fun provideCalculationsManager(calculationManager: CalculationManagerImpl): CalculationManager
 
     @Binds
     @Singleton

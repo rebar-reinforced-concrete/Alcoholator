@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AppNotificationManager
+import java.time.Duration
 import javax.inject.Inject
 
 class AppNotificationManagerImpl @Inject constructor(context: Context) : AppNotificationManager {
@@ -19,8 +20,8 @@ class AppNotificationManagerImpl @Inject constructor(context: Context) : AppNoti
         )
     }
 
-    override fun scheduleSoberNotification(time: Long){
-        val timeToTrigger = System.currentTimeMillis() + time
+    override fun scheduleSoberNotification(duration: Duration){
+        val timeToTrigger = System.currentTimeMillis() + duration.toMillis()
         alarmManager.cancel(pendingIntent)
         alarmManager.setAlarmClock(
             AlarmManager.AlarmClockInfo(

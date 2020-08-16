@@ -1,5 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.domain
 
+import android.util.Log
 import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddDrinkUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
