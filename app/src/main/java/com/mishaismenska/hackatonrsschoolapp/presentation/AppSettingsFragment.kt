@@ -9,11 +9,11 @@ import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.SettingsViewModel
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.defaultGenderId
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.DEFAULT_GENDER_ID
 import java.util.Locale
 import javax.inject.Inject
 
@@ -44,10 +44,13 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
             viewModel.resetDB()
             parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             parentFragmentManager.beginTransaction()
-                .replace(R.id.main_fragment_container, AddUserFragment()).setTransition(
+                .replace(R.id.main_fragment_container, AddUserFragment().apply {
+                    arguments = Bundle().apply {
+                        putBoolean(AppConstants.DATA_REMOVED_KEY, true)
+                    }
+                }).setTransition(
                 FragmentTransaction.TRANSIT_FRAGMENT_OPEN
             ).commit()
-            Snackbar.make(view, "All your data has been removed", Snackbar.LENGTH_LONG).show()
             true
         }
         preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
@@ -72,7 +75,7 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
             }
             requireContext().getString(R.string.gender_key) -> {
                 viewModel.updateGender(
-                    pref!!.getString(key, defaultGenderId.toString())
+                    pref!!.getString(key, DEFAULT_GENDER_ID.toString())
                 )
             }
         }

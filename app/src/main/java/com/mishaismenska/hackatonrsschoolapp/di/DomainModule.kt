@@ -3,6 +3,8 @@ package com.mishaismenska.hackatonrsschoolapp.di
 import com.mishaismenska.hackatonrsschoolapp.domain.AddDrinkUseCaseImpl
 import com.mishaismenska.hackatonrsschoolapp.domain.AddUserUseCaseImpl
 import com.mishaismenska.hackatonrsschoolapp.domain.CheckIfMaxConcentrationExceededUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.CheckIfUserAgeValidUseCaseImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.CheckIfUserWeightValidUseCaseImpl
 import com.mishaismenska.hackatonrsschoolapp.domain.GetDrinksUseCaseImpl
 import com.mishaismenska.hackatonrsschoolapp.domain.GetStateUseCaseImpl
 import com.mishaismenska.hackatonrsschoolapp.domain.GetUserExistenceUseCaseImpl
@@ -17,6 +19,8 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddDrinkUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddUserUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CalculationManager
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CheckIfConcentrationExceededUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CheckIfUserAgeValidUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CheckIfUserWeightValidUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetDrinksUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetStateUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserExistenceUseCase
@@ -78,4 +82,10 @@ interface DomainModule {
 
     @Binds
     fun provideExistenceUseCase(existenceUseCase: GetUserExistenceUseCaseImpl): GetUserExistenceUseCase
+
+    @Binds
+    fun provideCheckIfUserAgeValidUseCase(checkIfUserAgeValidUseCaseImpl: CheckIfUserAgeValidUseCaseImpl): CheckIfUserAgeValidUseCase
+
+    @Binds
+    fun provideCheckIfUserWeightValidUseCase(checkIfUserWeightValidUseCaseImpl: CheckIfUserWeightValidUseCaseImpl): CheckIfUserWeightValidUseCase
 }

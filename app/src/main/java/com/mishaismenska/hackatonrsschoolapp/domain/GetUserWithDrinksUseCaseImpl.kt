@@ -2,7 +2,7 @@ package com.mishaismenska.hackatonrsschoolapp.domain
 
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
-import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserWIthDrinksUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserWithDrinksDomainModel

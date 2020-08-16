@@ -40,7 +40,7 @@ class ScheduledBroadcastReceiver : BroadcastReceiver() {
         pendingIntent: PendingIntent
     ): NotificationCompat.Builder {
         val name = PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(context.getString(R.string.name_key), "fella")
+            .getString(context.getString(R.string.name_key), context.getString(R.string.fella))
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_local_bar_24)
             .setContentTitle(context.getString(R.string.sober_notification_title))

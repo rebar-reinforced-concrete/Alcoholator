@@ -1,4 +1,4 @@
-package com.mishaismenska.hackatonrsschoolapp.data.interfaces
+package com.mishaismenska.hackatonrsschoolapp.domain.interfaces
 
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserStateDataModel
 

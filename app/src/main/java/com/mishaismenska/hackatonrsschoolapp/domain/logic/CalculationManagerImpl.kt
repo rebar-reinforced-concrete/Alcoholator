@@ -1,7 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.domain.logic
 
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CalculationManager
-import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserStateDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserWithDrinksDomainModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants
@@ -17,14 +16,10 @@ class CalculationManagerImpl @Inject constructor() :
         userWithDrinksDomainModel: UserWithDrinksDomainModel
     ): UserStateDomainModel {
         var concentration = 0.0
-        for (drink in userWithDrinksDomainModel.drinks) {
-            var currentDrinkConcentration =
-                getMaxConcentrationForDrink(
-                    userWithDrinksDomainModel,
-                    drink
-                ) // TODO: a bit stupid, just a tad though)
+        for (drink in userWithDrinksDomainModel.drinks.withIndex()) {
+            var currentDrinkConcentration = getMaxConcentrationForDrink(userWithDrinksDomainModel, drink.index)
             val hourDifference =
-                Duration.between(drink.dateTaken, LocalDateTime.now()).toMinutes().toDouble() / 60.0
+                Duration.between(drink.value.dateTaken, LocalDateTime.now()).toMinutes().toDouble() / 60.0
             currentDrinkConcentration -= hourDifference * 0.15
             if (currentDrinkConcentration > 0) concentration += currentDrinkConcentration
         }
@@ -35,7 +30,7 @@ class CalculationManagerImpl @Inject constructor() :
     }
 
     override fun determineIfUserCanDrink(alcoholConcentration: Double): Boolean =
-        alcoholConcentration < AppConstants.maxPossibleAlcoholConcentration
+        alcoholConcentration < AppConstants.MAX_POSSIBLE_ALCOHOL_CONCENTRATION
 
     override fun updateState(oldStateDomainModel: UserStateDomainModel): UserStateDomainModel {
         val oldTime = oldStateDomainModel.lastUpdateTime
@@ -62,12 +57,11 @@ class CalculationManagerImpl @Inject constructor() :
 
     private fun getMaxConcentrationForDrink(
         userWithDrinksDomainModel: UserWithDrinksDomainModel,
-        drinkDomainModel: DrinkDomainModel
+        drinkIndex: Int
     ): Double {
-        val m =
-            drinkDomainModel.volume.number.toDouble() * drinkDomainModel.type.percentage / 100.0 * (if (drinkDomainModel.eaten) 0.7 else 0.9)
-        val r =
-            if (userWithDrinksDomainModel.gender.isMale) 0.7 else 0.6
+        val drink = userWithDrinksDomainModel.drinks[drinkIndex]
+        val m = drink.volume.number.toDouble() * drink.type.percentage / 100.0 * (if (drink.eaten) 0.7 else 0.9)
+        val r = if (userWithDrinksDomainModel.gender.isMale) 0.7 else 0.6
         return m / userWithDrinksDomainModel.weight.number.toDouble() / r
     }
 }

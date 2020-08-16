@@ -3,10 +3,10 @@ package com.mishaismenska.hackatonrsschoolapp.data
 import android.content.Context
 import android.icu.util.Measure
 import com.mishaismenska.hackatonrsschoolapp.R
-import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserWithDrinksDataModel
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.Gender
 import java.time.LocalDate

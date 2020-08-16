@@ -1,4 +1,4 @@
-package com.mishaismenska.hackatonrsschoolapp.data.interfaces
+package com.mishaismenska.hackatonrsschoolapp.domain.interfaces
 
 import android.icu.util.Measure
 import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkDataModel
