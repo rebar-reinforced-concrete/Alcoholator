@@ -2,7 +2,9 @@ package com.mishaismenska.hackatonrsschoolapp.presentation
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
@@ -41,6 +43,8 @@ class AppSettingsFragment : PreferenceFragmentCompat(),
         })
         resetPreference!!.setOnPreferenceClickListener {
             viewModel.resetDB()
+            Log.d("LAHAPЭD", "PЭNIS")
+            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_fragment_container, AddUserFragment()).setTransition(
                 FragmentTransaction.TRANSIT_FRAGMENT_OPEN

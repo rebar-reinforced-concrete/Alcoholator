@@ -14,6 +14,6 @@ class GetUserExistenceUseCaseImpl @Inject constructor(private val appDataReposit
         users.take(1).collect {
             userLength = it.size
         }
-        return userLength == 0
+        return userLength != 0
     }
 }

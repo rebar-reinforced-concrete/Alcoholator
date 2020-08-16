@@ -1,26 +1,43 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import com.mishaismenska.hackatonrsschoolapp.R
+import com.mishaismenska.hackatonrsschoolapp.di.App
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserExistenceUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 const val USER_CREATED = "userCreated"
 
 class SplashScreenFragment : Fragment() {
 
+    @Inject
+    lateinit var existenceUseCase: GetUserExistenceUseCase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(requireActivity().application)
-        if (sharedPreferences.getBoolean(USER_CREATED, false))
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_fragment_container, MainFragment()).commit()
-        else parentFragmentManager.beginTransaction()
-            .replace(R.id.main_fragment_container, AddUserFragment()).commit()
+        (requireActivity().application as App).appComponent.inject(this)
+        lifecycleScope.launch(Dispatchers.IO){
+            if (existenceUseCase.checkExistence()){
+                Log.d("Splash", "user exists")
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container, MainFragment()).commit()
+            }
+            else {
+                Log.d("Splash", "user doesn't exist")
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container, AddUserFragment()).commit()
+            }
+        }
+
     }
 
     override fun onCreateView(

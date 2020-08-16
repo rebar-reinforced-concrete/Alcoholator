@@ -24,9 +24,9 @@ class GetStateUseCaseImpl @Inject constructor(
     private val userStateCache: UserStateCache
 ) : GetStateUseCase {
 
-    override suspend fun getState(): UserStateUIModel {
+    override suspend fun getState(recalculationIsNeeded: Boolean): UserStateUIModel {
         val oldState = userStateCache.retrieveUserState()
-        if (oldState == null) {
+        if (oldState == null || recalculationIsNeeded) {
 
             val user = appDataRepository.getUserWithDrinks()
             val currentUserAge =

@@ -4,4 +4,5 @@ import java.time.Duration
 
 interface AppNotificationManager {
     fun scheduleSoberNotification(duration: Duration)
+    fun resetAllNotifications()
 }

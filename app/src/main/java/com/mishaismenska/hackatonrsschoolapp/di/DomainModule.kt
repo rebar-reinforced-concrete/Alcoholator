@@ -3,7 +3,6 @@ package com.mishaismenska.hackatonrsschoolapp.di
 import com.mishaismenska.hackatonrsschoolapp.domain.*
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.*
 import com.mishaismenska.hackatonrsschoolapp.domain.logic.CalculationManagerImpl
-import com.mishaismenska.hackatonrsschoolapp.presentation.GetUserForSettingsUseCaseImpl
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import dagger.Binds
 import dagger.Module
@@ -52,4 +51,7 @@ interface DomainModule {
     fun provideDetermineMaximalAlcoholConcentrationExceededUseCase(
         determineMaximalAlcoholConcentrationExceededUseCaseImpl: DetermineMaximalAlcoholConcentrationExceededUseCaseImpl
     ): DetermineMaximalAlcoholConcentrationExceededUseCase
+
+    @Binds
+    fun provideExistenceUseCase(existenceUseCase: GetUserExistenceUseCaseImpl): GetUserExistenceUseCase
 }

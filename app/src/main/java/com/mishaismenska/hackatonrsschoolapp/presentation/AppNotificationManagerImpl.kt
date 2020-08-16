@@ -30,4 +30,8 @@ class AppNotificationManagerImpl @Inject constructor(context: Context) : AppNoti
             ), pendingIntent
         )
     }
+
+    override fun resetAllNotifications() {
+        alarmManager.cancel(pendingIntent)
+    }
 }
