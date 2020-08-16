@@ -1,5 +1,7 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation.interfaces
 
+import java.time.Duration
+
 interface AppNotificationManager {
-    fun scheduleSoberNotification(time: Long)
+    fun scheduleSoberNotification(duration: Duration)
 }

@@ -1,8 +1,8 @@
 package com.mishaismenska.hackatonrsschoolapp.domain.interfaces
 
-import androidx.lifecycle.LiveData
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkUIModel
+import kotlinx.coroutines.flow.Flow
 
 interface GetDrinksUseCase {
-    suspend fun getDrinks(): LiveData<List<DrinkUIModel>>
+    suspend fun getDrinks(): Flow<List<DrinkUIModel>>
 }

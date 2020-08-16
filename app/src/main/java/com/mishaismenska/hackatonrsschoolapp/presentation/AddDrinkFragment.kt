@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import com.mishaismenska.hackatonrsschoolapp.DbResultsListener
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.mlToOz
@@ -18,7 +17,7 @@ import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.AddDrinkVie
 import java.util.*
 import javax.inject.Inject
 
-class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener, DbResultsListener {
+class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
 
     private lateinit var binding: FragmentAddDrinkBinding
 
@@ -47,8 +46,12 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener, DbResultsL
         binding.typeInput.setText(drinkTypes.first())
         binding.volumeInput.setText(binding.volumeInput.adapter.getItem(0).toString())
         binding.goButton.setOnClickListener {
-            viewModel.addDrink(binding, this)
+            viewModel.addDrink(binding)
         }
+        viewModel.isFragmentOpened.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            if(!it)
+                parentFragmentManager.popBackStack()
+        })
     }
 
     private fun getVolumeStrings(): Array<String> =
@@ -84,9 +87,5 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener, DbResultsL
             )
         )
         binding.volumeInput.setText(names.first())
-    }
-
-    override fun onDrinkAdded() {
-        parentFragmentManager.popBackStack()
     }
 }

@@ -5,9 +5,10 @@ import android.icu.text.MeasureFormat
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
 import android.os.Handler
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mishaismenska.hackatonrsschoolapp.DbResultsListener
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.mlToOz
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
@@ -31,8 +32,9 @@ class AddDrinkViewModel @Inject constructor(
     val formatter =
         MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.NARROW)
     private val system = Locale.getDefault().country == "US"
+    val isFragmentOpened = MutableLiveData(true)
 
-    fun addDrink(binding: FragmentAddDrinkBinding, dbResultsListener: DbResultsListener) {
+    fun addDrink(binding: FragmentAddDrinkBinding) {
         val drinkType = parseDrinkType(binding, binding.typeInput.text.toString())
         val eaten = binding.eatenCheckbox.isChecked
         val volume = when (binding.volumeInput.text.toString()) {
@@ -53,9 +55,7 @@ class AddDrinkViewModel @Inject constructor(
                 volume.volume,
                 eaten
             ))
-            Handler(context.mainLooper).post {
-                dbResultsListener.onDrinkAdded()
-            }
+            isFragmentOpened.postValue(false)
         }
     }
 
@@ -96,5 +96,7 @@ class AddDrinkViewModel @Inject constructor(
         }
     }
 
-
+    override fun onCleared() {
+        isFragmentOpened.postValue(true)
+    }
 }

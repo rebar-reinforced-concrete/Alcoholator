@@ -9,10 +9,12 @@ import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkUIModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPresets
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetDrinkUseCaseImpl @Inject constructor(private val appDataRepository: AppDataRepository) : GetDrinksUseCase {
-    override suspend fun getDrinks(): LiveData<List<DrinkUIModel>> = appDataRepository.getDrinks().asLiveData().map {
+class GetDrinksUseCaseImpl @Inject constructor(private val appDataRepository: AppDataRepository) : GetDrinksUseCase {
+    override suspend fun getDrinks(): Flow<List<DrinkUIModel>> = appDataRepository.getDrinks().map {
         it.map {drink ->
             DrinkUIModel(DrinkPresets.values()[drink.type], drink.dateTaken, Measure(drink.volume, drink.unit))
         }

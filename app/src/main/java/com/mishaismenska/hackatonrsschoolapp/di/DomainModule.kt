@@ -2,18 +2,24 @@ package com.mishaismenska.hackatonrsschoolapp.di
 
 import com.mishaismenska.hackatonrsschoolapp.domain.*
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.*
+import com.mishaismenska.hackatonrsschoolapp.domain.logic.CalculationManagerImpl
 import com.mishaismenska.hackatonrsschoolapp.presentation.GetUserForSettingsUseCaseImpl
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import dagger.Binds
 import dagger.Module
+import javax.inject.Singleton
 
 @Module
 interface DomainModule {
     @Binds
+    @Singleton
+    fun provideCalculationsManager(calculationManager: CalculationManagerImpl): CalculationManager
+
+    @Binds
     fun provideGetStateUseCase(getStateUseCaseImpl: GetStateUseCaseImpl): GetStateUseCase
 
     @Binds
-    fun provideGetDrinksUseCase(getDrinkUseCaseImpl: GetDrinkUseCaseImpl): GetDrinksUseCase
+    fun provideGetDrinksUseCase(getDrinksUseCaseImpl: GetDrinksUseCaseImpl): GetDrinksUseCase
 
     @Binds
     fun provideRemoveDrinkUseCase(removeDrinkUseCaseImpl: RemoveDrinkUseCaseImpl): RemoveDrinkUseCase

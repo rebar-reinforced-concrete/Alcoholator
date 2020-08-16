@@ -6,6 +6,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
+import androidx.preference.PreferenceManager
+import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.Behaviours
@@ -33,7 +35,9 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().application as App).appComponent.inject(this)
-
+        viewModel.getDrinks()
+        drinksAdapter = DrinksRecyclerAdapter(UserStateUIModel(0.0, Duration.ZERO, Behaviours.SOBER))
+        retainInstance = true
     }
 
     override fun onCreateView(
@@ -41,36 +45,32 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        /*viewModel.isAddDrinkFabVisible.observe(viewLifecycleOwner, Observer {
-            //TODO: show message about drunkenness state
-            if (it != null && it) {
-                binding.addDrinkFab.visibility = View.VISIBLE
-            } else {
-                binding.addDrinkFab.visibility = View.INVISIBLE
-            }
-        })*/
-        binding.addDrinkFab.visibility = View.VISIBLE
-        viewModel.getDrinks()
+        binding.mainRecycler.adapter = drinksAdapter
         viewModel.drinks.observe(viewLifecycleOwner, Observer {
-            checkIfEmpty(it)
             drinksAdapter.drinks = it
         })
         viewModel.userState.observe(viewLifecycleOwner, Observer { state ->
             drinksAdapter.userState = state
         })
-        setHasOptionsMenu(true)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        drinksAdapter = DrinksRecyclerAdapter(
-            UserStateUIModel(0.0, Duration.ZERO, Behaviours.SOBER)
-        )
-        binding.mainRecycler.adapter = drinksAdapter
+        viewModel.isAddDrinkFabVisible.observe(viewLifecycleOwner, Observer {
+            if(binding.addDrinkFab.visibility == View.VISIBLE && !it) {
+                //TODO: replace with getNameUseCase and read it from the database
+                val name = PreferenceManager.getDefaultSharedPreferences(context).getString(requireContext().getString(R.string.name_key), "fella")
+                Snackbar.make(binding.root, getString(R.string.too_drunk, name), Snackbar.LENGTH_LONG).show()
+            }
+            binding.addDrinkFab.visibility = if(it) View.VISIBLE else View.GONE
+        })
+        viewModel.isRecyclerVisible.observe(viewLifecycleOwner, Observer {
+            binding.mainRecycler.visibility = if(it) View.VISIBLE else View.GONE
+        })
+        viewModel.isEmptyRecyclerTextViewVisible.observe(viewLifecycleOwner, Observer {
+            binding.mainRecyclerEmptyTextView.visibility = if(it) View.VISIBLE else View.GONE
+        })
         binding.addDrinkFab.setOnClickListener {
             openAddDrinkFragment()
         }
+        setHasOptionsMenu(true)
+        return binding.root
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,17 +103,6 @@ class MainFragment : Fragment() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    //TODO: move to view model
-    private fun checkIfEmpty(data: List<DrinkUIModel>?) {
-        return if (data.isNullOrEmpty()) {
-            binding.mainRecycler.visibility = View.GONE
-            binding.mainRecyclerEmptyTextView.visibility = View.VISIBLE
-        } else {
-            binding.mainRecycler.visibility = View.VISIBLE
-            binding.mainRecyclerEmptyTextView.visibility = View.GONE
         }
     }
 }

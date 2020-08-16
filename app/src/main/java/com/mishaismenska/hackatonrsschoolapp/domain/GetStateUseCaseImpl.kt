@@ -13,6 +13,7 @@ import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserStateUIMode
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPresets
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.Gender
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
 import javax.inject.Inject
 
 class GetStateUseCaseImpl @Inject constructor(
@@ -21,11 +22,11 @@ class GetStateUseCaseImpl @Inject constructor(
     private val userStateCache: UserStateCache
 ) : GetStateUseCase {
 
-    override suspend fun getState(): UserStateUIModel {
+    override suspend fun getState(recalculationIsNeeded: Boolean): UserStateUIModel {
         val oldState = userStateCache.retrieveUserState()
-        if(oldState == null){
-            appDataRepository.getUser().collect { user ->
-                appDataRepository.getDrinks().collect { drinks ->
+        if(oldState == null || recalculationIsNeeded){
+            appDataRepository.getUser().take(1).collect { user ->
+                appDataRepository.getDrinks().take(1).collect { drinks ->
                     val userStateDomainModel = calculationManager.determineState(
                         UserDomainModel(
                             user[0].ageOnCreation,
