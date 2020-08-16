@@ -16,6 +16,14 @@
             app:title="@string/change_weight_prompt"
             app:useSimpleSummaryProvider="true" />
 
+        <ListPreference
+            android:icon="@drawable/ic_baseline_supervisor_account_24"
+            app:key="@string/gender_key"
+            app:title="Change gender"
+            app:useSimpleSummaryProvider="true"
+            app:entries="@array/genders_names"
+            app:entryValues="@array/gender_ids"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/manage">

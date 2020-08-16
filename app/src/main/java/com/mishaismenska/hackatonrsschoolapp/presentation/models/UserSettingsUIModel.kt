@@ -2,6 +2,8 @@ package com.mishaismenska.hackatonrsschoolapp.presentation.models
 
 import android.icu.util.Measure
 
-class UserSettingsUIModel (
-    val weight: Measure
+data class UserSettingsUIModel (
+    val weight: Measure,
+    val userName: String = "",
+    val gender: Int
 )

@@ -2,7 +2,6 @@ package com.mishaismenska.hackatonrsschoolapp.di
 
 import com.mishaismenska.hackatonrsschoolapp.domain.*
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.*
-import com.mishaismenska.hackatonrsschoolapp.presentation.GetUserForSettingsUseCaseImpl
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import dagger.Binds
 import dagger.Module
@@ -34,5 +33,16 @@ interface DomainModule {
     fun provideUpdateWeightUseCase(updateWeightUseCaseImpl: UpdateWeightUseCaseImpl): UpdateWeightUseCase
 
     @Binds
-    fun provideDetermineMaximalAlcoholConcentrationExceededUseCase(determineMaximalAlcoholConcentrationExceededUseCaseImpl: DetermineMaximalAlcoholConcentrationExceededUseCaseImpl): DetermineMaximalAlcoholConcentrationExceededUseCase
+    fun provideUpdateNameUseCase(updateNameUseCaseImpl: UpdateUserNameUseCaseImpl): UpdateUserNameUseCase
+
+    @Binds
+    fun provideUpdateUserGenderUseCase(updateUserGenderUseCaseImpl: UpdateUserGenderUseCaseImpl): UpdateUserGenderUseCase
+
+    @Binds
+    fun provideGetUserWithDrinksUseCase(getUserWIthDrinksUseCaseImpl: GetUserWithDrinksUseCaseImpl): GetUserWIthDrinksUseCase
+
+    @Binds
+    fun provideDetermineMaximalAlcoholConcentrationExceededUseCase(
+        determineMaximalAlcoholConcentrationExceededUseCaseImpl: DetermineMaximalAlcoholConcentrationExceededUseCaseImpl
+    ): DetermineMaximalAlcoholConcentrationExceededUseCase
 }
