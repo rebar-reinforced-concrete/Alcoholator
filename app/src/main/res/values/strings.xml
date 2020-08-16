@@ -107,4 +107,9 @@
     <string name="days_ago">%dd.</string>
     <string name="long_time_ago">A while ago</string>
     <string name="fella">fella</string>
+    <string name="default_name">fella</string>
+    <string name="gender_key">gender</string>
+
+
+
 </resources>
