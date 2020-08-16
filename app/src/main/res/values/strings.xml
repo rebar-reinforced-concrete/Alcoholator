@@ -99,7 +99,7 @@
     <string name="sober_notification_content">Hey, %s. Is it time to get wasted again?</string>
 
     <string name="too_weird_error">Your dimensions doesn\'t match out specifications, homie</string>
-    <string name="i_va_had_a_snack">I\'va had a snack</string>
+    <string name="i_ve_had_a_snack">I\'ve had a snack</string>
     <string name="too_drunk">You\'re too drunk, %s</string>
 
     <string name="minuts_ago">Recently</string>
@@ -109,7 +109,7 @@
     <string name="fella">fella</string>
     <string name="default_name">fella</string>
     <string name="gender_key">gender</string>
-
+    <string name="data_removed">All your data has been removed</string>
 
 
 </resources>

@@ -1,5 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation
 
+import android.content.pm.ActivityInfo
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
 import android.os.Bundle
@@ -43,6 +44,8 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
         binding.volumeInput.setAdapter(
             NoFilterAdapter(requireContext(), R.layout.drink_type_dropdown_item, getVolumeStrings())
         )
+        binding.typeInput.keyListener = null
+        binding.volumeInput.keyListener = null
         binding.typeInput.onItemClickListener = this
         binding.typeInput.setText(drinkTypes.first())
         binding.volumeInput.setText(binding.volumeInput.adapter.getItem(0).toString())
@@ -52,6 +55,16 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
         viewModel.isFragmentOpened.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             if (!it) parentFragmentManager.popBackStack()
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
 
     private fun getVolumeStrings(): Array<String> =

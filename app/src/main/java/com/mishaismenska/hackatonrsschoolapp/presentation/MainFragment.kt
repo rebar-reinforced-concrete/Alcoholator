@@ -56,7 +56,8 @@ class MainFragment : Fragment() {
         viewModel.isAddDrinkFabVisible.observe(viewLifecycleOwner, Observer {
             if (binding.addDrinkFab.visibility == View.VISIBLE && !it) {
                 // TODO: replace with getNameUseCase and read it from the database
-                val name = PreferenceManager.getDefaultSharedPreferences(context).getString(requireContext().getString(R.string.name_key), "fella")
+                val name = PreferenceManager.getDefaultSharedPreferences(context)
+                    .getString(requireContext().getString(R.string.name_key), getString(R.string.fella))
                 Snackbar.make(binding.root, getString(R.string.too_drunk, name), Snackbar.LENGTH_LONG).show()
             }
             binding.addDrinkFab.visibility = if (it) View.VISIBLE else View.GONE

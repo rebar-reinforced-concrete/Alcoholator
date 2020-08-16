@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.mishaismenska.hackatonrsschoolapp.data.interfaces.UserWithDrinksDao
 import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserDataModel
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.DBNAME
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.DATA_BASE_NAME
 
 @Database(entities = [UserDataModel::class, DrinkDataModel::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
@@ -30,7 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    DBNAME
+                    DATA_BASE_NAME
                 ).build()
                 INSTANCE = instance
                 return instance

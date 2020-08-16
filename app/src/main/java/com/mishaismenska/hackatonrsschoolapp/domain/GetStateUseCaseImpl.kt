@@ -2,11 +2,11 @@ package com.mishaismenska.hackatonrsschoolapp.domain
 
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
-import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
-import com.mishaismenska.hackatonrsschoolapp.data.interfaces.UserStateCache
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserStateDataModel
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CalculationManager
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetStateUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.UserStateCache
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserStateDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserWithDrinksDomainModel

@@ -1,7 +1,7 @@
 package com.mishaismenska.hackatonrsschoolapp.data
 
-import com.mishaismenska.hackatonrsschoolapp.data.interfaces.UserStateCache
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserStateDataModel
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.UserStateCache
 import javax.inject.Inject
 
 class UserStateCacheImpl @Inject constructor() : UserStateCache {

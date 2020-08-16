@@ -20,7 +20,7 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserNameUseCas
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserWeightUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSettingsUIModel
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.minimalWeightDifferenceMargin
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.MINI_WEIGHT_DIFFERENCE_MARGIN
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.abs
@@ -98,7 +98,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     private fun closeEnough(weight: Measure, newWeight: Int): Boolean {
-        return abs(kgToLb(weight.number.toInt()) - newWeight) <= minimalWeightDifferenceMargin
+        return abs(kgToLb(weight.number.toInt()) - newWeight) <= MINI_WEIGHT_DIFFERENCE_MARGIN
     }
 
     fun updateName(newValue: String?) {

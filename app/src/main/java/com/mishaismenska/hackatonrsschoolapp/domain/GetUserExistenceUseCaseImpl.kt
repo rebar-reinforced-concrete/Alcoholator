@@ -1,6 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.domain
 
-import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserExistenceUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect

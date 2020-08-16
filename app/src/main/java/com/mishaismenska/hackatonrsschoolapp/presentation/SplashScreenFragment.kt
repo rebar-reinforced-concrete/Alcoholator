@@ -1,7 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-const val USER_CREATED = "userCreated"
-
 class SplashScreenFragment : Fragment() {
 
     @Inject
@@ -26,11 +23,9 @@ class SplashScreenFragment : Fragment() {
         (requireActivity().application as App).appComponent.inject(this)
         lifecycleScope.launch(Dispatchers.IO) {
             if (existenceUseCase.checkIfUserExists()) {
-                Log.d("Splash", "user exists")
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container, MainFragment()).commit()
             } else {
-                Log.d("Splash", "user doesn't exist")
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container, AddUserFragment()).commit()
             }
