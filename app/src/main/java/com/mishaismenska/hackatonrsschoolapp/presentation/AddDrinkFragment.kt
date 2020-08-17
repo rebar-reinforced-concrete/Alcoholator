@@ -76,14 +76,6 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
             )
         }.toTypedArray()
 
-    private fun calculateIndexes(parent: AdapterView<*>, position: Int): List<Int> {
-        val preferableVolumes = viewModel.parseDrinkType(
-            binding,
-            (parent.adapter.getItem(position) as String?)!!
-        ).typicalTares
-        return preferableVolumes.map { it.ordinal }
-    }
-
     override fun onItemClick(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
         val indexes = viewModel.calculateIndexes(parent!!.adapter.getItem(position) as String)
         val volumes: MutableList<String> = getVolumeStrings().toMutableList()

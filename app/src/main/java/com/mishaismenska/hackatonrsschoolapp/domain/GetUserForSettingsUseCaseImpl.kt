@@ -4,7 +4,7 @@ import android.icu.util.LocaleData
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
 import com.mishaismenska.hackatonrsschoolapp.data.UnitConverter
-import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSettingsUIModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.imperialLocales
