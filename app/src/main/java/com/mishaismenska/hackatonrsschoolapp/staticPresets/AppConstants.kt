@@ -5,4 +5,5 @@ object AppConstants {
     const val defaultGenderId = 4 // fallback gender selection option, ``uncertain``
     const val minimalWeightDifferenceMargin = 1
     const val DBNAME = "AlcoBase"
+    val imperialLocales = listOf("US", "MM", "LR", "GB")
 }

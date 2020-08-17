@@ -35,7 +35,7 @@ interface UserWithDrinksDao {
     suspend fun resetDrinks()
 
     @Query("UPDATE USER SET weightValueInKg = :newValue")
-    suspend fun setWeight(newValue: Int)
+    suspend fun setWeight(newValue: Double)
 
     @Query("UPDATE USER SET userName = :newName")
     suspend fun setName(newName: String)

@@ -2,6 +2,7 @@ package com.mishaismenska.hackatonrsschoolapp.data
 
 import android.content.Context
 import android.icu.util.Measure
+import androidx.preference.PreferenceManager
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkDataModel
@@ -56,13 +57,17 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
     }
 
     override suspend fun addUser(age: Int, weight: Measure, gender: Gender) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit()
+            .putString(context.getString(R.string.weight_key), weight.number.toString())
+            .putString(context.getString(R.string.gender_key), gender.ordinal.toString())
+            .apply()
         dao.insertUser(
             UserDataModel(
                 LocalDate.now().toEpochDay(),
                 LocalDate.now(),
                 age,
                 gender.ordinal,
-                weight.number as Int,
+                weight.number.toDouble(),
                 weight.unit,
                 context.getString(R.string.default_name)
             )
@@ -78,7 +83,7 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
         dao.resetDrinks()
     }
 
-    override suspend fun setWeight(newValue: Int) {
+    override suspend fun setWeight(newValue: Double) {
         dao.setWeight(newValue)
     }
 

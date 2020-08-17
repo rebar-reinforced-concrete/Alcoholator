@@ -14,7 +14,7 @@ interface AppDataRepository {
     suspend fun deleteDrink(recyclerPosition: Int)
     suspend fun getDrinks(): Flow<List<DrinkDataModel>>
     suspend fun addUser(age: Int, weight: Measure, gender: Gender)
-    suspend fun setWeight(newValue: Int)
+    suspend fun setWeight(newValue: Double)
     suspend fun setUserName(newName: String)
     suspend fun setGender(newValue: Int)
     suspend fun getUserWithDrinks(): UserWithDrinksDataModel

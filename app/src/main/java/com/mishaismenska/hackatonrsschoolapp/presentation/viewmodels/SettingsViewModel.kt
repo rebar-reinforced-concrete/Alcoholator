@@ -4,28 +4,26 @@ import android.content.Context
 import android.icu.text.MeasureFormat
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import androidx.preference.EditTextPreference
-import androidx.preference.ListPreference
 import androidx.preference.PreferenceManager
 import com.mishaismenska.hackatonrsschoolapp.R
-import com.mishaismenska.hackatonrsschoolapp.data.UnitConverter.kgToLb
-import com.mishaismenska.hackatonrsschoolapp.data.UnitConverter.lbToKg
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ResetDataBaseUseCase
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserGenderUseCase
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserNameUseCase
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserWeightUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.*
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSettingsUIModel
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.minimalWeightDifferenceMargin
-import java.util.Locale
-import javax.inject.Inject
-import kotlin.math.abs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
+import java.util.function.DoubleUnaryOperator
+import javax.inject.Inject
 
 class SettingsViewModel @Inject constructor(
     private val getUserUseCase: GetUserForSettingsUseCase,
@@ -33,6 +31,7 @@ class SettingsViewModel @Inject constructor(
     private val setUserWeightUseCase: SetUserWeightUseCase,
     private val setNameUseCase: SetUserNameUseCase,
     private val updateUserGenderUseCase: SetUserGenderUseCase,
+    private val convertIfRequiredUseCase: ConvertIfRequiredUseCase,
     private val context: Context
 ) : ViewModel() {
 
@@ -42,39 +41,36 @@ class SettingsViewModel @Inject constructor(
         emit(getUserUseCase.getUser())
     }
 
-    fun loadName(namePreference: EditTextPreference) {
+    fun loadName(currentUserName: TextView) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(
             context.getString(
                 R.string.name_key
             ), userLiveData.value!!.userName
         ).apply()
-        namePreference.text = userLiveData.value!!.userName
+        currentUserName.text = userLiveData.value!!.userName
     }
 
-    fun loadWeight(
-        isImperial: Boolean,
-        weightPreference: EditTextPreference
-    ) {
-        val unitWeight = if (isImperial)
-            formatter.format(
-                Measure(
-                    kgToLb(userLiveData.value!!.weight.number.toInt()),
-                    MeasureUnit.POUND
-                )
-            ) else formatter.format(userLiveData.value!!.weight)
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(
-            context.getString(
-                R.string.weight_key
-            ), unitWeight
-        ).apply()
-        weightPreference.text = unitWeight
+    fun loadWeight(currentWeight: TextView) {
+        val unitWeight =
+            convertIfRequiredUseCase.convertToImperialIfRequired(userLiveData.value!!.weight)
+        val formattedWeight = formatter.format(unitWeight)
+        currentWeight.text = formattedWeight
     }
 
-    fun loadGender(genderPreference: ListPreference) {
+    fun loadGender(genderPreference: Spinner) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(
             context.getString(R.string.gender_key), userLiveData.value!!.genderId.toString()
         ).apply()
-        genderPreference.value = userLiveData.value!!.genderId.toString()
+        genderPreference.setSelection(userLiveData.value!!.genderId)
+    }
+
+    val genderChangedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, p3: Long) {
+            updateGender(position)
+        }
+
     }
 
     fun resetDB() {
@@ -84,21 +80,16 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    private fun cleanInputValue(text: String) =
-        text.split(".")[0].filter { it.isDigit() }.toInt()
-
-    fun updateWeight(newValue: String?, isImperial: Boolean) {
-        val cleanInput = cleanInputValue(newValue!!)
-        if (!closeEnough(userLiveData.value!!.weight, cleanInput))
-            viewModelScope.launch(Dispatchers.IO) {
-                val unitWeight = if (isImperial) lbToKg(cleanInput)
-                else cleanInput
-                setUserWeightUseCase.setUserWeight(unitWeight)
-            }
-    }
-
-    private fun closeEnough(weight: Measure, newWeight: Int): Boolean {
-        return abs(kgToLb(weight.number.toInt()) - newWeight) <= minimalWeightDifferenceMargin
+    fun updateWeight(newValue: String): String? {
+        val cleanInput = newValue.toDouble()
+        val unitWeight = convertIfRequiredUseCase.convertWeightToMetricIfRequired(cleanInput)
+        viewModelScope.launch(Dispatchers.IO) {
+            setUserWeightUseCase.setUserWeight(unitWeight)
+        }
+        return formatter.format(convertIfRequiredUseCase.convertToImperialIfRequired(Measure(
+            unitWeight,
+            MeasureUnit.KILOGRAM
+        )))
     }
 
     fun updateName(newValue: String?) {
@@ -107,9 +98,12 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateGender(genderId: String?) {
+    fun updateGender(genderId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            updateUserGenderUseCase.setUserGender(genderId!!.toInt())
+            updateUserGenderUseCase.setUserGender(genderId)
         }
     }
+
+    fun getUserName(): String = userLiveData.value!!.userName
+    fun getUserWeight(): String = formatter.format(userLiveData.value!!.weight)
 }

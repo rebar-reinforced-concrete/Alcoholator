@@ -1,80 +1,92 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation
 
-import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.fragment.app.FragmentManager
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.preference.EditTextPreference
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.R
+import com.mishaismenska.hackatonrsschoolapp.databinding.AppSettingsFragmentBinding
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.SettingsViewModel
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.defaultGenderId
-import java.util.Locale
 import javax.inject.Inject
 
-class AppSettingsFragment : PreferenceFragmentCompat(),
-    SharedPreferences.OnSharedPreferenceChangeListener {
+
+class AppSettingsFragment : Fragment() {
     @Inject
     lateinit var viewModel: SettingsViewModel
+    @Inject
+    lateinit var alertDialogManager: AlertDialogManagerImpl
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+    private var _binding: AppSettingsFragmentBinding? = null
+    val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = AppSettingsFragmentBinding.inflate(inflater, container, false)
         (requireActivity().application as App).appComponent.inject(this)
-        setPreferencesFromResource(R.xml.root_preferences, rootKey)
+        viewModel.userLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            viewModel.loadName(binding.currentUserName)
+            viewModel.loadWeight(binding.currentUserWeight)
+            viewModel.loadGender(binding.genderSpinner)
+        })
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val resetPreference = findPreference<Preference>(getString(R.string.reset_key))
-        val namePreference = findPreference<EditTextPreference>(getString(R.string.name_key))
-        val weightPreference = findPreference<EditTextPreference>(getString(R.string.weight_key))
-        val genderPreference = findPreference<ListPreference>(getString(R.string.gender_key))
-
-        viewModel.userLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            viewModel.loadName(namePreference!!)
-            viewModel.loadWeight(Locale.getDefault().country == "US", weightPreference!!)
-            viewModel.loadGender(genderPreference!!)
-        })
-
-        resetPreference!!.setOnPreferenceClickListener {
+        binding.genderSpinner.adapter = NoFilterAdapter(
+            requireContext(),
+            R.layout.gender_dropdown_item,
+            resources.getStringArray(R.array.genders_names)
+        )
+        binding.namePreference.setOnClickListener {
+            alertDialogManager.showEditNameAlertDialog(
+                viewModel.getUserName(),
+                requireContext(),
+                ::updateName
+            )
+        }
+        binding.weightPreference.setOnClickListener {
+            alertDialogManager.showEditWeightAlertDialog(
+                viewModel.getUserWeight(),
+                requireContext(),
+                ::updateWeight
+            )
+        }
+        binding.genderSpinner.onItemSelectedListener = viewModel.genderChangedListener
+        binding.reset.setOnClickListener {
             viewModel.resetDB()
-            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_fragment_container, AddUserFragment()).setTransition(
+            openAddUserFragment()
+        }
+    }
+
+    private fun openAddUserFragment() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment_container, AddUserFragment()).setTransition(
                 FragmentTransaction.TRANSIT_FRAGMENT_OPEN
             ).commit()
-            Snackbar.make(view, "All your data has been removed", Snackbar.LENGTH_LONG).show()
-            true
-        }
-        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+        Snackbar.make(requireView(), getString(R.string.reset_message), Snackbar.LENGTH_LONG).show()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+    private fun updateName(newValue: String) {
+        viewModel.updateName(newValue)
+        binding.currentUserName.text = newValue
     }
 
-    override fun onSharedPreferenceChanged(pref: SharedPreferences?, key: String?) {
-        when (key) {
-            requireContext().getString(R.string.weight_key) -> {
-                viewModel.updateWeight(
-                    pref!!.getString(key, "0"), Locale.getDefault().country == "US"
-                )
-            }
-            requireContext().getString(R.string.name_key) -> {
-                viewModel.updateName(
-                    pref!!.getString(key, "")
-                )
-            }
-            requireContext().getString(R.string.gender_key) -> {
-                viewModel.updateGender(
-                    pref!!.getString(key, defaultGenderId.toString())
-                )
-            }
-        }
+    private fun updateWeight(newValue: String) {
+        binding.currentUserWeight.text = viewModel.updateWeight(newValue)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
 }

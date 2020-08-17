@@ -5,10 +5,10 @@
 ## immediate fixes **deadline**: 4 days(13 aug - 17 aug @ 23:50)  
 - [ ] refactoring  
     - ~Log.d() **MW**~  
-    - Remove LiveData from repo **MW**  
+    - ~Remove LiveData from repo **MW/MK**~  
     - ~State reevaluation **MW**~  
-    - Detekt\ktlint **TG**  
-    - ```.editorconfig``` **TG**  
+    - ~Detekt\ktlint **TG**~  
+    - ~```.editorconfig``` **TG**~  
     - Navigation manager **TG**  
     - WorkManager (optional)  
     - Landscape orientation  

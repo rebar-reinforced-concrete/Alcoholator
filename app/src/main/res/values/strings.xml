@@ -109,7 +109,18 @@
     <string name="fella">fella</string>
     <string name="default_name">fella</string>
     <string name="gender_key">gender</string>
-
+    <string name="weight_in_pounds_key">weight_lbs</string>
+    <string name="weight_in_kg_key">weight_kg</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="your_weight">Your weight</string>
+    <string name="your_name">Your name</string>
+    <string name="your_gender">Your Gender</string>
+    <string name="ok">OK</string>
+    <string name="name_edit">Name</string>
+    <string name="name_edit_message">edit your name</string>
+    <string name="weight_edit">Weight</string>
+    <string name="weight_edit_message">edit your weight</string>
+    <string name="reset_message">All your data has been removed</string>
 
 
 </resources>

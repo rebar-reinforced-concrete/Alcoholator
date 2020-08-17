@@ -11,7 +11,7 @@ data class UserDataModel(
     val createdOn: LocalDate,
     val ageOnCreation: Int,
     val genderId: Int,
-    val weightValueInKg: Int,
+    val weightValueInKg: Double,
     val unit: MeasureUnit,
     val userName: String
 )

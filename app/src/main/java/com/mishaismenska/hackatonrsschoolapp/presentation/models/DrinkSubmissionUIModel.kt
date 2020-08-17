@@ -5,7 +5,7 @@ import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPreset
 import java.time.LocalDateTime
 
 data class DrinkSubmissionUIModel(
-    val type: DrinkPreset,
+    val type: String,
     val dateTaken: LocalDateTime,
     val volume: Measure,
     val eaten: Boolean
