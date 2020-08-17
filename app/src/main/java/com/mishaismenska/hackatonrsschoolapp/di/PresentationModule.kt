@@ -1,7 +1,9 @@
 package com.mishaismenska.hackatonrsschoolapp.di
 
+import com.mishaismenska.hackatonrsschoolapp.presentation.AlertDialogManagerImpl
 import com.mishaismenska.hackatonrsschoolapp.presentation.AppNotificationManagerImpl
 import com.mishaismenska.hackatonrsschoolapp.presentation.UserInputValidatingManagerImpl
+import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AlertDialogManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AppNotificationManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.UserInputValidatingManager
 import dagger.Binds
@@ -17,4 +19,8 @@ interface PresentationModule {
     @Binds
     @Singleton
     fun provideAppNotificationManager(appNotificationManagerImpl: AppNotificationManagerImpl): AppNotificationManager
+
+    @Binds
+    @Singleton
+    fun provideAlertDialogManager(alertDialogManagerImpl: AlertDialogManagerImpl): AlertDialogManager
 }

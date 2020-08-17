@@ -9,4 +9,5 @@ object AppConstants {
     const val MIN_POSSIBLE_USER_WEIGHT = 30
     const val MAX_POSSIBLE_USER_WEIGHT = 250
     const val DATA_REMOVED_KEY = "data_removed"
+    const val imperialLocales = listOf("US", "MM", "LR", "GB") //TODO: peraimenavais
 }

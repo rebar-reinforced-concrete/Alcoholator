@@ -2,7 +2,8 @@ package com.mishaismenska.hackatonrsschoolapp.di
 
 import com.mishaismenska.hackatonrsschoolapp.data.AppDataRepositoryImpl
 import com.mishaismenska.hackatonrsschoolapp.data.GendersProviderImpl
-import com.mishaismenska.hackatonrsschoolapp.data.UserStateCacheImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DrinkTypeProvider
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GendersProvider
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.UserStateCache
@@ -23,4 +24,8 @@ interface DataModule {
     @Binds
     @Singleton
     fun provideGendersProvider(gendersProviderImpl: GendersProviderImpl): GendersProvider
+
+    @Binds
+    @Singleton
+    fun provideDrinkTypeProvider(drinkTypeProvider: DrinkTypeProviderImpl): DrinkTypeProvider
 }

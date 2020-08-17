@@ -11,6 +11,7 @@ import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.UnitConverter.mlToOz
 import com.mishaismenska.hackatonrsschoolapp.databinding.DrinkRecyclerItemBinding
 import com.mishaismenska.hackatonrsschoolapp.databinding.MainInfoCardBinding
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ConvertIfRequiredUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkUIModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserStateUIModel
 import java.time.Duration
@@ -18,6 +19,7 @@ import java.time.LocalDateTime
 import java.util.Locale
 
 class DrinksRecyclerAdapter(
+    private val converter: ConvertIfRequiredUseCase,
     initialUserStateUIMode: UserStateUIModel
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -59,10 +61,7 @@ class DrinksRecyclerAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position >= 1) {
-            (holder as DrinkViewHolder).bind(
-                drinks[position - 1],
-                Locale.getDefault().country == "US"
-            )
+            (holder as DrinkViewHolder).bind(drinks[position - 1], converter)
         } else (holder as StateViewHolder).bind(userState)
     }
 
@@ -70,7 +69,10 @@ class DrinksRecyclerAdapter(
         private val binding: DrinkRecyclerItemBinding,
         private val drinkTypes: Array<String>
     ) : RecyclerView.ViewHolder(binding.root) {
-
+        private val formatter = MeasureFormat.getInstance(
+            Locale.getDefault(),
+            MeasureFormat.FormatWidth.WIDE
+        )
         private fun convertDate(date: LocalDateTime): String {
             val duration = Duration.between(date, LocalDateTime.now())
             val context = binding.root.context
@@ -82,21 +84,12 @@ class DrinksRecyclerAdapter(
             }
         }
 
-        fun bind(drinkUIModel: DrinkUIModel, isImperial: Boolean) {
+        fun bind(drinkUIModel: DrinkUIModel, converter: ConvertIfRequiredUseCase) {
             binding.drinkName.text = drinkTypes[drinkUIModel.type.ordinal]
             binding.dateTextView.text = convertDate(drinkUIModel.dateTaken)
-            binding.drinkDescription.text =
-                if (isImperial)
-                    MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
-                        .format(
-                            Measure(
-                                mlToOz(drinkUIModel.volume.number as Int),
-                                MeasureUnit.FLUID_OUNCE
-                            )
-                        )
-                else
-                    MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.WIDE)
-                        .format(drinkUIModel.volume)
+            binding.drinkDescription.text = formatter.format(
+                converter.convertToImperialIfRequired(drinkUIModel.volume)
+            )
         }
     }
 

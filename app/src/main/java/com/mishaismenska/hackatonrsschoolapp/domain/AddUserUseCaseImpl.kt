@@ -1,7 +1,7 @@
 package com.mishaismenska.hackatonrsschoolapp.domain
 
+import com.mishaismenska.hackatonrsschoolapp.data.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddUserUseCase
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GendersProvider
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSubmissionUIModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.Gender

@@ -71,12 +71,7 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
         resources.getStringArray(R.array.volume_names).toMutableList().mapIndexed { index, s ->
             s.format(
                 viewModel.formatter.format(
-                    // TODO: move to usecase
-                    if (Locale.getDefault().country == "US") Measure(
-                        mlToOz(VolumePreset.values()[index].volume.number as Int),
-                        MeasureUnit.OUNCE
-                    )
-                    else VolumePreset.values()[index]
+                    viewModel.convertMeasureIfRequired(VolumePreset.values()[index])
                 )
             )
         }.toTypedArray()
@@ -90,7 +85,7 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
     }
 
     override fun onItemClick(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-        val indexes = calculateIndexes(parent!!, position)
+        val indexes = viewModel.calculateIndexes(parent!!.adapter.getItem(position) as String)
         val volumes: MutableList<String> = getVolumeStrings().toMutableList()
         val names = indexes.map { volumes[it] }
         indexes.map { volumes.removeAt(it) }

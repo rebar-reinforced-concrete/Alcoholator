@@ -24,7 +24,7 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CheckIfUserWeight
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetDrinksUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetStateUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserExistenceUseCase
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserWIthDrinksUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserWIthDrinksUseCase //TODO: fix big IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIi
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.RemoveDrinkUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ResetDataBaseUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserGenderUseCase
@@ -82,6 +82,12 @@ interface DomainModule {
 
     @Binds
     fun provideExistenceUseCase(existenceUseCase: GetUserExistenceUseCaseImpl): GetUserExistenceUseCase
+
+    @Binds
+    fun provideConvertIfRequiredUseCase(convertIfRequiredUseCase: ConvertIfRequiredUseCaseImpl): ConvertIfRequiredUseCase
+
+    @Binds
+    fun provideCalculateIndexesUseCase(calculateIndexesUseCase: CalculateIndexesUseCaseImpl): CalculateIndexesUseCase
 
     @Binds
     fun provideCheckIfUserAgeValidUseCase(checkIfUserAgeValidUseCaseImpl: CheckIfUserAgeValidUseCaseImpl): CheckIfUserAgeValidUseCase

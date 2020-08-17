@@ -5,7 +5,7 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserWeightUseC
 import javax.inject.Inject
 
 class SetUserWeightUseCaseImpl @Inject constructor(private val appDataRepository: AppDataRepository) : SetUserWeightUseCase {
-    override suspend fun setUserWeight(weight: Int) {
+    override suspend fun setUserWeight(weight: Double) {
         appDataRepository.setWeight(weight)
     }
 }
