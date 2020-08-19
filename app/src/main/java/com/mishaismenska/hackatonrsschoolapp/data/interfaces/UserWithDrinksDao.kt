@@ -45,5 +45,5 @@ interface UserWithDrinksDao {
 
     @Transaction
     @Query("SELECT * FROM User")
-    fun getUserWithDrinks(): UserWithDrinksDataModel
+    fun getUserWithDrinks(): UserWithDrinksDataModel?
 }

@@ -18,4 +18,28 @@
         <item name="android:textSize">24sp</item>
     </style>
 
+    <style name="PreferenceDescription">
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Caption</item>
+    </style>
+
+    <style name="PreferenceName">
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle1
+        </item>
+    </style>
+
+    <style name="PreferenceLayout">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="PreferencesGroupTitle">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:layout_marginStart">72dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
 </resources>

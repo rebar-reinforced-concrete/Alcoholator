@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddUserBinding
 import com.mishaismenska.hackatonrsschoolapp.di.App
+import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.UserInputValidatingManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.AddUserViewModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants
 import javax.inject.Inject
@@ -22,6 +23,9 @@ class AddUserFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: AddUserViewModel
+
+    @Inject
+    lateinit var userInputValidatingManager: UserInputValidatingManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,9 +38,10 @@ class AddUserFragment : Fragment() {
         binding.genderInput.setText(genderNames.last())
         binding.genderInput.keyListener = null
         (requireActivity().application as App).appComponent.inject(this)
+        binding.weightInputWrapper.hint = viewModel.getWeightInputHint()
         binding.goButton.setOnClickListener {
-            if (viewModel.validate(binding)) {
-                viewModel.addUser(binding)
+            if (userInputValidatingManager.validateUserInput(binding)) {
+                addUser()
             }
         }
         viewModel.isFragmentOpened.observe(viewLifecycleOwner, Observer {
@@ -45,6 +50,13 @@ class AddUserFragment : Fragment() {
             }
         })
         return binding.root
+    }
+
+    private fun addUser() {
+        val age = binding.ageInput.text.toString().toInt()
+        val weight = binding.weightInput.text.toString().toDouble()
+        val gender = binding.genderInput.text.toString()
+        viewModel.addUser(age, weight, gender)
     }
 
     override fun onResume() {

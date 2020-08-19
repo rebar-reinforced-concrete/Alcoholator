@@ -1,6 +1,5 @@
 package com.mishaismenska.hackatonrsschoolapp.data.models
 
-import android.icu.util.MeasureUnit
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
@@ -12,6 +11,5 @@ data class UserDataModel(
     val ageOnCreation: Int,
     val genderId: Int,
     val weightValueInKg: Double,
-    val unit: MeasureUnit,
     val userName: String
 )

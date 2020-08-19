@@ -39,7 +39,7 @@ class UserInputValidatingManagerImpl @Inject constructor(
     }
 
     private fun isWeightCorrect(wrapper: TextInputLayout): Boolean {
-        val weight = wrapper.editText!!.text.toString().toInt()
+        val weight = wrapper.editText!!.text.toString().toDouble()
         return if (checkIfUserWeightValidUseCase.checkIfUserWeightValid(weight)) {
             wrapper.error = null
             true

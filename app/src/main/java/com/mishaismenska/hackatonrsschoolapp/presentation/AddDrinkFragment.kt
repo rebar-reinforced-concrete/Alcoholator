@@ -1,8 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation
 
 import android.content.pm.ActivityInfo
-import android.icu.util.Measure
-import android.icu.util.MeasureUnit
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +8,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import com.mishaismenska.hackatonrsschoolapp.R
-import com.mishaismenska.hackatonrsschoolapp.data.UnitConverter.mlToOz
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddDrinkBinding
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.AddDrinkViewModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.VolumePreset
-import java.util.Locale
 import javax.inject.Inject
 
 class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
@@ -32,11 +28,6 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
     ): View? {
         binding = FragmentAddDrinkBinding.inflate(inflater, container, false)
         (requireActivity().application as App).appComponent.inject(this)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         val drinkTypes = resources.getStringArray(R.array.drink_types)
         binding.typeInput.setAdapter(
             NoFilterAdapter(requireContext(), R.layout.drink_type_dropdown_item, drinkTypes)
@@ -55,6 +46,7 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
         viewModel.isFragmentOpened.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             if (!it) parentFragmentManager.popBackStack()
         })
+        return binding.root
     }
 
     override fun onResume() {
@@ -67,6 +59,7 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
 
+    // TODO: move to view model or use case or i even don't now. It's too. FUCKING TOOOO bad
     private fun getVolumeStrings(): Array<String> =
         resources.getStringArray(R.array.volume_names).toMutableList().mapIndexed { index, s ->
             s.format(

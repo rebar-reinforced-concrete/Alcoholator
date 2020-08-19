@@ -1,80 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/category_personal_data"
+        style="@style/PreferencesGroupTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/personal_information"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/reset"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/reset"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_preference"
-        app:layout_constraintVertical_bias="0.0" />
+        android:text="@string/personal_information" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/gender_preference"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/category_personal_data">
+        style="@style/PreferenceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <Spinner
-            android:id="@+id/gender_spinner"
+        <ImageView
+            android:id="@+id/preference_gender_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_baseline_supervisor_account_24"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gender_preference_title" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/gender_preference_title"
+            style="@style/PreferenceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/your_gender"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/preference_gender_icon"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/gender_preference_description"
+            style="@style/PreferenceDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your gender will be displayed here"
+            app:layout_constraintStart_toEndOf="@id/preference_gender_icon"
+
+            app:layout_constraintTop_toBottomOf="@id/gender_preference_title" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/weight_preference"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_preference">
+        style="@style/PreferenceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/weight_preference_title"
+        <ImageView
+            android:id="@+id/weight_preference_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/your_weight"
+            android:src="@drawable/ic_baseline_speed_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/weight_preference_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/current_user_weight"
+            android:id="@+id/weight_preference_title"
+            style="@style/PreferenceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/your_weight"
+            app:layout_constraintStart_toEndOf="@id/weight_preference_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/current_user_weight"
+            style="@style/PreferenceDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/weight_preference_icon"
             app:layout_constraintTop_toBottomOf="@+id/weight_preference_title"
             tools:text="100 pounds" />
 
@@ -82,29 +88,86 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/name_preference"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weight_preference">
+        style="@style/PreferenceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/name_preference_title"
+        <ImageView
+            android:id="@+id/name_preference_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/your_name"
+            android:src="@drawable/ic_baseline_account_circle_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/name_preference_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/current_user_name"
+            android:id="@+id/name_preference_title"
+            style="@style/PreferenceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/your_name"
+            app:layout_constraintStart_toEndOf="@id/name_preference_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/current_user_name"
+            style="@style/PreferenceDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/name_preference_icon"
             app:layout_constraintTop_toBottomOf="@+id/name_preference_title"
             tools:text="Jakaroo Benefiridondi" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorControlHighlight" />
+
+    <TextView
+        android:id="@+id/data_manage_title"
+        style="@style/PreferencesGroupTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/manage" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/reset"
+        style="@style/PreferenceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/reset_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_delete_forever_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/reset_title"
+            style="@style/PreferenceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset"
+            app:layout_constraintBottom_toTopOf="@id/reset_content"
+            app:layout_constraintStart_toEndOf="@id/reset_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/reset_content"
+            style="@style/PreferenceDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset_detailed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/reset_icon"
+            app:layout_constraintTop_toBottomOf="@id/reset_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

@@ -62,6 +62,6 @@ class CalculationManagerImpl @Inject constructor() :
         val drink = userWithDrinksDomainModel.drinks[drinkIndex]
         val m = drink.volume.number.toDouble() * drink.type.percentage / 100.0 * (if (drink.eaten) 0.7 else 0.9)
         val r = if (userWithDrinksDomainModel.gender.isMale) 0.7 else 0.6
-        return m / userWithDrinksDomainModel.weight.number.toDouble() / r
+        return m / userWithDrinksDomainModel.weight / r
     }
 }

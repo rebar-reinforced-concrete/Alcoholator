@@ -1,33 +1,28 @@
 package com.mishaismenska.hackatonrsschoolapp.domain
 
-import android.icu.util.LocaleData
-import android.icu.util.Measure
-import android.icu.util.MeasureUnit
-import com.mishaismenska.hackatonrsschoolapp.data.UnitConverter
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.MeasureSystemsManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSettingsUIModel
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.imperialLocales
 import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
-import java.util.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-class GetUserForSettingsUseCaseImpl @Inject constructor(private val appDataRepository: AppDataRepository) :
+class GetUserForSettingsUseCaseImpl @Inject constructor(
+    private val appDataRepository: AppDataRepository,
+    private val measureSystemsManager: MeasureSystemsManager
+) :
     GetUserForSettingsUseCase {
-    override suspend fun getUser(): UserSettingsUIModel {
-        var user: UserSettingsUIModel? = null
-        appDataRepository.getUser().take(1).collect {
-            val unitWeight = if (Locale.getDefault().country in imperialLocales)
-                Measure(UnitConverter.kgToLb(it[0].weightValueInKg), MeasureUnit.POUND)
-            else
-                Measure(it[0].weightValueInKg, it[0].unit)
-            user = UserSettingsUIModel(
-                unitWeight,
-                it[0].userName,
-                it[0].genderId
+    override suspend fun getUser(): Flow<UserSettingsUIModel?> = appDataRepository.getUser().map {
+        if (it.isNullOrEmpty()) {
+            null
+        } else {
+            val user = it[0]
+            UserSettingsUIModel(
+                measureSystemsManager.convertUserWeightToImperialIfRequired(user.weight),
+                user.name,
+                user.gender.ordinal
             )
         }
-        return user!!
     }
 }

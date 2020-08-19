@@ -8,4 +8,5 @@ object AppConstants {
     const val MAX_POSSIBLE_USER_WEIGHT = 250
     const val DATA_REMOVED_KEY = "data_removed"
     val imperialLocales = listOf("US", "MM", "LR")
+    const val UPDATE_UI_TIMER_PERIOD = 60000L
 }

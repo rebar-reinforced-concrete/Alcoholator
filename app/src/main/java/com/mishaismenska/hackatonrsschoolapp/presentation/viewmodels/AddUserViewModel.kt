@@ -1,48 +1,42 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels
 
 import android.content.Context
-import android.icu.util.Measure
-import android.icu.util.MeasureUnit
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddUserBinding
+import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddUserUseCase
-import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.UserInputValidatingManager
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.IsImperialMeasureSystemUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSubmissionUIModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddUserViewModel @Inject constructor(
-    private val userInputValidatingManager: UserInputValidatingManager,
     private val addUserUseCase: AddUserUseCase,
+    private val isImperialMeasureSystemUseCase: IsImperialMeasureSystemUseCase,
     private val context: Context
 ) : ViewModel() {
-    val isFragmentOpened = MutableLiveData(true)
 
-    fun validate(binding: FragmentAddUserBinding): Boolean {
-        return userInputValidatingManager.validateUserInput(binding)
-    }
+    private val _isFragmentOpened = MutableLiveData(true)
+    val isFragmentOpened: LiveData<Boolean>
+        get() = _isFragmentOpened
 
-    fun addUser(binding: FragmentAddUserBinding) {
-        val age = binding.ageInput.text.toString().toInt()
-        val weight = binding.weightInput.text.toString().toInt()
-        val gender = binding.genderInput.text.toString()
-
+    fun addUser(age: Int, weight: Double, gender: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            addUserUseCase.addUser(
-                UserSubmissionUIModel(
-                    age,
-                    Measure(weight, MeasureUnit.KILOGRAM),
-                    gender
-                )
-            )
-            isFragmentOpened.postValue(false)
+            addUserUseCase.addUser(UserSubmissionUIModel(age, weight, gender))
+            _isFragmentOpened.postValue(false)
         }
     }
 
+    fun getWeightInputHint() = if (isImperialMeasureSystemUseCase.checkIfMeasureSystemImperial()) {
+        context.resources.getString(R.string.weight_pounds)
+    } else {
+        context.resources.getString(R.string.weight_kg)
+    }
+
     override fun onCleared() {
-        isFragmentOpened.postValue(true)
+        _isFragmentOpened.postValue(true)
     }
 }

@@ -1,5 +1,5 @@
 package com.mishaismenska.hackatonrsschoolapp.domain.interfaces
 
-interface DrinkTypeProvider {
+interface DrinkTypeRepository {
     fun provideDrinks(): List<String>
 }

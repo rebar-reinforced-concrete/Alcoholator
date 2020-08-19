@@ -1,6 +1,5 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels
 
-import android.content.Context
 import android.icu.text.MeasureFormat
 import android.icu.util.Measure
 import androidx.lifecycle.MutableLiveData
@@ -13,17 +12,16 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CalculateIndexesU
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ConvertIfRequiredUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkSubmissionUIModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.VolumePreset
+import java.time.LocalDateTime
+import java.util.Locale
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import java.util.*
-import javax.inject.Inject
 
 class AddDrinkViewModel @Inject constructor(
     private val addDrinkUseCase: AddDrinkUseCase,
     private val convertIfRequiredUseCase: ConvertIfRequiredUseCase,
-    private val calculateIndexesUseCase: CalculateIndexesUseCase,
-    private val context: Context
+    private val calculateIndexesUseCase: CalculateIndexesUseCase
 ) :
     ViewModel() {
     val formatter: MeasureFormat =
@@ -32,6 +30,7 @@ class AddDrinkViewModel @Inject constructor(
 
     fun addDrink(binding: FragmentAddDrinkBinding) {
         val eaten = binding.eatenCheckbox.isChecked
+        // PLEASE. NOT HERE. NOT FUCKING HERE
         val volume = when (binding.volumeInput.text.toString()) {
             inlayMeasurement(binding, R.string.shot, VolumePreset.SHOT.volume) -> VolumePreset.SHOT
             inlayMeasurement(
@@ -80,6 +79,7 @@ class AddDrinkViewModel @Inject constructor(
         }
     }
 
+    // HID THIS STUFF SOMEWHERE
     private fun inlayMeasurement(
         binding: FragmentAddDrinkBinding,
         id: Int,
@@ -99,7 +99,7 @@ class AddDrinkViewModel @Inject constructor(
         return convertIfRequiredUseCase.convertToImperialIfRequired(volume.volume)
     }
 
-    fun calculateIndexes(item: String): List<Int>{
+    fun calculateIndexes(item: String): List<Int> {
         return calculateIndexesUseCase.calculateIndexes(item)
     }
 }

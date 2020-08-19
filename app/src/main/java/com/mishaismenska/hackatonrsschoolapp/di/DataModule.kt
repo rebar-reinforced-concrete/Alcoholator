@@ -1,17 +1,16 @@
 package com.mishaismenska.hackatonrsschoolapp.di
 
 import com.mishaismenska.hackatonrsschoolapp.data.AppDataRepositoryImpl
-import com.mishaismenska.hackatonrsschoolapp.data.DrinkTypeProviderImpl
-import com.mishaismenska.hackatonrsschoolapp.data.GendersProviderImpl
-import com.mishaismenska.hackatonrsschoolapp.data.UserStateCacheImpl
+import com.mishaismenska.hackatonrsschoolapp.data.DrinkTypeRepositoryImpl
+import com.mishaismenska.hackatonrsschoolapp.data.GendersRepositoryImpl
+import com.mishaismenska.hackatonrsschoolapp.data.UserStateRepositoryImpl
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DrinkTypeProvider
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GendersProvider
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.UserStateCache
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DrinkTypeRepository
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GendersRepository
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.UserStateRepository
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
-
 
 @Module
 interface DataModule {
@@ -21,13 +20,13 @@ interface DataModule {
 
     @Binds
     @Singleton
-    fun provideUseStateCache(userStateCacheImpl: UserStateCacheImpl): UserStateCache
+    fun provideUseStateCache(userStateCacheImpl: UserStateRepositoryImpl): UserStateRepository
 
     @Binds
     @Singleton
-    fun provideGendersProvider(gendersProviderImpl: GendersProviderImpl): GendersProvider
+    fun provideGendersProvider(gendersProviderImpl: GendersRepositoryImpl): GendersRepository
 
     @Binds
     @Singleton
-    fun provideDrinkTypeProvider(drinkTypeProvider: DrinkTypeProviderImpl): DrinkTypeProvider
+    fun provideDrinkTypeProvider(drinkTypeProvider: DrinkTypeRepositoryImpl): DrinkTypeRepository
 }

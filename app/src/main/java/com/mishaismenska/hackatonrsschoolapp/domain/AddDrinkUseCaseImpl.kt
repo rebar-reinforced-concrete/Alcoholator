@@ -2,7 +2,7 @@ package com.mishaismenska.hackatonrsschoolapp.domain
 
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddDrinkUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DrinkTypeProvider
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DrinkTypeRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkSubmissionUIModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPreset
@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class AddDrinkUseCaseImpl @Inject constructor(
     private val appDataRepository: AppDataRepository,
-    private val drinkTypeProvider: DrinkTypeProvider
+    private val drinkTypeRepository: DrinkTypeRepository
 ) : AddDrinkUseCase {
     override suspend fun addDrink(drink: DrinkSubmissionUIModel) {
         appDataRepository.addDrink(
@@ -24,7 +24,7 @@ class AddDrinkUseCaseImpl @Inject constructor(
     }
 
     private fun parseDrinkType(stringRepresentation: String): DrinkPreset {
-        val drinks = drinkTypeProvider.provideDrinks()
+        val drinks = drinkTypeRepository.provideDrinks()
         return when (stringRepresentation) {
             drinks[0] -> DrinkPreset.VODKA
             drinks[1] -> DrinkPreset.JINN_TONIC
@@ -37,12 +37,12 @@ class AddDrinkUseCaseImpl @Inject constructor(
             drinks[8] -> DrinkPreset.BEER_LIGHT
             drinks[9] -> DrinkPreset.BEER_DARK_CHEAP
             drinks[10] -> DrinkPreset.BEER_LIGHT_CHEAP
-            drinks[11]-> DrinkPreset.MOONSHINE
-            drinks[12]-> DrinkPreset.SPIRIT
-            drinks[13]-> DrinkPreset.WHISKEY
-            drinks[14]-> DrinkPreset.WHISKEY_CHEAP
-            drinks[15]-> DrinkPreset.LIQUOR
-            drinks[16]-> DrinkPreset.CHAMPAGNE
+            drinks[11] -> DrinkPreset.MOONSHINE
+            drinks[12] -> DrinkPreset.SPIRIT
+            drinks[13] -> DrinkPreset.WHISKEY
+            drinks[14] -> DrinkPreset.WHISKEY_CHEAP
+            drinks[15] -> DrinkPreset.LIQUOR
+            drinks[16] -> DrinkPreset.CHAMPAGNE
             else -> DrinkPreset.COGNAC
         }
     }

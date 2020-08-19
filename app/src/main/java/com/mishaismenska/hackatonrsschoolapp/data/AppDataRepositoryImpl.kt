@@ -5,32 +5,62 @@ import android.icu.util.Measure
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserDataModel
-import com.mishaismenska.hackatonrsschoolapp.data.models.UserWithDrinksDataModel
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
+import com.mishaismenska.hackatonrsschoolapp.domain.models.UserDomainModel
+import com.mishaismenska.hackatonrsschoolapp.domain.models.UserWithDrinksDomainModel
+import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPreset
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.Gender
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
 import java.time.LocalDate
 import java.time.ZoneOffset
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.take
 
 class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
     AppDataRepository {
 
     private val dao = AppDatabase.getDatabase(context).dao()
 
-    override suspend fun getUserWithDrinks(): UserWithDrinksDataModel {
-        return dao.getUserWithDrinks()
+    override suspend fun getUserWithDrinks(): UserWithDrinksDomainModel? {
+        val user = dao.getUserWithDrinks()
+        if (user == null) {
+            return null
+        } else {
+            val currentUserAge = LocalDate.now().year - user.user.createdOn.year + user.user.ageOnCreation
+            return UserWithDrinksDomainModel(
+                user.drinks.map {
+                    DrinkDomainModel(
+                        DrinkPreset.values()[it.typeId],
+                        it.dateTaken,
+                        Measure(it.volumeValueInMl, it.unit),
+                        it.eaten
+                    )
+                },
+                currentUserAge,
+                user.user.weightValueInKg,
+                Gender.values()[user.user.genderId]
+            )
+        }
     }
 
-    override suspend fun getUser(): Flow<List<UserDataModel>> {
-        return dao.getUser()
+    override suspend fun getUser(): Flow<List<UserDomainModel>> {
+        return dao.getUser().map {
+            it.map { user ->
+                val currentUserAge = LocalDate.now().year - user.createdOn.year + user.ageOnCreation
+                UserDomainModel(currentUserAge, user.weightValueInKg, Gender.values()[user.genderId], user.userName)
+            }
+        }
     }
 
-    override suspend fun getDrinks(): Flow<List<DrinkDataModel>> {
-        return dao.getDrinks()
+    override suspend fun getDrinks(): Flow<List<DrinkDomainModel>> {
+        return dao.getDrinks().map {
+            it.map { drink ->
+                DrinkDomainModel(DrinkPreset.values()[drink.typeId], drink.dateTaken, Measure(drink.volumeValueInMl, drink.unit), drink.eaten)
+            }
+        }
     }
 
     override suspend fun addDrink(drinkDomainModel: DrinkDomainModel) {
@@ -55,15 +85,14 @@ class AppDataRepositoryImpl @Inject constructor(private val context: Context) :
         }
     }
 
-    override suspend fun addUser(age: Int, weight: Measure, gender: Gender) {
+    override suspend fun addUser(age: Int, weight: Double, gender: Gender) {
         dao.insertUser(
             UserDataModel(
                 LocalDate.now().toEpochDay(),
                 LocalDate.now(),
                 age,
                 gender.ordinal,
-                weight.number.toDouble(),
-                weight.unit,
+                weight,
                 context.getString(R.string.default_name)
             )
         )

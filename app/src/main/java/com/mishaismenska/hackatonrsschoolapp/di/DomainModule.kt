@@ -3,6 +3,8 @@ package com.mishaismenska.hackatonrsschoolapp.di
 import com.mishaismenska.hackatonrsschoolapp.domain.*
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.*
 import com.mishaismenska.hackatonrsschoolapp.domain.logic.CalculationManagerImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.logic.MeasureSystemsManagerImpl
+import com.mishaismenska.hackatonrsschoolapp.domain.logic.UnitConverterImpl
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import dagger.Binds
 import dagger.Module
@@ -45,9 +47,6 @@ interface DomainModule {
     fun provideSetUserGenderUseCase(setUserGenderUseCaseImpl: UpdateUserGenderUseCaseImpl): SetUserGenderUseCase
 
     @Binds
-    fun provideGetUserWithDrinksUseCase(getUserWIthDrinksUseCaseImpl: GetUserWithDrinksUseCaseImpl): GetUserWIthDrinksUseCase
-
-    @Binds
     fun provideDetermineMaximalAlcoholConcentrationExceededUseCase(
         checkIfMaxConcentrationExceededUseCaseImpl: CheckIfMaxConcentrationExceededUseCaseImpl
     ): CheckIfConcentrationExceededUseCase
@@ -66,4 +65,24 @@ interface DomainModule {
 
     @Binds
     fun provideCheckIfUserWeightValidUseCase(checkIfUserWeightValidUseCaseImpl: CheckIfUserWeightValidUseCaseImpl): CheckIfUserWeightValidUseCase
+
+    @Binds
+    @Singleton
+    fun provideGendersUseCase(gendersUseCaseImpl: GetGendersUseCaseImpl): GetGendersUseCase
+
+    @Binds
+    @Singleton
+    fun provideMeasureSystemsManager(measureSystemsManagerImpl: MeasureSystemsManagerImpl): MeasureSystemsManager
+
+    @Binds
+    @Singleton
+    fun provideIsImperialMeasureSystemUseCase(isImperialMeasureSystemUseCaseImpl: IsImperialMeasureSystemUseCaseImpl): IsImperialMeasureSystemUseCase
+
+    @Binds
+    @Singleton
+    fun provideGetUserChangedFlowUseCase(getUserChangedFlowUseCaseImpl: GetUserChangedFlowUseCaseImpl): GetUserChangedFlowUseCase
+
+    @Binds
+    @Singleton
+    fun provideUnitConverter(unitConverterImpl: UnitConverterImpl): UnitConverter
 }
