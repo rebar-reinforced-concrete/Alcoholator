@@ -98,4 +98,8 @@ interface DomainModule {
     @Binds
     @Singleton
     fun provideGetVolumeTitlesUseCase(getVolumeTitlesUseCaseImpl: GetVolumeTitlesUseCaseImpl): GetVolumeTitlesUseCase
+
+    @Binds
+    @Singleton
+    fun provideGetVolumePresetsUseCase(getVolumePresetsUseCaseImpl: GetVolumePresetsUseCaseImpl): GetVolumePresetsUseCase
 }

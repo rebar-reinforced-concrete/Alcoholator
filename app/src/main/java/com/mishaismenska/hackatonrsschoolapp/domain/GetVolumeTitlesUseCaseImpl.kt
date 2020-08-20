@@ -5,5 +5,7 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.VolumeTitleReposi
 import javax.inject.Inject
 
 class GetVolumeTitlesUseCaseImpl @Inject constructor(private val volumeTitleRepository: VolumeTitleRepository) : GetVolumeTitlesUseCase {
-    override fun getVolumeTitles() = volumeTitleRepository.provideVolumeTitles()
+    override fun getVolumeTitles(): List<String> {
+        return volumeTitleRepository.provideVolumeTitles()
+    }
 }

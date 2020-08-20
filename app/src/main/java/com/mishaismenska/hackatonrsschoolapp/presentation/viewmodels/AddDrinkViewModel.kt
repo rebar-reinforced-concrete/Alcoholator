@@ -22,10 +22,11 @@ class AddDrinkViewModel @Inject constructor(
     private val calculateIndexesUseCase: CalculateIndexesUseCase,
     private val measureSystemsManager: MeasureSystemsManager,
     private val parseSelectedVolumeUseCase: ParseSelectedVolumeUseCase,
-    private val getVolumeTitlesUseCase: GetVolumeTitlesUseCase
+    private val getVolumeTitlesUseCase: GetVolumeTitlesUseCase,
+    private val getVolumePresetsUseCase: GetVolumePresetsUseCase
 ) :
     ViewModel() {
-    val formatter: MeasureFormat =
+    private val formatter: MeasureFormat =
         MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.NARROW)
     val isFragmentOpened = MutableLiveData(true)
 
@@ -49,12 +50,14 @@ class AddDrinkViewModel @Inject constructor(
         return formatter.format(Measure(weight, measureUnit))
     }
 
-    fun getVolumeStrings(): MutableList<String> =
-        getVolumeTitlesUseCase.getVolumeTitles().mapIndexed { index, s ->
+    fun getVolumeStrings(): MutableList<String> {
+        val volumes = getVolumePresetsUseCase.getVolumePresets()
+        return getVolumeTitlesUseCase.getVolumeTitles().mapIndexed { index, s ->
             s.format(
-                getFormattedWeight(measureSystemsManager.convertVolumeToImperialIfRequired(VolumePreset.values()[index].volume.number.toInt())) //FIXME: here we go again. do we want to ditch Measures?!
+                getFormattedWeight(volumes[index])
             )
         }.toMutableList()
+    }
 
     override fun onCleared() {
         isFragmentOpened.postValue(true)
