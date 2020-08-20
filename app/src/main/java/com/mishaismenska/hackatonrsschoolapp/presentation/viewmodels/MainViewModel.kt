@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CheckIfConcentrationExceededUseCase
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetDrinksUseCase
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetStateUseCase
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserChangedFlowUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.*
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AppNotificationManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkUIModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserStateUIModel
@@ -25,7 +22,8 @@ class MainViewModel @Inject constructor(
     private val getStateUseCase: GetStateUseCase,
     private val checkIfConcentrationExceededUseCase: CheckIfConcentrationExceededUseCase,
     private val appNotificationManager: AppNotificationManager,
-    private val getUserChangedFlowUseCase: GetUserChangedFlowUseCase
+    private val getUserChangedFlowUseCase: GetUserChangedFlowUseCase,
+    private val imperialMeasureSystemUseCase: IsImperialMeasureSystemUseCase
 ) : ViewModel() {
 
     private val _userState = MutableLiveData<UserStateUIModel>()
@@ -47,6 +45,8 @@ class MainViewModel @Inject constructor(
     private val _drinks = MutableLiveData<List<DrinkUIModel>>()
     val drinks: LiveData<List<DrinkUIModel>>
         get() = _drinks
+
+    val isImperial = imperialMeasureSystemUseCase.checkIfMeasureSystemImperial()
 
     private var timer: Timer? = null
 

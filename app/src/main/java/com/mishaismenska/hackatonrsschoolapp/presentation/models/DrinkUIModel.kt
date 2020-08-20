@@ -7,5 +7,5 @@ import java.time.LocalDateTime
 data class DrinkUIModel(
     val type: DrinkPreset,
     val dateTaken: LocalDateTime,
-    val volume: Measure
+    val volume: Double
 )

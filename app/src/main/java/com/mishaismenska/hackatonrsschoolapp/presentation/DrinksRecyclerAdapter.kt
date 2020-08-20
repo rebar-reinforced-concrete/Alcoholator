@@ -1,6 +1,8 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation
 
 import android.icu.text.MeasureFormat
+import android.icu.util.Measure
+import android.icu.util.MeasureUnit
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.databinding.DrinkRecyclerItemBinding
 import com.mishaismenska.hackatonrsschoolapp.databinding.MainInfoCardBinding
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ConvertIfRequiredUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkUIModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserStateUIModel
 import java.time.Duration
@@ -16,8 +17,8 @@ import java.time.LocalDateTime
 import java.util.Locale
 
 class DrinksRecyclerAdapter(
-    private val converter: ConvertIfRequiredUseCase,
-    initialUserStateUIMode: UserStateUIModel
+    initialUserStateUIMode: UserStateUIModel,
+    private val isImperial: Boolean
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -47,7 +48,8 @@ class DrinksRecyclerAdapter(
                 DrinkRecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             DrinkViewHolder(
                 binding,
-                parent.context.resources.getStringArray(R.array.drink_types)
+                parent.context.resources.getStringArray(R.array.drink_types),
+                isImperial
             )
         }
     }
@@ -58,13 +60,14 @@ class DrinksRecyclerAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position >= 1) {
-            (holder as DrinkViewHolder).bind(drinks[position - 1], converter)
+            (holder as DrinkViewHolder).bind(drinks[position - 1])
         } else (holder as StateViewHolder).bind(userState)
     }
 
     class DrinkViewHolder(
         private val binding: DrinkRecyclerItemBinding,
-        private val drinkTypes: Array<String>
+        private val drinkTypes: Array<String>,
+        private val isImperial: Boolean
     ) : RecyclerView.ViewHolder(binding.root) {
         private val formatter = MeasureFormat.getInstance(
             Locale.getDefault(),
@@ -81,12 +84,16 @@ class DrinksRecyclerAdapter(
             }
         }
 
-        fun bind(drinkUIModel: DrinkUIModel, converter: ConvertIfRequiredUseCase) {
+        fun getFormattedVolume(volume: Double): String {
+            val measureUnit = if (isImperial) MeasureUnit.OUNCE else MeasureUnit.MILLILITER
+            return formatter.formatMeasures(Measure(volume, measureUnit))
+        }
+
+
+        fun bind(drinkUIModel: DrinkUIModel) {
             binding.drinkName.text = drinkTypes[drinkUIModel.type.ordinal]
             binding.dateTextView.text = convertDate(drinkUIModel.dateTaken)
-            binding.drinkDescription.text = formatter.format(
-                converter.convertToImperialIfRequired(drinkUIModel.volume)
-            )
+            binding.drinkDescription.text = getFormattedVolume(drinkUIModel.volume)
         }
     }
 

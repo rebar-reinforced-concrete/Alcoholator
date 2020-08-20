@@ -15,7 +15,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentMainBinding
 import com.mishaismenska.hackatonrsschoolapp.di.App
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ConvertIfRequiredUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AppNotificationManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserStateUIModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.MainViewModel
@@ -28,8 +27,6 @@ class MainFragment : Fragment() {
     @Inject
     lateinit var viewModel: MainViewModel
     @Inject
-    lateinit var convertIfRequiredUseCase: ConvertIfRequiredUseCase
-    @Inject
     lateinit var notificationManager: AppNotificationManager
     private lateinit var binding: FragmentMainBinding
     private lateinit var drinksAdapter: DrinksRecyclerAdapter
@@ -38,7 +35,7 @@ class MainFragment : Fragment() {
         super.onCreate(savedInstanceState)
         (requireActivity().application as App).appComponent.inject(this)
         viewModel.getDrinksAndUser()
-        drinksAdapter = DrinksRecyclerAdapter(convertIfRequiredUseCase, UserStateUIModel(0.0, Duration.ZERO, Behavior.SOBER))
+        drinksAdapter = DrinksRecyclerAdapter(UserStateUIModel(0.0, Duration.ZERO, Behavior.SOBER), viewModel.isImperial)
         retainInstance = true
     }
 

@@ -56,9 +56,6 @@ interface DomainModule {
     fun provideExistenceUseCase(existenceUseCase: GetUserExistenceUseCaseImpl): GetUserExistenceUseCase
 
     @Binds
-    fun provideConvertIfRequiredUseCase(convertIfRequiredUseCase: ConvertIfRequiredUseCaseImpl): ConvertIfRequiredUseCase
-
-    @Binds
     fun provideCalculateIndexesUseCase(calculateIndexesUseCase: CalculateIndexesUseCaseImpl): CalculateIndexesUseCase
 
     @Binds
