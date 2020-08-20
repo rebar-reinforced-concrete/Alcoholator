@@ -20,4 +20,10 @@ class MeasureSystemsManagerImpl @Inject constructor(private val unitConverter: U
             unitConverter.lbToKg(weight)
         } else weight
     }
+
+    override fun convertVolumeToImperialIfRequired(volume: Int): Double {
+        return if (checkIfMeasureSystemImperial()) {
+            unitConverter.mlToOz(volume)
+        } else volume.toDouble()
+    }
 }

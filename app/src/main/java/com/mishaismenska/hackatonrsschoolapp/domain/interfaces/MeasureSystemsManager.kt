@@ -4,4 +4,5 @@ interface MeasureSystemsManager {
     fun checkIfMeasureSystemImperial(): Boolean
     fun convertUserWeightToImperialIfRequired(weight: Double): Double
     fun convertUserWeightToMetricIfRequired(weight: Double): Double
+    fun convertVolumeToImperialIfRequired(volume: Int): Double
 }

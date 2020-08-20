@@ -33,7 +33,7 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
             NoFilterAdapter(requireContext(), R.layout.drink_type_dropdown_item, drinkTypes)
         )
         binding.volumeInput.setAdapter(
-            NoFilterAdapter(requireContext(), R.layout.drink_type_dropdown_item, getVolumeStrings())
+            NoFilterAdapter(requireContext(), R.layout.drink_type_dropdown_item, viewModel.getVolumeStrings().toTypedArray())
         )
         binding.typeInput.keyListener = null
         binding.volumeInput.keyListener = null
@@ -41,12 +41,19 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
         binding.typeInput.setText(drinkTypes.first())
         binding.volumeInput.setText(binding.volumeInput.adapter.getItem(0).toString())
         binding.goButton.setOnClickListener {
-            viewModel.addDrink(binding)
+            addDrink()
         }
         viewModel.isFragmentOpened.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             if (!it) parentFragmentManager.popBackStack()
         })
         return binding.root
+    }
+
+    private fun addDrink() {
+        val eaten = binding.eatenCheckbox.isChecked
+        val drinkType = binding.typeInput.text.toString()
+        val volumeSelection = binding.volumeInput.text.toString()
+        viewModel.addDrink(eaten, volumeSelection, drinkType)
     }
 
     override fun onResume() {
@@ -59,19 +66,9 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
 
-    // TODO: move to view model or use case or i even don't now. It's too. FUCKING TOOOO bad
-    private fun getVolumeStrings(): Array<String> =
-        resources.getStringArray(R.array.volume_names).toMutableList().mapIndexed { index, s ->
-            s.format(
-                viewModel.formatter.format(
-                    viewModel.convertMeasureIfRequired(VolumePreset.values()[index])
-                )
-            )
-        }.toTypedArray()
-
     override fun onItemClick(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
         val indexes = viewModel.calculateIndexes(parent!!.adapter.getItem(position) as String)
-        val volumes: MutableList<String> = getVolumeStrings().toMutableList()
+        val volumes: MutableList<String> = viewModel.getVolumeStrings()
         val names = indexes.map { volumes[it] }
         indexes.map { volumes.removeAt(it) }
         binding.volumeInput.setAdapter(
