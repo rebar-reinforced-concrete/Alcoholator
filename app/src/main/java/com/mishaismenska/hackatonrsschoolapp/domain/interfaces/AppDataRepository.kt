@@ -10,11 +10,12 @@ interface AppDataRepository {
     suspend fun getUserWithDrinks(): UserWithDrinksDomainModel?
     suspend fun getUser(): Flow<List<UserDomainModel>>
     suspend fun getDrinks(): Flow<List<DrinkDomainModel>>
-    suspend fun addDrink(drinkDomainModel: DrinkDomainModel)
+    fun addDrink(drinkDomainModel: DrinkDomainModel)
     suspend fun deleteDrink(recyclerPosition: Int)
-    suspend fun addUser(age: Int, weight: Double, gender: Gender)
+    suspend fun addUser(age: Int, weight: Double, genderId: Int)
     suspend fun setUserName(newName: String)
-    suspend fun reset()
+    suspend fun logout()
     suspend fun setWeight(newValue: Double)
     suspend fun setGender(newValue: Int)
+    suspend fun synchronizeData()
 }

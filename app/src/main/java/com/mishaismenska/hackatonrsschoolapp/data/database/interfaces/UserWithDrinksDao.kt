@@ -1,4 +1,4 @@
-package com.mishaismenska.hackatonrsschoolapp.data.interfaces
+package com.mishaismenska.hackatonrsschoolapp.data.database.interfaces
 
 import androidx.room.Dao
 import androidx.room.Delete

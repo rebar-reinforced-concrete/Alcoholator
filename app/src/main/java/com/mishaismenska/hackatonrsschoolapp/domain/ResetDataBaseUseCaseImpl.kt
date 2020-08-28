@@ -5,5 +5,5 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ResetDataBaseUseC
 import javax.inject.Inject
 
 class ResetDataBaseUseCaseImpl @Inject constructor(private val appDataRepository: AppDataRepository) : ResetDataBaseUseCase {
-    override suspend fun resetDataBase() = appDataRepository.reset()
+    override suspend fun resetDataBase() = appDataRepository.logout()
 }

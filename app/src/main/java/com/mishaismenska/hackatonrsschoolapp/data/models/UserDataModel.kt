@@ -11,5 +11,6 @@ data class UserDataModel(
     val ageOnCreation: Int,
     val genderId: Int,
     val weightValueInKg: Double,
-    val userName: String
+    val userName: String,
+    val alteredTimeStamp: Long
 )

@@ -1,11 +1,11 @@
-package com.mishaismenska.hackatonrsschoolapp.data
+package com.mishaismenska.hackatonrsschoolapp.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.mishaismenska.hackatonrsschoolapp.data.interfaces.UserWithDrinksDao
+import com.mishaismenska.hackatonrsschoolapp.data.database.interfaces.UserWithDrinksDao
 import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserDataModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.AppConstants.DATA_BASE_NAME

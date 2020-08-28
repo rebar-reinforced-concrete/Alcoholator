@@ -21,14 +21,8 @@ class AddUserUseCaseImpl @Inject constructor(
         )
     }
 
-    private fun parseGender(userGenderString: String): Gender {
+    private fun parseGender(userGenderString: String): Int {
         val genderStrings = gendersRepository.provideGenders()
-        return when (userGenderString) {
-            genderStrings[0] -> Gender.MALE
-            genderStrings[1] -> Gender.FEMALE
-            genderStrings[2] -> Gender.MALE_IDENTIFIES_AS_FEMALE
-            genderStrings[3] -> Gender.FEMALE_IDENTIFIES_AS_MALE
-            else -> Gender.UNCERTAIN
-        }
+        return genderStrings.indexOf(userGenderString)
     }
 }

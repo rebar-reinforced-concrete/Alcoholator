@@ -38,6 +38,7 @@ class SettingsViewModel @Inject constructor(
         get() = _showWrongWeightSnackbar
 
     fun getUser() {
+        //replace with main
         viewModelScope.launch(Dispatchers.IO) {
             getUserUseCase.getUser().collect {
                 if (it != null) {

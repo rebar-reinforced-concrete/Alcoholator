@@ -1,4 +1,4 @@
-package com.mishaismenska.hackatonrsschoolapp.data
+package com.mishaismenska.hackatonrsschoolapp.data.database
 
 import android.icu.util.MeasureUnit
 import androidx.room.TypeConverter

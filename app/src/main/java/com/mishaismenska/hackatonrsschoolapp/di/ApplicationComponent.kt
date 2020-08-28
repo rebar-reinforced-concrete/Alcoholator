@@ -10,7 +10,7 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
-@Component(modules = [PresentationModule::class, DataModule::class, DomainModule::class])
+@Component(modules = [PresentationModule::class, DataModule::class, DomainModule::class, RetrofitModule::class])
 @Singleton
 interface ApplicationComponent {
     fun inject(mainFragment: MainFragment)

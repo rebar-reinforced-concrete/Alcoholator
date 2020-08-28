@@ -1,6 +1,7 @@
 package com.mishaismenska.hackatonrsschoolapp.staticPresets
 
 object AppConstants {
+    const val BASE_URL = "https://alcoserver.azurewebsites.net"
     const val MAX_POSSIBLE_ALCOHOL_CONCENTRATION = 10
     const val DATA_BASE_NAME = "AlcoBase"
     const val MIN_POSSIBLE_USER_AGE = 18

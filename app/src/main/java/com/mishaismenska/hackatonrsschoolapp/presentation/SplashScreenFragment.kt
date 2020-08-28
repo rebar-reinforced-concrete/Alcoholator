@@ -8,21 +8,31 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.di.App
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserExistenceUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class SplashScreenFragment : Fragment() {
 
     @Inject
     lateinit var existenceUseCase: GetUserExistenceUseCase
 
+    @Inject
+    lateinit var appDataRepository: AppDataRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().application as App).appComponent.inject(this)
         lifecycleScope.launch(Dispatchers.IO) {
             if (existenceUseCase.checkIfUserExists()) {
+                runBlocking {
+                    launch(Dispatchers.IO) {
+                        appDataRepository.synchronizeData()
+                    }
+                }
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container, MainFragment()).commit()
             } else {
