@@ -1,11 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.data.database.interfaces
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserWithDrinksDataModel
@@ -42,6 +37,9 @@ interface UserWithDrinksDao {
 
     @Query("UPDATE USER SET genderId = :newValue")
     suspend fun setGender(newValue: Int)
+
+    @Query("UPDATE USER SET drinksAlteredTimestamp = :newValue")
+    suspend fun setDrinksAlteredTimestamp(newValue: Long)
 
     @Transaction
     @Query("SELECT * FROM User")

@@ -1,9 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.di
 
-import com.mishaismenska.hackatonrsschoolapp.data.AppDataRepositoryImpl
-import com.mishaismenska.hackatonrsschoolapp.data.DrinkTypeRepositoryImpl
-import com.mishaismenska.hackatonrsschoolapp.data.GendersRepositoryImpl
-import com.mishaismenska.hackatonrsschoolapp.data.UserStateRepositoryImpl
+import com.mishaismenska.hackatonrsschoolapp.data.*
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DrinkTypeRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GendersRepository
@@ -29,4 +26,8 @@ interface DataModule {
     @Binds
     @Singleton
     fun provideDrinkTypeProvider(drinkTypeProvider: DrinkTypeRepositoryImpl): DrinkTypeRepository
+
+    @Binds
+    @Singleton
+    fun provideNetworkManager(networkManagerImpl: NetworkManagerImpl): NetworkManager
 }

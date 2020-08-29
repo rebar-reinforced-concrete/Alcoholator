@@ -10,6 +10,6 @@ data class UserWithDrinksJsonDataModel(
     val weightInKg: Double,
     val userName: String,
     val drinks: List<DrinkJsonDataModel>,
-    val drinksAlteredTimeStamp: Long,
-    val userAgeOnCreation: Int
+    val drinksAlteredTimestamp: Long,
+    val ageOnCreation: Int
 )

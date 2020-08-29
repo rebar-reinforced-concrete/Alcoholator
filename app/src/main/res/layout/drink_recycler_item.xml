@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/drink_name"
         tools:text="Vodka"
         app:layout_constraintBottom_toTopOf="@id/drink_description"
@@ -19,6 +20,7 @@
     <TextView
         app:layout_constraintTop_toBottomOf="@id/drink_name"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/drink_description"
         android:layout_width="wrap_content"
         tools:text="1 l, vchera"

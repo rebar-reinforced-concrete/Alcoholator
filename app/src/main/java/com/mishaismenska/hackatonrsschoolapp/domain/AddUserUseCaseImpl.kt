@@ -5,7 +5,6 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GendersRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.MeasureSystemsManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSubmissionUIModel
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.Gender
 import javax.inject.Inject
 
 class AddUserUseCaseImpl @Inject constructor(
@@ -17,7 +16,8 @@ class AddUserUseCaseImpl @Inject constructor(
         appDataRepository.addUser(
             userSubmissionUIModel.age,
             measureSystemsManager.convertUserWeightToMetricIfRequired(userSubmissionUIModel.weight),
-            parseGender(userSubmissionUIModel.gender)
+            parseGender(userSubmissionUIModel.gender),
+            true
         )
     }
 

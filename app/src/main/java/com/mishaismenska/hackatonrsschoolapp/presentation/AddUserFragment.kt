@@ -1,21 +1,13 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation
 
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddUserBinding
@@ -35,22 +27,6 @@ class AddUserFragment : Fragment() {
     @Inject
     lateinit var userInputValidatingManager: UserInputValidatingManager
 
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("824477626067-218aphfp4mcoc052ripdamprjgf3n1n8.apps.googleusercontent.com")
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-    }
-
-    private fun signIn() {
-        val signInIntent: Intent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent, 1234)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,9 +39,6 @@ class AddUserFragment : Fragment() {
         binding.genderInput.keyListener = null
         (requireActivity().application as App).appComponent.inject(this)
         binding.weightInputWrapper.hint = viewModel.getWeightInputHint()
-        binding.signInButton.setOnClickListener {
-            signIn()
-        }
         binding.goButton.setOnClickListener {
             if (userInputValidatingManager.validateUserInput(binding)) {
                 addUser()
@@ -109,31 +82,5 @@ class AddUserFragment : Fragment() {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
             .replace(R.id.main_fragment_container, MainFragment())
             .commit()
-    }
-
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)
-
-            // Signed in successfully, show authenticated UI.
-            //updateUI(account)
-            Log.d("token", account?.idToken.toString())
-            Log.d("account", account?.familyName.toString())
-        } catch (e: ApiException) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            e.printStackTrace()
-            Log.d("CLEN", "signInResult:failed code=" + e.statusCode)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        Log.d("code", resultCode.toString())
-        Log.d("rysalt", "woooop")
-        if (requestCode == 1234) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
-        } else Log.d("yyyyy", "fuck")
     }
 }

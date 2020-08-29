@@ -124,6 +124,9 @@
     <string name="data_removed">All your data has been removed</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="googleAppKey">824477626067-fi3gabiceua6b5tics49bainijusngdg.apps.googleusercontent.com</string>
+    <string name="sigh_in_string">Sign in</string>
+    <string name="sign_in_subtext">Please, sign in with Google</string>
+    <string name="your_gender_will_be_displayed_here">Your gender will be displayed here</string>
 
 </resources>
