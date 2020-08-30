@@ -91,8 +91,5 @@ interface DomainModule {
     fun provideSignInUseCase(signInUseCaseImpl: SignInUseCaseImpl): SignInUseCase
 
     @Binds
-    fun provideGetGoogleIdTokenUseCase(getGoogleIdTokenUseCaseImpl: GetGoogleIdTokenUseCaseImpl): GetGoogleIdTokenUseCase
-
-    @Binds
     fun provideGetServerExistenceUseCase(getServerExistenceUseCaseImpl: GetServerExistenceUseCaseImpl): GetServerExistenceUseCase
 }

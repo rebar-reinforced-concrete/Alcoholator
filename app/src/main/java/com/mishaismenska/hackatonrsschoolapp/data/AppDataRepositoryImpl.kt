@@ -3,14 +3,13 @@ package com.mishaismenska.hackatonrsschoolapp.data
 import android.content.Context
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
-import android.util.Log
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.database.AppDatabase
 import com.mishaismenska.hackatonrsschoolapp.data.models.*
 import com.mishaismenska.hackatonrsschoolapp.data.networking.DrinksRetrofitService
 import com.mishaismenska.hackatonrsschoolapp.data.networking.UserRetrofitService
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetGoogleIdTokenUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserWithDrinksDomainModel
@@ -33,7 +32,6 @@ class AppDataRepositoryImpl @Inject constructor(
     private val context: Context,
     private val userRetrofitService: UserRetrofitService,
     private val drinksRetrofitService: DrinksRetrofitService,
-    private val getGoogleIdTokenUseCase: GetGoogleIdTokenUseCase,
     private val networkManager: NetworkManager
 ) :
     AppDataRepository {
@@ -63,8 +61,10 @@ class AppDataRepositoryImpl @Inject constructor(
         }
     }
 
+    private fun getToken() = GoogleSignIn.getLastSignedInAccount(context)!!.idToken!!
+
     override suspend fun synchronizeUserDetails() {
-        val googleId = getGoogleIdTokenUseCase.getToken().token
+        val googleId = getToken()
         val networkUser: UserWithDrinksJsonDataModel = withContext(Dispatchers.IO) {
             drinksRetrofitService.getUserWithDrinks(googleId)
         }
@@ -96,7 +96,6 @@ class AppDataRepositoryImpl @Inject constructor(
             else {
                 dao.getUser().take(1).collect { userList ->
                     val localUser = userList[0]
-                    Log.d("tst", "local dat: ${localUser.drinksAlteredTimestamp}, remote dat: ${networkUser.drinksAlteredTimestamp}")
                     compareAndUpdateDrinks(drinks, networkUser, localUser)
                 }
             }
@@ -108,7 +107,7 @@ class AppDataRepositoryImpl @Inject constructor(
         networkUser: UserWithDrinksJsonDataModel,
         localUser: UserDataModel
     ) {
-        val googleId = getGoogleIdTokenUseCase.getToken().token
+        val googleId = getToken()
         when {
             localUser.drinksAlteredTimestamp > networkUser.drinksAlteredTimestamp -> transferLocalDrinksToServer(networkUser, dbDrinks, googleId)
             localUser.drinksAlteredTimestamp < networkUser.drinksAlteredTimestamp -> transferServerDrinksToLocal(networkUser)
@@ -194,7 +193,7 @@ class AppDataRepositoryImpl @Inject constructor(
 
     private fun addDrinkToServer(scope: CoroutineScope, drinkDomainModel: DrinkDomainModel) {
         if (networkManager.isNetworkOnline()) scope.launch {
-            val googleId = getGoogleIdTokenUseCase.getToken().token
+            val googleId = getToken()
             drinksRetrofitService.addDrink(
                 DrinkAddDrinkJsonDataModel(
                     googleId, drinkDomainModel.type.ordinal, drinkDomainModel.dateTaken.toEpochSecond(
@@ -214,7 +213,7 @@ class AppDataRepositoryImpl @Inject constructor(
     override suspend fun addUser(age: Int, weight: Double, genderId: Int, addToServer: Boolean) {
         var name = context.getString(R.string.default_name)
         if (networkManager.isNetworkOnline()) {
-            val googleId = getGoogleIdTokenUseCase.getToken().token
+            val googleId = getToken()
             if (addToServer) userRetrofitService.addUser(UserJsonDataModel(LocalDate.now().toEpochDay(), genderId, weight, googleId, age))
             name = drinksRetrofitService.getUserWithDrinks(googleId).userName
         }
@@ -233,21 +232,21 @@ class AppDataRepositoryImpl @Inject constructor(
     }
 
     override suspend fun setUserName(newName: String) {
-        val googleId = getGoogleIdTokenUseCase.getToken().token
+        val googleId = getToken()
         if (networkManager.isNetworkOnline())
             userRetrofitService.alterUserName(UserAlterNameJsonDataModel(googleId, newName))
         dao.setName(newName)
     }
 
     override suspend fun setWeight(newValue: Double) {
-        val googleId = getGoogleIdTokenUseCase.getToken().token
+        val googleId = getToken()
         if (networkManager.isNetworkOnline())
             userRetrofitService.alterUserWeight(UserAlterWeightJsonDataModel(googleId, newValue))
         dao.setWeight(newValue)
     }
 
     override suspend fun setGender(newValue: Int) {
-        val googleId = getGoogleIdTokenUseCase.getToken().token
+        val googleId = getToken()
         if (networkManager.isNetworkOnline())
             userRetrofitService.alterUserGender(UserAlterGenderJsonDataModel(googleId, newValue))
         dao.setGender(newValue)
