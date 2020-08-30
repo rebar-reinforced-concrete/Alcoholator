@@ -8,5 +8,5 @@ data class UserJsonDataModel(
     val GenderId: Int,
     val WeightInKg: Double,
     val GoogleUserIdToken: String,
-    val Age: Int
+    val AgeOnCreation: Int
 )

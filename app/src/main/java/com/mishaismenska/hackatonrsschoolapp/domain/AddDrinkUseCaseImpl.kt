@@ -19,7 +19,8 @@ class AddDrinkUseCaseImpl @Inject constructor(
                 drink.dateTaken,
                 drink.volume,
                 drink.eaten
-            )
+            ),
+            addToServer = true
         )
     }
 

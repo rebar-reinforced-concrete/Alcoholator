@@ -4,9 +4,8 @@ import com.mishaismenska.hackatonrsschoolapp.data.models.UserAlterGenderJsonData
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserAlterNameJsonDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserAlterWeightJsonDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserJsonDataModel
-import retrofit2.http.Body
-import retrofit2.http.PATCH
-import retrofit2.http.POST
+import retrofit2.Response
+import retrofit2.http.*
 
 interface UserRetrofitService {
     @POST("/users/adduser")
@@ -20,4 +19,7 @@ interface UserRetrofitService {
 
     @PATCH("/users/alterusergender")
     suspend fun alterUserGender(@Body user: UserAlterGenderJsonDataModel)
+
+    @GET("/users/exists")
+    suspend fun checkIfUserExists(@Query("googleId") id: String): Response<Boolean>
 }

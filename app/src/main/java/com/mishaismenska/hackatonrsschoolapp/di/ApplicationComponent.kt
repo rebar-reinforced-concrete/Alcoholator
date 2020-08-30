@@ -1,11 +1,7 @@
 package com.mishaismenska.hackatonrsschoolapp.di
 
 import android.content.Context
-import com.mishaismenska.hackatonrsschoolapp.presentation.AddDrinkFragment
-import com.mishaismenska.hackatonrsschoolapp.presentation.AddUserFragment
-import com.mishaismenska.hackatonrsschoolapp.presentation.AppSettingsFragment
-import com.mishaismenska.hackatonrsschoolapp.presentation.MainFragment
-import com.mishaismenska.hackatonrsschoolapp.presentation.SplashScreenFragment
+import com.mishaismenska.hackatonrsschoolapp.presentation.*
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -18,6 +14,7 @@ interface ApplicationComponent {
     fun inject(addDrinkFragment: AddDrinkFragment)
     fun inject(splashScreenFragment: SplashScreenFragment)
     fun inject(preferences: AppSettingsFragment)
+    fun inject(signInFragment: SignInFragment)
 
     @Component.Factory
     interface Factory {

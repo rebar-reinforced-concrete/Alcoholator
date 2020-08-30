@@ -85,4 +85,11 @@ interface DomainModule {
     @Binds
     @Singleton
     fun provideUnitConverter(unitConverterImpl: UnitConverterImpl): UnitConverter
+
+    @Binds
+    @Singleton
+    fun provideSignInUseCase(signInUseCaseImpl: SignInUseCaseImpl): SignInUseCase
+
+    @Binds
+    fun provideGetServerExistenceUseCase(getServerExistenceUseCaseImpl: GetServerExistenceUseCaseImpl): GetServerExistenceUseCase
 }

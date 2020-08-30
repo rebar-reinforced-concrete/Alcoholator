@@ -1,0 +1,101 @@
+{
+  "project_info": {
+    "project_number": "824477626067",
+    "firebase_url": "https://alcoholator.firebaseio.com",
+    "project_id": "alcoholator",
+    "storage_bucket": "alcoholator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824477626067:android:7bc3fd96c67e23fe4dee26",
+        "android_client_info": {
+          "package_name": "com.mishaismenska.hackatonrsschoolapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "824477626067-11u6g5emnkkqjlahvpq75qu267unem9k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mishaismenska.hackatonrsschoolapp",
+            "certificate_hash": "1b166e36356a2baac47f738c1ed5ede6264ba7ea"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdTK2n6AmZMj9WziHjGIO5cUEDGpaww80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "824477626067-fi3gabiceua6b5tics49bainijusngdg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824477626067:android:1e52e4623a09fa9c4dee26",
+        "android_client_info": {
+          "package_name": "com.mishaismenska.logiiiingogle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdTK2n6AmZMj9WziHjGIO5cUEDGpaww80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "824477626067-fi3gabiceua6b5tics49bainijusngdg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824477626067:android:cbd7dcb9aa8306b34dee26",
+        "android_client_info": {
+          "package_name": "com.tests.servertest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "824477626067-6bmu3ithcavajmc8s41ipt9k6f3ra723.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tests.servertest",
+            "certificate_hash": "1b166e36356a2baac47f738c1ed5ede6264ba7ea"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdTK2n6AmZMj9WziHjGIO5cUEDGpaww80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "824477626067-fi3gabiceua6b5tics49bainijusngdg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

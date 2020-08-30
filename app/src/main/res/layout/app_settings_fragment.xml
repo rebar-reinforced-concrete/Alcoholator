@@ -26,7 +26,8 @@
             android:src="@drawable/ic_baseline_supervisor_account_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/gender_preference_title"
@@ -42,7 +43,7 @@
             style="@style/PreferenceDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your gender will be displayed here"
+            android:text="@string/your_gender_will_be_displayed_here"
             app:layout_constraintStart_toEndOf="@id/preference_gender_icon"
 
             app:layout_constraintTop_toBottomOf="@id/gender_preference_title" />
@@ -62,9 +63,9 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_speed_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/weight_preference_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/weight_preference_title"
@@ -98,9 +99,9 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_account_circle_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/name_preference_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/name_preference_title"
@@ -147,7 +148,8 @@
             android:src="@drawable/ic_baseline_delete_forever_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/reset_title"

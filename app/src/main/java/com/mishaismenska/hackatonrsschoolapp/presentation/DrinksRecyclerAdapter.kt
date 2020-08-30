@@ -96,11 +96,12 @@ class DrinksRecyclerAdapter(
             binding.mainInfoCard.visibility = View.VISIBLE
             val resources = binding.root.context.resources
             val states = resources.getStringArray(R.array.drunk_states)
+            val minutes = userState.alcoholDepletionDuration.toMinutes() % 60
             if (userState.alcoholDepletionDuration.toMillis() > 0)
                 binding.soberingTimer.text = resources.getString(
                     R.string.time_format,
                     userState.alcoholDepletionDuration.toHours(),
-                    userState.alcoholDepletionDuration.toMinutes() % 60
+                    if(minutes > 10) minutes.toString() else "0$minutes"
                 )
             else binding.soberingTimer.text = resources.getString(R.string.you_are_sober)
             binding.alcoholConcentration.text = resources.getString(
