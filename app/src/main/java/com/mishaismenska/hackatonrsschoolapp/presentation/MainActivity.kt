@@ -1,6 +1,7 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.mishaismenska.hackatonrsschoolapp.R
 
@@ -11,4 +12,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
 }

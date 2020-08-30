@@ -30,4 +30,8 @@ interface DataModule {
     @Binds
     @Singleton
     fun provideNetworkManager(networkManagerImpl: NetworkManagerImpl): NetworkManager
+
+    @Binds
+    @Singleton
+    fun providePermissionManager(permissionManagerImpl: PermissionManagerImpl): PermissionManager
 }

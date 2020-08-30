@@ -1,7 +1,10 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels
 
+import android.content.Context
 import android.icu.text.MeasureFormat
 import android.icu.util.Measure
+import android.location.LocationManager
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,25 +13,31 @@ import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddDrinkBinding
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddDrinkUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CalculateIndexesUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ConvertIfRequiredUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetCurrentLocationUseCase
+import com.mishaismenska.hackatonrsschoolapp.presentation.AddDrinkFragment
+import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AlertDialogManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkSubmissionUIModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.VolumePreset
-import java.time.LocalDateTime
-import java.util.Locale
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.util.*
+import javax.inject.Inject
+
 
 class AddDrinkViewModel @Inject constructor(
     private val addDrinkUseCase: AddDrinkUseCase,
     private val convertIfRequiredUseCase: ConvertIfRequiredUseCase,
-    private val calculateIndexesUseCase: CalculateIndexesUseCase
+    private val calculateIndexesUseCase: CalculateIndexesUseCase,
+    private val getCurrentLocationUseCase: GetCurrentLocationUseCase,
+    private val alertDialogManager: AlertDialogManager
 ) :
     ViewModel() {
     val formatter: MeasureFormat =
         MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.NARROW)
     val isFragmentOpened = MutableLiveData(true)
 
-    fun addDrink(binding: FragmentAddDrinkBinding) {
+    fun addDrink(binding: FragmentAddDrinkBinding, locationManager: LocationManager) {
         val eaten = binding.eatenCheckbox.isChecked
         // PLEASE. NOT HERE. NOT FUCKING HERE
         val volume = when (binding.volumeInput.text.toString()) {
@@ -66,13 +75,15 @@ class AddDrinkViewModel @Inject constructor(
             ) -> VolumePreset.COGNAC_GLASS
             else -> VolumePreset.WHISKEY_GLASS
         }
+        val location = getCurrentLocationUseCase.getCurrentLocation(locationManager)
         viewModelScope.launch(Dispatchers.IO) {
             addDrinkUseCase.addDrink(
                 DrinkSubmissionUIModel(
                     binding.typeInput.text.toString(),
                     LocalDateTime.now(),
                     volume.volume,
-                    eaten
+                    eaten,
+                    location
                 )
             )
             isFragmentOpened.postValue(false)
@@ -90,6 +101,9 @@ class AddDrinkViewModel @Inject constructor(
             formatter.format(convertIfRequiredUseCase.convertToImperialIfRequired(metricValue!!))
         )
     }
+
+    fun requestGPSServices(context: Context) = alertDialogManager.showEnableGPSServicesDialog(context)
+    fun triggerExplanation(context: Context, event: (fragment: Fragment) -> Unit, fragment: AddDrinkFragment) = alertDialogManager.showPermissionsExplanation(context, event, fragment)
 
     override fun onCleared() {
         isFragmentOpened.postValue(true)

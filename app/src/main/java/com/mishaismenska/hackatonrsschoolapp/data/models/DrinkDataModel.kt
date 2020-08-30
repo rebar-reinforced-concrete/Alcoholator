@@ -9,6 +9,8 @@ import java.time.LocalDateTime
 data class DrinkDataModel(
     @PrimaryKey(autoGenerate = true) var drinkId: Long,
     val consumedBy: Long,
+    val consumedAtLong: Double,
+    val consumedAtLat: Double,
     val typeId: Int,
     val dateTaken: LocalDateTime,
     val volumeValueInMl: Int,

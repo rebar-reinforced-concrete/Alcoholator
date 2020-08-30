@@ -7,5 +7,7 @@ data class DrinkJsonDataModel(
     val typeId: Int,
     val dateTimeTaken: Long,
     val volumeInMl: Int,
-    val eaten: Boolean
+    val eaten: Boolean,
+    val long: Double,
+    val lat: Double
 )

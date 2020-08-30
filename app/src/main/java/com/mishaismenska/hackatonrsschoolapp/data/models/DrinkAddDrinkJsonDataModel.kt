@@ -8,5 +8,7 @@ data class DrinkAddDrinkJsonDataModel(
     val DrinkType: Int,
     val DateTimeTaken: Long,
     val VolumeInMl: Int,
-    val Eaten: Boolean
+    val Eaten: Boolean,
+    val long: Double,
+    val lat: Double
 )

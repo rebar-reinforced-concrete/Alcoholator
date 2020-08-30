@@ -32,5 +32,12 @@
         app:tint="#FFF"
         android:src="@drawable/ic_baseline_add_24"
         android:layout_gravity="end|bottom"/>
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/sobering_timer"
+        app:layout_constraintTop_toTopOf="@+id/sobering_timer"
+        tools:layout_editor_absoluteX="55dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
