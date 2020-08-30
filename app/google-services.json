@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:824477626067:android:7bc3fd96c67e23fe4dee26",
+        "mobilesdk_app_id": "1:824477626067:android:bf195d1c32ab25964dee26",
         "android_client_info": {
           "package_name": "com.mishaismenska.hackatonrsschoolapp"
         }
@@ -23,30 +23,6 @@
           }
         }
       ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBdTK2n6AmZMj9WziHjGIO5cUEDGpaww80"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "824477626067-fi3gabiceua6b5tics49bainijusngdg.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:824477626067:android:1e52e4623a09fa9c4dee26",
-        "android_client_info": {
-          "package_name": "com.mishaismenska.logiiiingogle"
-        }
-      },
-      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyBdTK2n6AmZMj9WziHjGIO5cUEDGpaww80"
