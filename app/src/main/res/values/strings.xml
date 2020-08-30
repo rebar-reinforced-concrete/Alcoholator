@@ -2,10 +2,10 @@
     <string name="app_name">Alcoholator</string>
 
     <string name="hello_string">Hello</string>
-    <string name="tell_us_something_about_you">Tell us something about you</string>
+    <string name="tell_us_something_about_you">Tell us something about yourself</string>
     <string name="age">Age</string>
     <string name="weight_kg">Weight (kg)</string>
-    <string name="weight_pounds">Weight (pounds)</string>
+    <string name="weight_pounds">Weight (lbs)</string>
     <string name="gender">Gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
@@ -13,16 +13,16 @@
     <string name="female_identifies_as_male">Female, but identify as male</string>
     <string name="uncertain">Uncertain</string>
     <string name="go">go</string>
-    <string name="couldnt_be_empty">Please, fill this field</string>
+    <string name="couldnt_be_empty">Please, fill out this field</string>
     <string name="are_you_sure">Are you sure?</string>
-    <string name="you_haven_t_drink_anything_yet">You haven\'t drink anything yet</string>
+    <string name="you_haven_t_drink_anything_yet">You didn\'t drink anything yet</string>
 
     <string name="vodka">Vodka</string>
-    <string name="jin_tonic">Jin tonic</string>
+    <string name="jin_tonic">Jinn tonic</string>
     <string name="wine_red">Red wine</string>
     <string name="wine_white">White wine</string>
-    <string name="wine_red_cheap">Red cheap wine</string>
-    <string name="wine_white_cheap">White cheap wine</string>
+    <string name="wine_red_cheap">Cheap red wine</string>
+    <string name="wine_white_cheap">Cheap white wine</string>
     <string name="fruit_wine_cheap">Cheap fruit wine</string>
     <string name="beer_dark">Dark beer</string>
     <string name="beer_light">Light beer</string>
@@ -30,12 +30,12 @@
     <string name="beer_light_cheap">Cheap light beer</string>
     <string name="moonshine">Moonshine</string>
     <string name="spirit">Spirit</string>
-    <string name="whiskey">Whiskey</string>
-    <string name="whiskey_cheap">Cheap whiskey</string>
+    <string name="whiskey">Whisk(e)y</string>
+    <string name="whiskey_cheap">Cheap whisk(e)y</string>
     <string name="liquor">Liquor</string>
     <string name="champagne">Champagne</string>
     <string name="cognac">Cognac</string>
-    <string name="time_format">%d:%d</string>
+    <string name="time_format">%d:%s</string>
 
     <string name="drunk_state_1">You are completely fine</string>
     <string name="drunk_state_2">You feel normal, slightly relaxed</string>
@@ -47,7 +47,7 @@
     <string name="drunk_state_8">You won\'t remember shit, almost dead</string>
     <string name="drunk_state_9">You died, Congrats!</string>
 
-    <string name="concentration_format">%s‰ of alcohol in your blood</string>
+    <string name="concentration_format">%s‰ blood alcohol content</string>
     <string name="too_young_error">You\'re too young for this, homie</string>
     <string name="main_add_dring_header">What are you drinking?</string>
     <string name="input_details">fill in the details of the drink you\'re consuming</string>
@@ -94,7 +94,7 @@
     <string name="you_are_sober">Sober</string>
 
     <string name="sober_channel_name">Sober chanel</string>
-    <string name="sober_chanel_description">Get notifications that now you are sober</string>
+    <string name="sober_chanel_description">Get notifications when you are sober</string>
 
     <string name="sober_notification_title">You\'re sober</string>
     <string name="sober_notification_content">Hey, %s. Is it time to get wasted again?</string>
