@@ -11,6 +11,7 @@ import com.mishaismenska.hackatonrsschoolapp.data.networking.DrinksRetrofitServi
 import com.mishaismenska.hackatonrsschoolapp.data.networking.UserRetrofitService
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
+import com.mishaismenska.hackatonrsschoolapp.domain.models.LocationDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserWithDrinksDomainModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPreset
@@ -46,12 +47,13 @@ class AppDataRepositoryImpl @Inject constructor(
         } else {
             val currentUserAge = LocalDate.now().year - user.user.createdOn.year + user.user.ageOnCreation
             return UserWithDrinksDomainModel(
-                user.drinks.map {
+                user.drinks.map { dbDrink ->
                     DrinkDomainModel(
-                        DrinkPreset.values()[it.typeId],
-                        it.dateTaken,
-                        Measure(it.volumeValueInMl, it.unit),
-                        it.eaten
+                        DrinkPreset.values()[dbDrink.typeId],
+                        dbDrink.dateTaken,
+                        Measure(dbDrink.volumeValueInMl, dbDrink.unit),
+                        dbDrink.eaten,
+                        LocationDomainModel(dbDrink.consumedAtLong, dbDrink.consumedAtLat)
                     )
                 },
                 currentUserAge,
@@ -122,7 +124,8 @@ class AppDataRepositoryImpl @Inject constructor(
                     DrinkPreset.values()[netDrink.typeId],
                     LocalDateTime.ofEpochSecond(netDrink.dateTimeTaken, 0, OffsetDateTime.now().offset),
                     Measure(netDrink.volumeInMl, MeasureUnit.MILLILITER),
-                    netDrink.eaten
+                    netDrink.eaten,
+                    LocationDomainModel(netDrink.long, netDrink.lat)
                 ), false
             )
         }
@@ -131,7 +134,15 @@ class AppDataRepositoryImpl @Inject constructor(
     private suspend fun transferLocalDrinksToServer(networkUser: UserWithDrinksJsonDataModel, dbDrinks: List<DrinkDataModel>, googleId: String) {
         networkUser.drinks.map { netDrink ->
             drinksRetrofitService.removeDrink(
-                DrinkAddDrinkJsonDataModel(googleId, netDrink.typeId, netDrink.dateTimeTaken, netDrink.volumeInMl, netDrink.eaten)
+                DrinkAddDrinkJsonDataModel(
+                    googleId,
+                    netDrink.typeId,
+                    netDrink.dateTimeTaken,
+                    netDrink.volumeInMl,
+                    netDrink.eaten,
+                    netDrink.long,
+                    netDrink.lat
+                )
             )
         }
         dbDrinks.map { dbDrink ->
@@ -141,7 +152,9 @@ class AppDataRepositoryImpl @Inject constructor(
                     dbDrink.typeId,
                     dbDrink.dateTaken.toEpochSecond(OffsetDateTime.now().offset),
                     dbDrink.volumeValueInMl,
-                    dbDrink.eaten
+                    dbDrink.eaten,
+                    dbDrink.consumedAtLong,
+                    dbDrink.consumedAtLat
                 )
             )
         }
@@ -163,12 +176,12 @@ class AppDataRepositoryImpl @Inject constructor(
                     DrinkPreset.values()[dbDrink.typeId],
                     dbDrink.dateTaken,
                     Measure(dbDrink.volumeValueInMl, dbDrink.unit),
-                    dbDrink.eaten
+                    dbDrink.eaten,
+                    LocationDomainModel(dbDrink.consumedAtLong, dbDrink.consumedAtLat)
                 )
             }
         }
     }
-
 
     override fun addDrink(drinkDomainModel: DrinkDomainModel, addToServer: Boolean) {
         val scope = CoroutineScope(Dispatchers.IO)
@@ -180,6 +193,8 @@ class AppDataRepositoryImpl @Inject constructor(
                     DrinkDataModel(
                         drinkDomainModel.dateTaken.toEpochSecond(OffsetDateTime.now().offset),
                         it[0].userId,
+                        drinkDomainModel.location.long,
+                        drinkDomainModel.location.lat,
                         drinkDomainModel.type.ordinal,
                         drinkDomainModel.dateTaken,
                         drinkDomainModel.volume.number as Int,
@@ -198,7 +213,9 @@ class AppDataRepositoryImpl @Inject constructor(
                 DrinkAddDrinkJsonDataModel(
                     googleId, drinkDomainModel.type.ordinal, drinkDomainModel.dateTaken.toEpochSecond(
                         OffsetDateTime.now().offset
-                    ), drinkDomainModel.volume.number.toInt(), drinkDomainModel.eaten
+                    ), drinkDomainModel.volume.number.toInt(), drinkDomainModel.eaten,
+                    drinkDomainModel.location.long,
+                    drinkDomainModel.location.lat
                 )
             )
         }

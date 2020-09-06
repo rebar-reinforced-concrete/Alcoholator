@@ -7,5 +7,6 @@ data class DrinkSubmissionUIModel(
     val type: String,
     val dateTaken: LocalDateTime,
     val volume: Measure,
-    val eaten: Boolean
+    val eaten: Boolean,
+    val location: LocationUIModel
 )

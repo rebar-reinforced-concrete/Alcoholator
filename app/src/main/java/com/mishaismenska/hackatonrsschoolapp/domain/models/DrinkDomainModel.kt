@@ -8,5 +8,6 @@ data class DrinkDomainModel(
     val type: DrinkPreset,
     val dateTaken: LocalDateTime,
     val volume: Measure,
-    val eaten: Boolean
+    val eaten: Boolean,
+    val location: LocationDomainModel
 )

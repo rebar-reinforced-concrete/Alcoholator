@@ -7,10 +7,12 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RatingBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.preference.PreferenceManager
+import com.google.android.gms.maps.MapFragment
 import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentMainBinding
@@ -48,6 +50,12 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
+        // //////////////////////////////////////////////////////////////////////////////////////////////
+        // debug rating bar
+        binding.ratingBar.setOnRatingBarChangeListener{ ratingBar: RatingBar, fl: Float, b: Boolean ->
+            openMapFragment()
+        }
+        // //////////////////////////////////////////////////////////////////////////////////////////////
         binding.mainRecycler.adapter = drinksAdapter
         viewModel.drinks.observe(viewLifecycleOwner, Observer {
             drinksAdapter.drinks = it
@@ -86,7 +94,15 @@ class MainFragment : Fragment() {
             ).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null)
             .commit()
     }
-
+    // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private fun openMapFragment() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment_container, MapsFragment()).setTransition(
+                FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+            ).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null)
+            .commit()
+    }
+    // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private fun openSettings() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.main_fragment_container, AppSettingsFragment())

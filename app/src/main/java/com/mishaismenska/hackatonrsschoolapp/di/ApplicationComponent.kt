@@ -15,6 +15,7 @@ interface ApplicationComponent {
     fun inject(splashScreenFragment: SplashScreenFragment)
     fun inject(preferences: AppSettingsFragment)
     fun inject(signInFragment: SignInFragment)
+    fun inject(mapsFragment: MapsFragment)
 
     @Component.Factory
     interface Factory {

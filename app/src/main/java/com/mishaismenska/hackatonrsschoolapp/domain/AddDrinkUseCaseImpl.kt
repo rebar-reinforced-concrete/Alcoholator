@@ -4,6 +4,7 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddDrinkUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DrinkTypeRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
+import com.mishaismenska.hackatonrsschoolapp.domain.models.LocationDomainModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkSubmissionUIModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPreset
 import javax.inject.Inject
@@ -18,7 +19,8 @@ class AddDrinkUseCaseImpl @Inject constructor(
                 parseDrinkType(drink.type),
                 drink.dateTaken,
                 drink.volume,
-                drink.eaten
+                drink.eaten,
+                LocationDomainModel(drink.location.long, drink.location.lat)
             ),
             addToServer = true
         )

@@ -92,4 +92,13 @@ interface DomainModule {
 
     @Binds
     fun provideGetServerExistenceUseCase(getServerExistenceUseCaseImpl: GetServerExistenceUseCaseImpl): GetServerExistenceUseCase
+
+    @Binds
+    @Singleton
+    fun provideGetCurrentLocationUseCase(getCurrentLocationUseCaseImpl: GetCurrentLocationUseCaseImpl): GetCurrentLocationUseCase
+
+    @Binds
+    @Singleton
+    fun provideGetDrinkingPlacesUseCase(getDrinkingPlacesUseCaseImpl: GetDrinkingPlacesUseCaseImpl): GetDrinkingPlacesUseCase
+
 }
