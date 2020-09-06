@@ -1,5 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.di
 
+import com.mishaismenska.hackatonrsschoolapp.data.VolumeTitleRepositoryImpl
 import com.mishaismenska.hackatonrsschoolapp.domain.*
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.*
 import com.mishaismenska.hackatonrsschoolapp.domain.logic.CalculationManagerImpl
@@ -80,6 +81,10 @@ interface DomainModule {
 
     @Binds
     @Singleton
+    fun provideVolumeTitleRepository(volumeTitleRepositoryImpl: VolumeTitleRepositoryImpl): VolumeTitleRepository
+
+    @Binds
+    @Singleton
     fun provideGetUserChangedFlowUseCase(getUserChangedFlowUseCaseImpl: GetUserChangedFlowUseCaseImpl): GetUserChangedFlowUseCase
 
     @Binds
@@ -101,4 +106,15 @@ interface DomainModule {
     @Singleton
     fun provideGetDrinkingPlacesUseCase(getDrinkingPlacesUseCaseImpl: GetDrinkingPlacesUseCaseImpl): GetDrinkingPlacesUseCase
 
+    @Binds
+    @Singleton
+    fun provideParseSelectedVolumeUseCase(parseSelectedVolumeUseCaseImpl: ParseSelectedVolumeUseCaseImpl): ParseSelectedVolumeUseCase
+
+    @Binds
+    @Singleton
+    fun provideGetVolumeTitlesUseCase(getVolumeTitlesUseCaseImpl: GetVolumeTitlesUseCaseImpl): GetVolumeTitlesUseCase
+
+    @Binds
+    @Singleton
+    fun provideGetVolumePresetsUseCase(getVolumePresetsUseCaseImpl: GetVolumePresetsUseCaseImpl): GetVolumePresetsUseCase
 }

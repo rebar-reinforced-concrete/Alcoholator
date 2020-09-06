@@ -17,7 +17,6 @@ import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.AddDrinkVie
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.VolumePreset
 import javax.inject.Inject
 
-
 class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
 
     private lateinit var binding: FragmentAddDrinkBinding
@@ -25,9 +24,8 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
     @Inject
     lateinit var viewModel: AddDrinkViewModel
 
-                    @Inject
-                    lateinit var permissionManager: PermissionManager
-
+    @Inject
+    lateinit var permissionManager: PermissionManager
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,30 +33,44 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
     ): View? {
         binding = FragmentAddDrinkBinding.inflate(inflater, container, false)
         (requireActivity().application as App).appComponent.inject(this)
-                        permissionManager.checkAndRequestGPSLocationPermissions(this)
         val drinkTypes = resources.getStringArray(R.array.drink_types)
+        permissionManager.checkAndRequestGPSLocationPermissions(this)
         binding.typeInput.setAdapter(
             NoFilterAdapter(requireContext(), R.layout.drink_type_dropdown_item, drinkTypes)
         )
         binding.volumeInput.setAdapter(
-            NoFilterAdapter(requireContext(), R.layout.drink_type_dropdown_item, getVolumeStrings())
+            NoFilterAdapter(requireContext(), R.layout.drink_type_dropdown_item, viewModel.getVolumeStrings().toTypedArray())
         )
         binding.typeInput.keyListener = null
         binding.volumeInput.keyListener = null
         binding.typeInput.onItemClickListener = this
         binding.typeInput.setText(drinkTypes.first())
         binding.volumeInput.setText(binding.volumeInput.adapter.getItem(0).toString())
-                        binding.goButton.setOnClickListener {
-                            val locationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-                            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                                viewModel.requestGPSServices(requireContext())
-                            }
-                            viewModel.addDrink(binding, locationManager)
-                        }
+        binding.goButton.setOnClickListener {
+            addDrink()
+        }
         viewModel.isFragmentOpened.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             if (!it) parentFragmentManager.popBackStack()
         })
         return binding.root
+    }
+
+    private fun addDrink() {
+        val eaten = binding.eatenCheckbox.isChecked
+        val drinkType = binding.typeInput.text.toString()
+        val volumeSelection = binding.volumeInput.text.toString()
+        val locationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            viewModel.requestGPSServices(requireContext())
+        }
+        viewModel.addDrink(eaten, volumeSelection, drinkType, locationManager)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults[0] == -1) {
+            viewModel.triggerExplanation(requireContext(), permissionManager::checkAndRequestGPSLocationPermissions, this)
+        }
     }
 
     override fun onResume() {
@@ -66,31 +78,14 @@ class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
-                    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-                        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-                        if(grantResults[0] == -1) {
-                            viewModel.triggerExplanation(requireContext(), permissionManager::checkAndRequestGPSLocationPermissions, this)
-                        }
-                    }
-
     override fun onPause() {
         super.onPause()
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
 
-    // TODO: move to view model or use case or i even don't now. It's too. FUCKING TOOOO bad
-    private fun getVolumeStrings(): Array<String> =
-        resources.getStringArray(R.array.volume_names).toMutableList().mapIndexed { index, s ->
-            s.format(
-                viewModel.formatter.format(
-                    viewModel.convertMeasureIfRequired(VolumePreset.values()[index])
-                )
-            )
-        }.toTypedArray()
-
     override fun onItemClick(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
         val indexes = viewModel.calculateIndexes(parent!!.adapter.getItem(position) as String)
-        val volumes: MutableList<String> = getVolumeStrings().toMutableList()
+        val volumes: MutableList<String> = viewModel.getVolumeStrings()
         val names = indexes.map { volumes[it] }
         indexes.map { volumes.removeAt(it) }
         binding.volumeInput.setAdapter(
