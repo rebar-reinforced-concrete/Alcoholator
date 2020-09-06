@@ -15,9 +15,9 @@ import com.google.android.gms.tasks.Task
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetServerExistenceUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SignInUseCase
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
@@ -30,12 +30,11 @@ class SignInViewModel @Inject constructor(
     val userExistsOnServer: LiveData<Boolean>
         get() = _userExistsOnServer
 
-    fun signIn(activity: Activity): Intent { //fixme?: activity i think its janky, wdyt?
+    fun signIn(activity: Activity): Intent {
         val gso = signInUseCase.signIn()
         val googleSignInClient = GoogleSignIn.getClient(activity, gso)
         return googleSignInClient.signInIntent
     }
-
 
     fun handleSignInResult(@NonNull completedTask: Task<GoogleSignInAccount>?) {
         try {
@@ -48,10 +47,5 @@ class SignInViewModel @Inject constructor(
         } catch (e: ApiException) {
             Log.w("google login failed", "signInResult:failed code=" + e.statusCode)
         }
-
-    }
-
-    fun syncUserData() {
-
     }
 }

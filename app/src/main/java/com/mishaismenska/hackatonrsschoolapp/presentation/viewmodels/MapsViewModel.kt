@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetDrinkingPlacesUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.LocationUIModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class MapsViewModel @Inject constructor(private val getDrinkingPlacesUseCase: GetDrinkingPlacesUseCase) : ViewModel() {
 
@@ -20,7 +20,7 @@ class MapsViewModel @Inject constructor(private val getDrinkingPlacesUseCase: Ge
     private var _drinksForLocation: MutableLiveData<List<String>> = MutableLiveData(listOf())
     val drinksForLocation: LiveData<List<String>> get() = _drinksForLocation
 
-    fun displayDrinkingPlaces() { //fixme, it looks baaaaad
+    fun displayDrinkingPlaces() { // fixme, it looks baaaaad
         _locationsLiveData = MutableLiveData(listOf())
         viewModelScope.launch(Dispatchers.IO) {
             val locations = getDrinkingPlacesUseCase.getPlaces()
@@ -39,5 +39,4 @@ class MapsViewModel @Inject constructor(private val getDrinkingPlacesUseCase: Ge
             }
         }
     }
-
 }

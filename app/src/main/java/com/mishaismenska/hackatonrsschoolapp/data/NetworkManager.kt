@@ -1,5 +1,5 @@
 package com.mishaismenska.hackatonrsschoolapp.data
 
-interface NetworkManager{
+interface NetworkManager {
     fun isNetworkOnline(): Boolean
 }

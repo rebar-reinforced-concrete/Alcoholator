@@ -3,13 +3,11 @@ package com.mishaismenska.hackatonrsschoolapp.data
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
 import javax.inject.Inject
 
-
-class NetworkManagerImpl @Inject constructor(private val context: Context) :NetworkManager {
+class NetworkManagerImpl @Inject constructor(private val context: Context) : NetworkManager {
     override fun isNetworkOnline(): Boolean {
-        var result = false
+        val result: Boolean
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkCapabilities = connectivityManager.activeNetwork ?: return false

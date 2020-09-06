@@ -1,43 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.MainFragment">
 
     <TextView
+        android:id="@+id/main_recycler_empty_text_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         android:gravity="center"
-        android:id="@+id/main_recycler_empty_text_view"
-        android:text="@string/you_haven_t_drink_anything_yet"/>
+        android:text="@string/you_haven_t_drink_anything_yet"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/main_recycler"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="15"
         tools:listitem="@layout/drink_recycler_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:layout_margin="16dp"
-        android:visibility="invisible"
         android:id="@+id/add_drink_fab"
-        app:tint="#FFF"
-        android:src="@drawable/ic_baseline_add_24"
-        android:layout_gravity="end|bottom"/>
-    <RatingBar
-        android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/sobering_timer"
-        app:layout_constraintTop_toTopOf="@+id/sobering_timer"
-        tools:layout_editor_absoluteX="55dp" />
-
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/colorAccent"
+        android:src="@drawable/ic_baseline_add_24"
+        android:visibility="invisible"
+        app:tint="#FFF" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

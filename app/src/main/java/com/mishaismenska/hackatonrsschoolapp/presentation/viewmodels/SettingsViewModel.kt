@@ -7,7 +7,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.*
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CheckIfUserWeightValidUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetGendersUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.MeasureSystemsManager
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ResetDataBaseUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserGenderUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserNameUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.SetUserWeightUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.GetUserForSettingsUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSettingsUIModel
 import java.util.Locale
@@ -38,7 +44,7 @@ class SettingsViewModel @Inject constructor(
         get() = _showWrongWeightSnackbar
 
     fun getUser() {
-        //replace with main
+        // replace with main
         viewModelScope.launch(Dispatchers.IO) {
             getUserUseCase.getUser().collect {
                 if (it != null) {

@@ -5,7 +5,11 @@ import com.mishaismenska.hackatonrsschoolapp.data.models.UserAlterNameJsonDataMo
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserAlterWeightJsonDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserJsonDataModel
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface UserRetrofitService {
     @POST("/users/adduser")

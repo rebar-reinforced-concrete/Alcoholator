@@ -6,7 +6,15 @@ import android.icu.util.MeasureUnit
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.data.database.AppDatabase
-import com.mishaismenska.hackatonrsschoolapp.data.models.*
+import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkAddDrinkJsonDataModel
+import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkDataModel
+import com.mishaismenska.hackatonrsschoolapp.data.models.UserAlterGenderJsonDataModel
+import com.mishaismenska.hackatonrsschoolapp.data.models.UserAlterNameJsonDataModel
+import com.mishaismenska.hackatonrsschoolapp.data.models.UserAlterWeightJsonDataModel
+import com.mishaismenska.hackatonrsschoolapp.data.models.UserDataModel
+import com.mishaismenska.hackatonrsschoolapp.data.models.UserJsonDataModel
+import com.mishaismenska.hackatonrsschoolapp.data.models.UserWithDrinksDataModel
+import com.mishaismenska.hackatonrsschoolapp.data.models.UserWithDrinksJsonDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.networking.DrinksRetrofitService
 import com.mishaismenska.hackatonrsschoolapp.data.networking.UserRetrofitService
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
@@ -16,6 +24,10 @@ import com.mishaismenska.hackatonrsschoolapp.domain.models.UserDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserWithDrinksDomainModel
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.DrinkPreset
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.Gender
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -24,10 +36,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.OffsetDateTime
-import javax.inject.Inject
 
 class AppDataRepositoryImpl @Inject constructor(
     private val context: Context,
@@ -40,7 +48,7 @@ class AppDataRepositoryImpl @Inject constructor(
     private val dao = AppDatabase.getDatabase(context).dao()
 
     override suspend fun getUserWithDrinks(): UserWithDrinksDomainModel? {
-        //get data from network and db. Compare. Give the newest result to domain. Update the oldest
+        // get data from network and db. Compare. Give the newest result to domain. Update the oldest
         val user = dao.getUserWithDrinks()
         if (user == null) {
             return null
@@ -188,7 +196,7 @@ class AppDataRepositoryImpl @Inject constructor(
         if (addToServer) addDrinkToServer(scope, drinkDomainModel)
         scope.launch {
             dao.getUser().take(1).collect {
-                dao.setDrinksAlteredTimestamp(drinkDomainModel.dateTaken.toEpochSecond(OffsetDateTime.now().offset)) // added this field so we dont need to find the latest drink each time
+                dao.setDrinksAlteredTimestamp(drinkDomainModel.dateTaken.toEpochSecond(OffsetDateTime.now().offset))
                 dao.insertDrink(
                     DrinkDataModel(
                         drinkDomainModel.dateTaken.toEpochSecond(OffsetDateTime.now().offset),

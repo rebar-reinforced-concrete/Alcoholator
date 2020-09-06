@@ -101,7 +101,7 @@ class DrinksRecyclerAdapter(
                 binding.soberingTimer.text = resources.getString(
                     R.string.time_format,
                     userState.alcoholDepletionDuration.toHours(),
-                    if(minutes > 10) minutes.toString() else "0$minutes"
+                    if (minutes > 10) minutes.toString() else "0$minutes"
                 )
             else binding.soberingTimer.text = resources.getString(R.string.you_are_sober)
             binding.alcoholConcentration.text = resources.getString(

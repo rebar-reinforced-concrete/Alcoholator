@@ -10,11 +10,10 @@ import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserExistenceUseCase
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class SplashScreenFragment : Fragment() {
 
@@ -36,7 +35,6 @@ class SplashScreenFragment : Fragment() {
 
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container, MainFragment()).commit()
-
             } else {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container, SignInFragment()).commit()

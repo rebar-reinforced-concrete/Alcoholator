@@ -7,4 +7,3 @@ data class UserAlterGenderJsonDataModel(
     val GoogleUserIdToken: String,
     val UserGender: Int
 )
-

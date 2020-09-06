@@ -9,9 +9,9 @@ import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddUserUseCase
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.IsImperialMeasureSystemUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.UserSubmissionUIModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class AddUserViewModel @Inject constructor(
     private val addUserUseCase: AddUserUseCase,

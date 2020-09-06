@@ -14,7 +14,6 @@ import com.mishaismenska.hackatonrsschoolapp.data.PermissionManager
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentAddDrinkBinding
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.AddDrinkViewModel
-import com.mishaismenska.hackatonrsschoolapp.staticPresets.VolumePreset
 import javax.inject.Inject
 
 class AddDrinkFragment : Fragment(), AdapterView.OnItemClickListener {

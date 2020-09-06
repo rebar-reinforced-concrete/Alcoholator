@@ -75,7 +75,6 @@ class AppSettingsFragment : Fragment() {
         })
     }
 
-    // ////////////////////////////replace with navigation////////////////////////////////
     private fun openAddUserFragment() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.main_fragment_container, AddUserFragment().apply {
@@ -84,5 +83,4 @@ class AppSettingsFragment : Fragment() {
                 FragmentTransaction.TRANSIT_FRAGMENT_OPEN
             ).commit()
     }
-    // ///////////////////////////////////////////////////////////////////////////////////
 }

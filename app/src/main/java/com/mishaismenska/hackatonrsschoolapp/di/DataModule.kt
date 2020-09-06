@@ -1,6 +1,13 @@
 package com.mishaismenska.hackatonrsschoolapp.di
 
-import com.mishaismenska.hackatonrsschoolapp.data.*
+import com.mishaismenska.hackatonrsschoolapp.data.AppDataRepositoryImpl
+import com.mishaismenska.hackatonrsschoolapp.data.DrinkTypeRepositoryImpl
+import com.mishaismenska.hackatonrsschoolapp.data.GendersRepositoryImpl
+import com.mishaismenska.hackatonrsschoolapp.data.NetworkManager
+import com.mishaismenska.hackatonrsschoolapp.data.NetworkManagerImpl
+import com.mishaismenska.hackatonrsschoolapp.data.PermissionManager
+import com.mishaismenska.hackatonrsschoolapp.data.PermissionManagerImpl
+import com.mishaismenska.hackatonrsschoolapp.data.UserStateRepositoryImpl
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.DrinkTypeRepository
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GendersRepository

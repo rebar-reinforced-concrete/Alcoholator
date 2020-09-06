@@ -11,7 +11,6 @@ class ConvertIfRequiredUseCaseImpl @Inject constructor(
     private val measureSystemsManager: MeasureSystemsManager,
     private val unitConverter: UnitConverter
 ) : ConvertIfRequiredUseCase {
-    // TODO: remove part, controlling weight. Move volume control to manager
     override fun convertToImperialIfRequired(measure: Measure): Measure {
         return if (measureSystemsManager.checkIfMeasureSystemImperial()) {
             when (measure.unit) {
@@ -23,7 +22,7 @@ class ConvertIfRequiredUseCaseImpl @Inject constructor(
                     unitConverter.mlToOz(measure.number.toInt()),
                     MeasureUnit.OUNCE
                 )
-                else -> measure // for future units
+                else -> measure
             }
         } else measure
     }

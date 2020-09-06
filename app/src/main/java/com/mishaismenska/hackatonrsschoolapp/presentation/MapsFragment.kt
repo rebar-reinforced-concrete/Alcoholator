@@ -1,7 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -22,8 +20,8 @@ import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentMapsBinding
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.LocationUIModel
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.MapsViewModel
-import kotlinx.android.synthetic.main.bottom_sheet_drinks.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.bottom_sheet_drinks.*
 
 class MapsFragment : Fragment(), GoogleMap.OnMarkerClickListener {
     private lateinit var binding: FragmentMapsBinding
@@ -59,7 +57,7 @@ class MapsFragment : Fragment(), GoogleMap.OnMarkerClickListener {
         viewModel.displayDrinkingPlaces()
         mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         viewModel.locationsLiveData.observe(viewLifecycleOwner, Observer {
-            it.map {location ->
+            it.map { location ->
                 addMarker(location)
                 viewModel.getDrinksForLocation(LatLng(location.lat, location.long))
             }

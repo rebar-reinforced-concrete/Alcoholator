@@ -1,7 +1,13 @@
 package com.mishaismenska.hackatonrsschoolapp.di
 
 import android.content.Context
-import com.mishaismenska.hackatonrsschoolapp.presentation.*
+import com.mishaismenska.hackatonrsschoolapp.presentation.AddDrinkFragment
+import com.mishaismenska.hackatonrsschoolapp.presentation.AddUserFragment
+import com.mishaismenska.hackatonrsschoolapp.presentation.AppSettingsFragment
+import com.mishaismenska.hackatonrsschoolapp.presentation.MainFragment
+import com.mishaismenska.hackatonrsschoolapp.presentation.MapsFragment
+import com.mishaismenska.hackatonrsschoolapp.presentation.SignInFragment
+import com.mishaismenska.hackatonrsschoolapp.presentation.SplashScreenFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

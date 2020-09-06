@@ -1,17 +1,13 @@
 package com.mishaismenska.hackatonrsschoolapp.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.databinding.ActivityMainBinding
-
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -26,7 +22,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         binding.bottomNavigationViewMain.setOnNavigationItemSelectedListener(this)
     }
 
-    fun showBottomNavigation(){
+    fun showBottomNavigation() {
         binding.bottomNavigationViewMain.visibility = View.VISIBLE
     }
 
@@ -49,6 +45,5 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
             else -> false
         }
-
     }
 }

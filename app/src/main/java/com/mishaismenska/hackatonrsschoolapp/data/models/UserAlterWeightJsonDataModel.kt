@@ -7,4 +7,3 @@ data class UserAlterWeightJsonDataModel(
     val GoogleUserIdToken: String,
     val UserWeight: Double
 )
-

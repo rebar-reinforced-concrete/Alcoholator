@@ -107,6 +107,5 @@ class AlertDialogManagerImpl @Inject constructor(private val getGendersUseCase: 
                 event(fragment)
             }
         val alertDialog: AlertDialog? = builder.create()
-        alertDialog!!.show()    }
-
+        alertDialog!!.show() }
 }

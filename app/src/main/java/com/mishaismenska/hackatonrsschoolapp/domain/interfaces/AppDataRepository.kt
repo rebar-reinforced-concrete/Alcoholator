@@ -1,7 +1,6 @@
 package com.mishaismenska.hackatonrsschoolapp.domain.interfaces
 
 import com.mishaismenska.hackatonrsschoolapp.domain.models.DrinkDomainModel
-import com.mishaismenska.hackatonrsschoolapp.domain.models.LocationDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserDomainModel
 import com.mishaismenska.hackatonrsschoolapp.domain.models.UserWithDrinksDomainModel
 import kotlinx.coroutines.flow.Flow

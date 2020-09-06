@@ -14,10 +14,10 @@ import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentSignInBinding
 import com.mishaismenska.hackatonrsschoolapp.di.App
 import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AppDataRepository
 import com.mishaismenska.hackatonrsschoolapp.presentation.viewmodels.SignInViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
 
 class SignInFragment : Fragment(), View.OnClickListener {
 
@@ -30,7 +30,8 @@ class SignInFragment : Fragment(), View.OnClickListener {
     private lateinit var _binding: FragmentSignInBinding
     private val binding get() = _binding
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSignInBinding.inflate(inflater, container, false)
@@ -63,7 +64,7 @@ class SignInFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        startActivityForResult(viewModel.signIn(requireActivity()), 9001) //fixme: find a constant with that shit
+        startActivityForResult(viewModel.signIn(requireActivity()), 9001)
         binding.progressBar.visibility = View.VISIBLE
         binding.signInButton.isEnabled = false
     }

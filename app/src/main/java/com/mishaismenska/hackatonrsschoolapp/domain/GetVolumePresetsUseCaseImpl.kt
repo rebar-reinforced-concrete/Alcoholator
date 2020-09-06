@@ -5,9 +5,9 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.MeasureSystemsMan
 import com.mishaismenska.hackatonrsschoolapp.staticPresets.VolumePreset
 import javax.inject.Inject
 
-class GetVolumePresetsUseCaseImpl @Inject constructor(private val measureSystemsManager: MeasureSystemsManager): GetVolumePresetsUseCase{
+class GetVolumePresetsUseCaseImpl @Inject constructor(private val measureSystemsManager: MeasureSystemsManager) : GetVolumePresetsUseCase {
     override fun getVolumePresets(): List<Double> {
-        return VolumePreset.values().map{
+        return VolumePreset.values().map {
             measureSystemsManager.convertVolumeToImperialIfRequired(it.volume.number.toInt())
         }
     }

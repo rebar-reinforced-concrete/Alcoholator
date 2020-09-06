@@ -1,10 +1,10 @@
 package com.mishaismenska.hackatonrsschoolapp.data.database.interfaces
 
 import androidx.room.Dao
-import androidx.room.Delete	
-import androidx.room.Insert	
-import androidx.room.OnConflictStrategy	
-import androidx.room.Query	
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import androidx.room.Transaction
 import com.mishaismenska.hackatonrsschoolapp.data.models.DrinkDataModel
 import com.mishaismenska.hackatonrsschoolapp.data.models.UserDataModel

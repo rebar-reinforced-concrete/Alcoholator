@@ -7,12 +7,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RatingBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.preference.PreferenceManager
-import com.google.android.gms.maps.MapFragment
 import com.google.android.material.snackbar.Snackbar
 import com.mishaismenska.hackatonrsschoolapp.R
 import com.mishaismenska.hackatonrsschoolapp.databinding.FragmentMainBinding
@@ -53,12 +51,6 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        // //////////////////////////////////////////////////////////////////////////////////////////////
-        // debug rating bar
-        binding.ratingBar.setOnRatingBarChangeListener{ ratingBar: RatingBar, fl: Float, b: Boolean ->
-            openMapFragment()
-        }
-        // //////////////////////////////////////////////////////////////////////////////////////////////
         binding.mainRecycler.adapter = drinksAdapter
         viewModel.drinks.observe(viewLifecycleOwner, Observer {
             drinksAdapter.drinks = it
@@ -68,7 +60,6 @@ class MainFragment : Fragment() {
         })
         viewModel.isAddDrinkFabVisible.observe(viewLifecycleOwner, Observer {
             if (binding.addDrinkFab.visibility == View.VISIBLE && !it) {
-                // TODO: replace with getNameUseCase and read it from the database
                 val name = PreferenceManager.getDefaultSharedPreferences(context)
                     .getString(requireContext().getString(R.string.name_key), getString(R.string.fella))
                 Snackbar.make(binding.root, getString(R.string.too_drunk, name), Snackbar.LENGTH_LONG).show()
@@ -88,8 +79,7 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // unnecessary stuff, replace with navigation
+
     private fun openAddDrinkFragment() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.main_fragment_container, AddDrinkFragment()).setTransition(
@@ -97,22 +87,12 @@ class MainFragment : Fragment() {
             ).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null)
             .commit()
     }
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private fun openMapFragment() {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.main_fragment_container, MapsFragment()).setTransition(
-                FragmentTransaction.TRANSIT_FRAGMENT_OPEN
-            ).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(null)
-            .commit()
-    }
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private fun openSettings() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.main_fragment_container, AppSettingsFragment())
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .addToBackStack(null).commit()
     }
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_prefs, menu)

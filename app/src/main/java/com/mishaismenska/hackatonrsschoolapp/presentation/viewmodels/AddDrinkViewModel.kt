@@ -10,14 +10,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.*
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.AddDrinkUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.CalculateIndexesUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetCurrentLocationUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetVolumePresetsUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetVolumeTitlesUseCase
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.MeasureSystemsManager
+import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.ParseSelectedVolumeUseCase
 import com.mishaismenska.hackatonrsschoolapp.presentation.AddDrinkFragment
 import com.mishaismenska.hackatonrsschoolapp.presentation.interfaces.AlertDialogManager
 import com.mishaismenska.hackatonrsschoolapp.presentation.models.DrinkSubmissionUIModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 class AddDrinkViewModel @Inject constructor(
@@ -35,7 +41,7 @@ class AddDrinkViewModel @Inject constructor(
         MeasureFormat.getInstance(Locale.getDefault(), MeasureFormat.FormatWidth.NARROW)
     val isFragmentOpened = MutableLiveData(true)
 
-    private var explanationsTriggered = 0;
+    private var explanationsTriggered = 0
 
     fun addDrink(eaten: Boolean, volume: String, type: String, locationManager: LocationManager) {
         val volumeValue = parseSelectedVolumeUseCase.parseVolume(volume)
@@ -57,7 +63,7 @@ class AddDrinkViewModel @Inject constructor(
     fun requestGPSServices(context: Context) = alertDialogManager.showEnableGPSServicesDialog(context)
     fun triggerExplanation(context: Context, event: (fragment: Fragment) -> Unit, fragment: AddDrinkFragment) {
         explanationsTriggered++
-        if(explanationsTriggered == 2) finishAffinity(fragment.requireActivity()) // maemezs
+        if (explanationsTriggered == 2) finishAffinity(fragment.requireActivity()) // maemezs
         alertDialogManager.showPermissionsExplanation(context, event, fragment)
     }
 
