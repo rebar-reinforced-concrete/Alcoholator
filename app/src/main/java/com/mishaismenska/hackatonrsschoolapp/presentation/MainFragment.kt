@@ -39,6 +39,9 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().application as App).appComponent.inject(this)
+        requireActivity().runOnUiThread {
+            (requireActivity() as MainActivity).showBottomNavigation()
+        }
         viewModel.getDrinksAndUser()
         drinksAdapter = DrinksRecyclerAdapter(convertIfRequiredUseCase, UserStateUIModel(0.0, Duration.ZERO, Behavior.SOBER))
         retainInstance = true

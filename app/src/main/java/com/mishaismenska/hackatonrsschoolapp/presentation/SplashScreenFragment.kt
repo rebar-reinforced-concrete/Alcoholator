@@ -13,6 +13,7 @@ import com.mishaismenska.hackatonrsschoolapp.domain.interfaces.GetUserExistenceU
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SplashScreenFragment : Fragment() {
@@ -32,8 +33,10 @@ class SplashScreenFragment : Fragment() {
                         appDataRepository.synchronizeUserDetails()
                     }
                 }
+
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container, MainFragment()).commit()
+
             } else {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container, SignInFragment()).commit()
